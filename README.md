@@ -7,4 +7,4 @@ The main goal of this project is to replicate as many functions as possible that
 
 [Prototyping Document](https://docs.google.com/document/d/180BusO_vznPpkCsnz28LtAkmPrC_HMbmgoyS5ju0bSs/edit?usp=sharing)
 
-[UML Diagram](https://lucid.app/lucidchart/d8aaf4e9-28c5-4b5a-a37f-eafd2225ecc4/edit?invitationId=inv_e1f6a42d-5ade-44c7-a555-9e5469143f3a)
+[UML Diagram](https://github.com/TheoYochum/APCS-Final-Project/blob/main/UMLDiagrams/Initial%20Prototype.pdf)
