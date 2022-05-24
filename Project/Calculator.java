@@ -41,6 +41,7 @@ public class Calculator {
     Int denominator;
     Number xCor;
     Number yCor;
+    boolean degrees;
     String name;
     System.out.println("Type:");
     String type = input.nextLine();
@@ -87,6 +88,16 @@ public class Calculator {
         Display.clear();
         Variables.put(name, new Point(xCor, yCor, name));
         break;
+      case "angle":
+        System.out.println("Name:");
+        name = input.nextLine();
+        Display.clear();
+        System.out.println("Measure");
+        doubleValue = input.nextDouble();
+        System.out.println("Is it in degrees? y/n");
+        degrees = input.nextLine().toLowerCase().equals("y");
+        Display.clear();
+        Variables.put(name, new Angle(doubleValue, degrees, name));
     }
   }
 
