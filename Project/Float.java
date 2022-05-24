@@ -1,8 +1,16 @@
 public class Float extends Variable implements Number {
   double value;
 
+  public Float(double in) {
+    value = in;
+  }
+
+  public Float(int in) {
+    value = (double) in;
+  }
+
   public Int getInt() {
-    return new Int();
+    return new Int(value);
   }
 
   public Float getFloat() {
@@ -10,7 +18,7 @@ public class Float extends Variable implements Number {
   }
 
   public Fraction getFraction() {
-    return new Fraction();
+    return new Fraction((int) value);
   }
 
   public double value() {
