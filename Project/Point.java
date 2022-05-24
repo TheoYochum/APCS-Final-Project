@@ -1,3 +1,8 @@
+/**
+ * A variable designed to store points which 
+ * can be used in calculations or graphing
+ */
+
 public class Point extends Variable {
   private Number xCor;
   private Number yCor;

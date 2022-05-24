@@ -1,5 +1,10 @@
 import java.util.ArrayList;
 
+
+/**
+ * List varaible which abstracts functionality
+ * and allows storage of a single type of variable
+ */
 public class List extends Variable {
   private ArrayList<Variable> list;
   

@@ -1,3 +1,9 @@
+/**
+ * Fraction variable which implements the number interface
+ * Allows the storage of non integer values while avoiding
+ * floating points, as well as simple Fraction operationsm
+ */
+
 public class Fraction extends Variable implements Number {
   private Int numerator;
   private Int denominator;

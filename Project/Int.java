@@ -1,3 +1,7 @@
+/**
+ * Integer variable to abstract certain functions
+ */
+
 public class Int extends Variable implements Number {
   private int value;
 
