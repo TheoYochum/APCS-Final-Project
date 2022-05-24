@@ -12,16 +12,17 @@ public class Calculator {
   }
 
   private void run() {
+    Display.clear();
     boolean running = true;
     while(running) {
       System.out.println("Command:");
       String term = input.nextLine();
+      Display.clear();
       route(term);
     }
   }
   
   private void route(String term) {
-    System.out.println(term);
     switch (term) {
       case "add variable":
         addVariable();
@@ -37,12 +38,15 @@ public class Calculator {
     String name;
     System.out.println("Type:");
     String type = input.nextLine();
+    Display.clear();
     switch (type) {
       case "int":
         System.out.println("Name:");
         name = input.nextLine();
+        Display.clear();
         System.out.println("Value:");
         int value = input.nextInt();
+        Display.clear();
         Variables.put(name, new Int(value));
     }
   }
