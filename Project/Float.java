@@ -1,16 +1,18 @@
 public class Float extends Variable implements Number {
   double value;
 
-  public Float(double in) {
+  public Float(double in, String name) {
+    super(name, "Float");
     value = in;
   }
 
-  public Float(int in) {
+  public Float(int in, String name) {
+    super(name, "Float");
     value = (double) in;
   }
 
   public Int getInt() {
-    return new Int(value);
+    return new Int(value, this.name());
   }
 
   public Float getFloat() {

@@ -1,11 +1,13 @@
 public class Int extends Variable implements Number {
   private int value;
 
-  public Int(double in) {
+  public Int(double in, String name) {
+    super(name, "Int");
     value = (int) in;
   }
 
-  public Int(int in) {
+  public Int(int in, String name) {
+    super(name, "Int");
     value = in;
   }
 
@@ -14,7 +16,7 @@ public class Int extends Variable implements Number {
   }
 
   public Float getFloat() {
-    return new Float(intValue());
+    return new Float(intValue(), this.name());
   }
 
   public Fraction getFraction() {
@@ -30,6 +32,6 @@ public class Int extends Variable implements Number {
   }
 
   public Variable copy() {
-    return new Int(value);
+    return new Int(value, this.name());
   }
 }

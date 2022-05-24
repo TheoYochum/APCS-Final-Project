@@ -2,6 +2,12 @@ public class Point extends Variable {
   private Number xCor;
   private Number yCor;
 
+  public Point(Number x, Number y, String name) {
+    super(name, "Point");
+    xCor = x;
+    yCor = y;
+  }
+
   public Number getX() {
     return xCor;
   }
