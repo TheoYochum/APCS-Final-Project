@@ -36,16 +36,24 @@ public class Float extends Variable implements Number {
 
   /**
    * The implementation converting any Float to an identical Float with a new reference
-   * @return
+   * @return A reference of an identical Float
    */
   public Float getFloat() {
     return (Float) copy();
   }
 
+  /**
+   * The implementation converting any Float to a Fraction 
+   * @return A reference of a new Fraction cariable with an approximation
+   */
   public Fraction getFraction() {
-    return new Fraction((int) value);
+    return new Fraction((int) value, this.name());
   }
 
+  /**
+   * The value of the Float
+   * @return a double of the value
+   */
   public double value() {
     return value;
   }
