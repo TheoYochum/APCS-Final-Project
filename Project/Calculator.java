@@ -24,8 +24,8 @@ public class Calculator {
   
   private void route(String term) {
     switch (term) {
-      case "add variable":
-        addVariable();
+      case "new variable":
+        newVariable();
         break;
       
       case "print variable":
@@ -34,26 +34,38 @@ public class Calculator {
     }
   }
 
-  private void addVariable() {
+  private void newVariable() {
+    int intValue;
+    double doubleValue;
     String name;
     System.out.println("Type:");
     String type = input.nextLine();
     Display.clear();
     switch (type) {
-      case "int":
+      case "Integer":
         System.out.println("Name:");
         name = input.nextLine();
         Display.clear();
         System.out.println("Value:");
-        int value = input.nextInt();
+        intValue = input.nextInt();
         Display.clear();
-        Variables.put(name, new Int(value));
+        Variables.put(name, new Int(intValue, name));
+        break;
+      case "Float":
+        System.out.println("Name:");
+        name = input.nextLine();
+        Display.clear();
+        System.out.println("Value:");
+        doubleValue = input.nextDouble();
+        Display.clear();
+        Variables.put(name, new Float(doubleValue, name));
+        break;
     }
   }
 
   private void printVariable() {
     System.out.println("Name:");
-    System.out.println(((Int) Variables.get(input.nextLine())).value());
+    System.out.println(Variables.get(input.nextLine()).value());
   }
 
   public static void main(String[] args) {
