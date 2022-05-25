@@ -1,10 +1,11 @@
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.HashMap;
 
 public class Calculator {
   HashMap<String, Variable> Variables = new HashMap<String, Variable>();
   Scanner input = new Scanner(System.in);
-
+  
   public Calculator() {
     Variables = new HashMap<String, Variable>();
     input = new Scanner(System.in);
@@ -20,13 +21,13 @@ public class Calculator {
       route(term);
     }
   }
-
+  
   private void route(String term) {
     switch (term) {
       case "new variable":
         newVariable();
         break;
-
+      
       case "print variable":
         printVariable();
         break;
@@ -156,5 +157,5 @@ public class Calculator {
     Calculator calc = new Calculator();
     calc.run();
   }
-
+  
 }
