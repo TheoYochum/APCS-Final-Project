@@ -59,6 +59,13 @@ public class Float extends Variable implements Number {
   }
 
   /**
+   * Sets the value of a Float to a new value
+   */
+  public void setValue(double x) {
+    value = x;
+  }
+
+  /**
    * Constructs a string using the value of the Float object
    * @return a string version of the Float value
    */

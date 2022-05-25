@@ -66,6 +66,13 @@ public class Int extends Variable implements Number {
   }
 
   /**
+   * Sets the value of a Int to a new value
+   */
+  public void setValue(int x) {
+    value = x;
+  }
+
+  /**
    * Provides the reference of an Identical int
    * @return the reference of an Identical int
    */
