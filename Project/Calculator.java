@@ -101,7 +101,7 @@ public class Calculator {
     }
   }
 
-  private Number newNumber() {
+  public Number newNumber() {
     Number out;
     String name;
     int intValue;
