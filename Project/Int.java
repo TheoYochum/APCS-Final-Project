@@ -73,6 +73,10 @@ public class Int extends Variable implements Number {
     return new Int(value, this.name());
   }
 
+  /**
+   * Constructs a string using the value of the Int object
+   * @return a string version of the Int value
+   */
   public String toString() {
     return "" + intValue();
   }
