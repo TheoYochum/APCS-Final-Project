@@ -10,3 +10,6 @@ The main goal of this project is to replicate as many functions as possible that
 [Prototyping Document](https://docs.google.com/document/d/180BusO_vznPpkCsnz28LtAkmPrC_HMbmgoyS5ju0bSs/edit?usp=sharing)
 
 [UML Diagram](https://github.com/TheoYochum/APCS-Final-Project/blob/main/UMLDiagrams/Initial%20Prototype.pdf)
+
+
+5/24 - Theo: Built basic strucutre and documentation of variables and worked on a conceptual but unrefined basis for the calculator
