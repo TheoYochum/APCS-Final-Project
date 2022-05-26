@@ -10,6 +10,6 @@ The main goal of this project is to replicate as many functions as possible that
 [UML Diagram](https://github.com/TheoYochum/APCS-Final-Project/blob/main/UMLDiagrams/Initial%20Prototype.pdf)
 
 
-**5/23/22** <p> Akram: I created basic skeletons for our 4 main classes.
-
-**5/24/22** <p> Theo: Built basic strucutre and documentation of variables and worked on a conceptual but unrefined basis for the calculator
+**5/23/22** <p> Akram: I created basic skeletons for our 4 main classes. </p>
+**5/24/22** <p> Theo: Built basic strucutre and documentation of variables and worked on a conceptual but unrefined basis for the calculator. </p>
+**5/25/22** <p> Akram: Worked on the Statistics class, created toStrings for Int and Float classes. </p>
