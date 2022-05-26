@@ -1,6 +1,6 @@
 /**
  * Floating point variable which stores value as doubles
- * 
+ *
  */
 
 public class Float extends Variable implements Number {
@@ -43,7 +43,7 @@ public class Float extends Variable implements Number {
   }
 
   /**
-   * The implementation converting any Float to a Fraction 
+   * The implementation converting any Float to a Fraction
    * @return A reference of a new Fraction cariable with an approximation
    */
   public Fraction getFraction() {
@@ -56,5 +56,20 @@ public class Float extends Variable implements Number {
    */
   public double value() {
     return value;
+  }
+
+  /**
+   * Sets the value of a Float to a new value
+   */
+  public void setValue(double x) {
+    value = x;
+  }
+
+  /**
+   * Constructs a string using the value of the Float object
+   * @return a string version of the Float value
+   */
+  public String toString() {
+    return "" + value();
   }
 }
