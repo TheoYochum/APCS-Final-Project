@@ -9,7 +9,7 @@ public class Trig extends Functions {
     if (in.isDegrees()) {
       val = 90 - val;
     } else {
-      val = pi / 2;
+      val = (pi / 2) - val;
     }
     Angle shifted = new Angle(val, in.isDegrees(), in.name() + " cosine shifted");
     return new Float(sin(shifted).value(), in.name() + "cosine");
