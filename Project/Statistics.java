@@ -6,21 +6,27 @@ public class Statistics extends Functions {
     return x.value();
   }*/
 
-  public static Float ceil(Float x) {
+  public static double ceil(Float x) {
     Int k = x.getInt();
     if (x.value() < 0) {
       x.setValue(k.intValue());
-      return x.value();
+    } else {
+      x.setValue(k.intValue() + 1);
     }
-    x.setValue(k.intValue() + 1);
     return x.value();
   }
 
-  /*public static Float floor(Float x) {
-
+  public static double floor(Float x) {
+    Int k = x.getInt();
+    if (x.value() < 0) {
+      x.setValue(k.intValue() - 1);
+      return x.value();
+    }
+    x.setValue(k.intValue());
+    return x.value();
   }
 
-  public static Number log(Number x, Number y) {
+  /*public static Number log(Number x, Number y) {
 
   }
 
@@ -36,8 +42,8 @@ public class Statistics extends Functions {
   public static void main(String[] args) {
     Float x = new Float(1.22, "x");
     Float y = new Float(-420.0484838, "y");
-    ceil(x);
-    ceil(y);
+    floor(x);
+    floor(y);
     System.out.println(x + " " + y);
   }*/
 }
