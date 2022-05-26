@@ -5,7 +5,7 @@
  * series function for arctan
  */
 public class Trig extends Functions {
-
+      
   public static Float sin(Angle in) {
     double val = in.value();
     if (in.isDegrees()) {

@@ -2,8 +2,8 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Calculator {
-  HashMap<String, Variable> Variables = new HashMap<String, Variable>();
-  Scanner input = new Scanner(System.in);
+  HashMap<String, Variable> Variables;
+  Scanner input;
 
   public Calculator() {
     Variables = new HashMap<String, Variable>();
