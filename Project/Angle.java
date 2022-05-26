@@ -86,4 +86,8 @@ public class Angle extends Variable {
     degrees = false;
     return value;
   }
+
+  public String toString() {
+    return "" + value();
+  }
 }

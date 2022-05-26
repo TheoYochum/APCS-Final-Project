@@ -1,4 +1,5 @@
 public class Trig extends Functions {
+
   public static Float sin(Angle in) {
     double val = Math.sin(in.value());
     return new Float(val, in.name() + " sine");
@@ -7,9 +8,9 @@ public class Trig extends Functions {
   public static Float cos(Angle in) {
     double val = in.value();
     if (in.isDegrees()) {
-      val = 90 - val;
+      val = 90.0 - val;
     } else {
-      val = (pi / 2) - val;
+      val = (pi / 2.0) - val;
     }
     Angle shifted = new Angle(val, in.isDegrees(), in.name() + " cosine shifted");
     return new Float(sin(shifted).value(), in.name() + "cosine");
@@ -36,7 +37,7 @@ public class Trig extends Functions {
   }
 
   public static Angle arctan(Float in, boolean isDegrees) {
-    double val = Math.atan(in.value());
+    double val = Angle.radToDeg(Math.atan(in.value()));
     return new Angle(val, isDegrees, in.name() + " arctangent");
   }
 
