@@ -1,13 +1,38 @@
 /**
  * A set of trigonometric functions, 
  * all either dependnet on sin or arctan
- * Currently uses Math.sin() and Math.atan()
+ * Currently uses the taylor series for sin up to 5 iterations and Math.atan()
  */
 public class Trig extends Functions {
 
+  public static void main(String[] args) {
+    Angle test = new Angle(380, true, "test");
+    System.out.println(sin(test));
+  }
+
   public static Float sin(Angle in) {
-    double val = Math.sin(in.value());
-    return new Float(val, in.name() + " sine");
+    double val = in.value();
+    if (in.isDegrees()) {
+      val = Angle.degToRad(val);
+    }
+    double sum = 0.0;
+    double temp;
+    int seq;
+    for (int i = 1; i <= 5; i++) {
+      seq = (i - 1) * 2 + 1;
+      temp = 0;
+      temp += Math.pow(val, seq);
+      int factorial = 1;
+      for (int j = seq; j > 0; j--) {
+        factorial *= j;
+      }
+      temp /= factorial;
+      if (i % 2 == 0) {
+        temp *= -1;
+      }
+      sum += temp;
+    }
+    return new Float(sum, in.name() + " sine");
   }
 
   public static Float cos(Angle in) {
