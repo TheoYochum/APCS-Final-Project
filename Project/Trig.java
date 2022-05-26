@@ -1,3 +1,8 @@
+/**
+ * A set of trigonometric functions, 
+ * all either dependnet on sin or arctan
+ * Currently uses Math.sin() and Math.atan()
+ */
 public class Trig extends Functions {
 
   public static Float sin(Angle in) {
