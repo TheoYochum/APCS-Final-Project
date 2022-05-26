@@ -43,7 +43,7 @@ public class Int extends Variable implements Number {
 
   /**
    * Provides the reference of a Fraction created with the same value
-   * @return the reference of an Identical Fraction 
+   * @return the reference of an Identical Fraction
    */
   public Fraction getFraction() {
     return new Fraction(intValue(), this.name());
@@ -66,10 +66,25 @@ public class Int extends Variable implements Number {
   }
 
   /**
-   * Provides the reference of an Identical int 
+   * Sets the value of a Int to a new value
+   */
+  public void setValue(int x) {
+    value = x;
+  }
+
+  /**
+   * Provides the reference of an Identical int
    * @return the reference of an Identical int
    */
   public Variable copy() {
     return new Int(value, this.name());
+  }
+
+  /**
+   * Constructs a string using the value of the Int object
+   * @return a string version of the Int value
+   */
+  public String toString() {
+    return "" + intValue();
   }
 }
