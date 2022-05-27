@@ -54,7 +54,7 @@ public class Fraction extends Variable implements Number {
   public Fraction getFraction() {
     return (Fraction) copy();
   }
-  
+
   /**
    * The value of the Fraction, the numerator over the denominator
    * @return The numerator divided by the denominator
@@ -73,7 +73,7 @@ public class Fraction extends Variable implements Number {
    * Creates an identical Fraction with a different reference
    * @return a reference to an identical Fraction
    */
-  public Variable copy() {
+  public Number copy() {
     return new Fraction(numerator, denominator, this.name());
   }
 }
