@@ -33,7 +33,7 @@ public class Calculator {
     }
   }
 
-  public void newVariable() {
+  public Variable newVariable() {
     String name;
     System.out.println("Type:");
     String type = input.nextLine();
@@ -42,6 +42,7 @@ public class Calculator {
     System.out.println("Name:");
     name = input.nextLine();
     Display.clear();
+    return parser(type, name);
   }
 
   public Number newNumber() {
@@ -52,10 +53,10 @@ public class Calculator {
     System.out.println("Name:");
     name = input.nextLine();
     Display.clear();
-    return parser(type, name);
+    return (Number)(parser(type, name));
   }
 
-  private Number parser(String type, String name) {
+  private Variable parser(String type, String name) {
     int intValue;
     double doubleValue;
     Int numerator;
@@ -63,7 +64,7 @@ public class Calculator {
     Number xCor;
     Number yCor;
     boolean degrees;
-    Number out = null;
+    Variable out = null;
     switch (type) {
       case "integer":
         System.out.println("Value:");
@@ -94,6 +95,7 @@ public class Calculator {
         System.out.println("Y Coordinate:");
         yCor = newNumber();
         Display.clear();
+        out = new Point(xCor, yCor, name);
         Variables.put(name, new Point(xCor, yCor, name));
         break;
       case "angle":
@@ -102,6 +104,7 @@ public class Calculator {
         System.out.println("Is it in degrees? y/n");
         degrees = input.nextLine().toLowerCase().equals("y");
         Display.clear();
+        out = new Angle(doubleValue, degrees, name);
         Variables.put(name, new Angle(doubleValue, degrees, name));
         break;
     }
