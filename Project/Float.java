@@ -84,7 +84,7 @@ public class Float extends Variable implements Number {
    * Provides the reference of an Identical Float
    * @return the reference of an Identical Float
    */
-  public Number copy() {
+  public Variable copy() {
     return new Float(value, this.name());
   }
 }

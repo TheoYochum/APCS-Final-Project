@@ -83,7 +83,7 @@ public class Int extends Variable implements Number {
    * Provides the reference of an Identical int
    * @return the reference of an Identical int
    */
-  public Number copy() {
+  public Variable copy() {
     return new Int(value, this.name());
   }
 
