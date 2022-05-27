@@ -72,6 +72,9 @@ public class Int extends Variable implements Number {
     value = x;
   }
 
+  /**
+   * Sets the value of a Int to a new double value
+   */
   public void setValue(double x) {
     value = (int)x;
   }
