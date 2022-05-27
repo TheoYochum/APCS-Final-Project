@@ -22,8 +22,26 @@ public interface Number {
    * @return the reference of the Number converted to a Fraction
    */
   public Fraction getFraction();
+
+  /**
+   * Provides the reference of an Identical Number
+   * @return the reference of an Identical Number
+   */
   public Number copy();
+
+  /**
+   * The value of the Number
+   * @return a double of the value of a Number
+   */
   public double value();
+
+  /**
+   * Sets the value of a Number to a double int value
+   */
   public void setValue(double x);
+
+  /**
+   * Sets the value of a Number to a new int value
+   */
   public void setValue(int x);
 }
