@@ -66,17 +66,21 @@ public class Int extends Variable implements Number {
   }
 
   /**
-   * Sets the value of a Int to a new value
+   * Sets the value of a Int to a new int value
    */
   public void setValue(int x) {
     value = x;
+  }
+
+  public void setValue(double x) {
+    value = (int)x;
   }
 
   /**
    * Provides the reference of an Identical int
    * @return the reference of an Identical int
    */
-  public Variable copy() {
+  public Number copy() {
     return new Int(value, this.name());
   }
 
