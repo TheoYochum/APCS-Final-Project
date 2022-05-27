@@ -1,11 +1,10 @@
 public class Statistics extends Functions {
   public static Number abs(Number x) {
-    if (x.value() < 0 ) {
-      x.setValue(x.value() * -1);
-    } else {
-      x.setValue(x.value());
+    Number k = x.copy();
+    if (k.value() < 0 ) {
+      k.setValue(k.value() * -1);
     }
-    return x;
+    return k;
   }
 
   public static Int ceil(Float x) {
@@ -34,14 +33,15 @@ public class Statistics extends Functions {
 
   public static Int lcm (Int x, Int y) {
 
-  }*/
-
+  }
 
   public static void main(String[] args) {
     Float x = new Float(1.22, "x");
     Float y = new Float(-420.0484838, "y");
-    System.out.println(ceil(x));
-    System.out.println(ceil(y));
-    System.out.println(x + " " + y);
+    //System.out.println(ceil(x));
+    System.out.println(abs(y));
+    System.out.println(y);
   }
+  */
+
 }
