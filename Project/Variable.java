@@ -58,7 +58,7 @@ abstract class Variable {
   /**
    * Type of the variable
    * @return Type of the variable
-   */ 
+   */
   public String type() {
     return type;
   }
