@@ -46,29 +46,23 @@ public class Calculator {
     String type = input.nextLine();
     type = type.toLowerCase();
     Display.clear();
+    System.out.println("Name:");
+    name = input.nextLine();
+    Display.clear();
     switch (type) {
       case "integer":
-        System.out.println("Name:");
-        name = input.nextLine();
-        Display.clear();
         System.out.println("Value:");
         intValue = input.nextInt();
         Display.clear();
         Variables.put(name, new Int(intValue, name));
         break;
       case "float":
-        System.out.println("Name:");
-        name = input.nextLine();
-        Display.clear();
         System.out.println("Value:");
         doubleValue = input.nextDouble();
         Display.clear();
         Variables.put(name, new Float(doubleValue, name));
         break;
       case "fraction":
-        System.out.println("Name:");
-        name = input.nextLine();
-        Display.clear();
         System.out.println("Numerator:");
         numerator = new Int(input.nextInt(), name + " Numerator");
         System.out.println("Denominator:");
@@ -77,9 +71,6 @@ public class Calculator {
         Variables.put(name, new Fraction(numerator, denominator, name));
         break;
       case "point":
-        System.out.println("Name:");
-        name = input.nextLine();
-        Display.clear();
         System.out.println("X Coordinate:");
         xCor = newNumber();
         System.out.println("Y Coordinate:");
@@ -88,9 +79,6 @@ public class Calculator {
         Variables.put(name, new Point(xCor, yCor, name));
         break;
       case "angle":
-        System.out.println("Name:");
-        name = input.nextLine();
-        Display.clear();
         System.out.println("Measure");
         doubleValue = input.nextDouble();
         System.out.println("Is it in degrees? y/n");
