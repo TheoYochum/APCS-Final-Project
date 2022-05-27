@@ -33,14 +33,7 @@ public class Calculator {
     }
   }
 
-  private void newVariable() {
-    int intValue;
-    double doubleValue;
-    Int numerator;
-    Int denominator;
-    Number xCor;
-    Number yCor;
-    boolean degrees;
+  public void newVariable() {
     String name;
     System.out.println("Type:");
     String type = input.nextLine();
@@ -49,17 +42,41 @@ public class Calculator {
     System.out.println("Name:");
     name = input.nextLine();
     Display.clear();
+  }
+
+  public Number newNumber() {
+    String name;
+    System.out.println("What type of Number");
+    String type = input.nextLine();
+    type = type.toLowerCase();
+    System.out.println("Name:");
+    name = input.nextLine();
+    Display.clear();
+    return parser(type, name);
+  }
+
+  private Number parser(String type, String name) {
+    int intValue;
+    double doubleValue;
+    Int numerator;
+    Int denominator;
+    Number xCor;
+    Number yCor;
+    boolean degrees;
+    Number out = null;
     switch (type) {
       case "integer":
         System.out.println("Value:");
         intValue = input.nextInt();
         Display.clear();
+        out = new Int(intValue, name);
         Variables.put(name, new Int(intValue, name));
         break;
       case "float":
         System.out.println("Value:");
         doubleValue = input.nextDouble();
         Display.clear();
+        out = new Float(doubleValue, name);
         Variables.put(name, new Float(doubleValue, name));
         break;
       case "fraction":
@@ -68,6 +85,7 @@ public class Calculator {
         System.out.println("Denominator:");
         denominator = new Int(input.nextInt(), name + " Denominator");
         Display.clear();
+        out = new Fraction(numerator, denominator, name);
         Variables.put(name, new Fraction(numerator, denominator, name));
         break;
       case "point":
@@ -85,54 +103,9 @@ public class Calculator {
         degrees = input.nextLine().toLowerCase().equals("y");
         Display.clear();
         Variables.put(name, new Angle(doubleValue, degrees, name));
+        break;
     }
-  }
-
-  public Number newNumber() {
-    Number out;
-    String name;
-    int intValue;
-    double doubleValue;
-    Int numerator;
-    Int denominator;
-    System.out.println("What type of Number");
-    String type = input.nextLine();
-    type = type.toLowerCase();
-    switch(type) {
-      case "integer":
-        System.out.println("Name:");
-        name = input.nextLine();
-        Display.clear();
-        System.out.println("Value:");
-        intValue = input.nextInt();
-        Display.clear();
-        out = new Int(intValue, name);
-        Variables.put(name, (Variable) out);
-        return out;
-      case "float":
-        System.out.println("Name:");
-        name = input.nextLine();
-        Display.clear();
-        System.out.println("Value:");
-        doubleValue = input.nextDouble();
-        Display.clear();
-        out = new Float(doubleValue, name);
-        Variables.put(name, (Variable) out);
-        return out;
-      case "fraction":
-        System.out.println("Name:");
-        name = input.nextLine();
-        Display.clear();
-        System.out.println("Numerator:");
-        numerator = new Int(input.nextInt(), name + " Numerator");
-        System.out.println("Denominator:");
-        denominator = new Int(input.nextInt(), name + " Denominator");
-        Display.clear();
-        out = new Fraction(numerator, denominator, name);
-        Variables.put(name, (Variable) out);
-        return out;
-    }
-    return null;
+    return out;
   }
 
   private void printVariable() {
