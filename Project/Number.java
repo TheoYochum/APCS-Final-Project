@@ -24,12 +24,6 @@ public interface Number {
   public Fraction getFraction();
 
   /**
-   * Provides the reference of an Identical Number
-   * @return the reference of an Identical Number
-   */
-  public Number copy();
-
-  /**
    * The value of the Number
    * @return a double of the value of a Number
    */
