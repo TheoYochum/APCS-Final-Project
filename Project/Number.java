@@ -16,10 +16,14 @@ public interface Number {
    * @return the reference of the Number converted to a Float
    */
   public Float getFloat();
-  
+
   /**
    * Provides the reference of the Number converted to a Fraction
    * @return the reference of the Number converted to a Fraction
    */
   public Fraction getFraction();
+  public Number copy();
+  public double value();
+  public void setValue(double x);
+  public void setValue(int x);
 }
