@@ -63,6 +63,14 @@ public class Fraction extends Variable implements Number {
     return (double) numerator.intValue() / denominator.intValue();
   }
 
+  public void setValue(int x) {
+    //necesarry for overide
+  }
+
+  public void setValue(double x) {
+    //necesarry for overide
+  }
+
   /**
    * A method which attempts to reduce the fraction to its simplest form
    */
@@ -73,7 +81,7 @@ public class Fraction extends Variable implements Number {
    * Creates an identical Fraction with a different reference
    * @return a reference to an identical Fraction
    */
-  public Number copy() {
+  public Variable copy() {
     return new Fraction(numerator, denominator, this.name());
   }
 }
