@@ -71,6 +71,14 @@ public class Trig extends Functions {
   public static Angle arctan(Float in, boolean isDegrees) {
     double val = in.value();
     double sum = 0.0;
+    int sign = 1;
+    System.out.println(val);
+    if (val > 1) {
+      val = 1 / val;
+      sum += pi / 2;
+      sign = -1;
+    }
+    System.out.println(val);
     double temp;
     int seq;
     for (int i = 1; i <= 25; i++) {
@@ -81,7 +89,8 @@ public class Trig extends Functions {
       if (i % 2 == 0) {
         temp *= -1;
       }
-      sum += temp;
+      sum += temp * sign;
+      // System.out.println(Angle.radToDeg(sum));
     }
     if (isDegrees) {
       sum = Angle.radToDeg(sum);
@@ -93,7 +102,7 @@ public class Trig extends Functions {
     if (in.value() > 1 || in.value() < -1) {
       throw new IllegalArgumentException("Input is not between -1 and 1");
     }
-    Float shfited = new Float(Math.sqrt(1 - Math.pow(in.value(), 2)) / in.value(), in.name() + " shifted");
+    Float shfited = new Float(Math.sqrt(1 - (in.value() * in.value())) / in.value(), in.name() + " shifted");
     double val = arctan(shfited, isDegrees).value();
     return new Angle(val, isDegrees, in.name() + " arccosine");
   }
