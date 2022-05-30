@@ -5,6 +5,13 @@
  */
 
 public interface Number {
+
+  /**
+   * Provides the reference of the Number
+   * @return the reference of the Number
+   */
+  public Number get();
+
   /**
    * Provides the reference of the Number converted to an Int
    * @return the reference of the Number converted to an Int
