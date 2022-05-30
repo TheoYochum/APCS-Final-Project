@@ -90,6 +90,6 @@ public class Fraction extends Variable implements Number {
    * @return the reference of the Fraction as a Number
    */
   public Number get() {
-    return new Fraction(value, this.name());
+    return new Fraction(numerator, denominator, this.name());
   }
 }
