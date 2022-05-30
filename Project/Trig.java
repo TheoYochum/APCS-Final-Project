@@ -5,13 +5,25 @@
  * series function for arctan
  */
 public class Trig extends Functions {
-    
+
   public static Float sin(Angle in) {
     double val = in.value();
+    int sign = 1;
     val = constrain(val, in.isDegrees());
     if (in.isDegrees()) {
       val = Angle.degToRad(val);
     }
+    if (val < pi / 2) {
+    } else if (val > pi / 2 && val < pi) {
+      val = pi - val;
+    } else if (val > pi && val < 3 * pi / 2){
+      val = val - pi;
+      sign = -1;
+    } else {
+      val = 2 * pi - val;
+      sign = -1;
+    }
+    System.out.println(val);
     double sum = 0.0;
     double temp;
     int seq;
@@ -29,6 +41,7 @@ public class Trig extends Functions {
       }
       sum += temp;
     }
+    sum *= sign;
     return new Float(sum, in.name() + " sine");
   }
 
@@ -40,6 +53,7 @@ public class Trig extends Functions {
     } else {
       val = (pi / 2.0) - val;
     }
+    System.out.println(val);
     Angle shifted = new Angle(val, in.isDegrees(), in.name() + " cosine shifted");
     return new Float(sin(shifted).value(), in.name() + "cosine");
   }
@@ -69,8 +83,18 @@ public class Trig extends Functions {
   }
 
   public static Angle arctan(Float in, boolean isDegrees) {
+    return arctan(in, isDegrees, false);
+  }
+
+  private static Angle arctan(Float in, boolean isDegrees, boolean cosine) {
     double val = in.value();
     double sum = 0.0;
+    int sign = 1;
+    if (Math.abs(val) > 1) {
+      val = 1 / val;
+      sum += pi / 2;
+      sign = -1;
+    }
     double temp;
     int seq;
     for (int i = 1; i <= 25; i++) {
@@ -81,7 +105,10 @@ public class Trig extends Functions {
       if (i % 2 == 0) {
         temp *= -1;
       }
-      sum += temp;
+      sum += temp * sign;
+    }
+    if (cosine && sum < 0) {
+      sum += pi;
     }
     if (isDegrees) {
       sum = Angle.radToDeg(sum);
@@ -93,8 +120,8 @@ public class Trig extends Functions {
     if (in.value() > 1 || in.value() < -1) {
       throw new IllegalArgumentException("Input is not between -1 and 1");
     }
-    Float shfited = new Float(Math.sqrt(1 - Math.pow(in.value(), 2)) / in.value(), in.name() + " shifted");
-    double val = arctan(shfited, isDegrees).value();
+    Float shfited = new Float(Math.sqrt(1 - (in.value() * in.value())) / in.value(), in.name() + " shifted");
+    double val = arctan(shfited, isDegrees, true).value();
     return new Angle(val, isDegrees, in.name() + " arccosine");
   }
 
