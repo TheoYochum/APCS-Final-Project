@@ -23,7 +23,6 @@ public class Trig extends Functions {
       val = 2 * pi - val;
       sign = -1;
     }
-    System.out.println(val);
     double sum = 0.0;
     double temp;
     int seq;
@@ -53,7 +52,6 @@ public class Trig extends Functions {
     } else {
       val = (pi / 2.0) - val;
     }
-    System.out.println(val);
     Angle shifted = new Angle(val, in.isDegrees(), in.name() + " cosine shifted");
     return new Float(sin(shifted).value(), in.name() + "cosine");
   }
