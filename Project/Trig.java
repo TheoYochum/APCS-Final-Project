@@ -5,13 +5,25 @@
  * series function for arctan
  */
 public class Trig extends Functions {
-    
+
   public static Float sin(Angle in) {
     double val = in.value();
+    int sign = 1;
     val = constrain(val, in.isDegrees());
     if (in.isDegrees()) {
       val = Angle.degToRad(val);
     }
+    if (val < pi / 2) {
+    } else if (val > pi / 2 && val < pi) {
+      val = pi - val;
+    } else if (val > pi && val < 3 * pi / 2){
+      val = val - pi;
+      sign = -1;
+    } else {
+      val = 2 * pi - val;
+      sign = -1;
+    }
+    System.out.println(val);
     double sum = 0.0;
     double temp;
     int seq;
@@ -29,6 +41,7 @@ public class Trig extends Functions {
       }
       sum += temp;
     }
+    sum *= sign;
     return new Float(sum, in.name() + " sine");
   }
 
@@ -40,6 +53,7 @@ public class Trig extends Functions {
     } else {
       val = (pi / 2.0) - val;
     }
+    System.out.println(val);
     Angle shifted = new Angle(val, in.isDegrees(), in.name() + " cosine shifted");
     return new Float(sin(shifted).value(), in.name() + "cosine");
   }
