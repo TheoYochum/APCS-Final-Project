@@ -84,4 +84,12 @@ public class Fraction extends Variable implements Number {
   public Variable copy() {
     return new Fraction(numerator, denominator, this.name());
   }
+
+  /**
+   * Provides the reference of the Fraction as a Number
+   * @return the reference of the Fraction as a Number
+   */
+  public Number get() {
+    return new Fraction(value, this.name());
+  }
 }

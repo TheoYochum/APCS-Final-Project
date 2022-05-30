@@ -88,6 +88,14 @@ public class Int extends Variable implements Number {
   }
 
   /**
+   * Provides the reference of the Int as a Number
+   * @return the reference of the Int as a Number
+   */
+  public Number get() {
+    return new Int(value, this.name());
+  }
+
+  /**
    * Constructs a string using the value of the Int object
    * @return a string version of the Int value
    */
