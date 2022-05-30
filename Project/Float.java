@@ -59,10 +59,17 @@ public class Float extends Variable implements Number {
   }
 
   /**
-   * Sets the value of a Float to a new value
+   * Sets the value of a Float to a new double value
    */
   public void setValue(double x) {
     value = x;
+  }
+
+  /**
+   * Sets the value of a Float to a new int value
+   */
+  public void setValue(int x) {
+    value = (double)x;
   }
 
   /**
@@ -71,5 +78,13 @@ public class Float extends Variable implements Number {
    */
   public String toString() {
     return "" + value();
+  }
+
+  /**
+   * Provides the reference of an Identical Float
+   * @return the reference of an Identical Float
+   */
+  public Variable copy() {
+    return new Float(value, this.name());
   }
 }

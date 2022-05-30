@@ -54,13 +54,21 @@ public class Fraction extends Variable implements Number {
   public Fraction getFraction() {
     return (Fraction) copy();
   }
-  
+
   /**
    * The value of the Fraction, the numerator over the denominator
    * @return The numerator divided by the denominator
    */
   public double value() {
     return (double) numerator.intValue() / denominator.intValue();
+  }
+
+  public void setValue(int x) {
+    //necesarry for overide
+  }
+
+  public void setValue(double x) {
+    //necesarry for overide
   }
 
   /**
