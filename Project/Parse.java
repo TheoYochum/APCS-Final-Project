@@ -10,11 +10,12 @@ public class Parse {
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
     while (true) {
+      System.out.println("Enter the equation:");
       System.out.println(Parse(input.nextLine()));
     }
   }
 
-  private static Float Parse(String equation) {
+  public static Float Parse(String equation) {
     ArrayList<String> split = Split(equation);
     while (split.contains("(")) {
       Parentheses(split);
@@ -22,15 +23,31 @@ public class Parse {
     return new Float(Double.parseDouble(evaluate(split)), "equation");
   }
 
-  public static ArrayList<String> Split(String equation) {
+  private static ArrayList<String> Split(String equation) {
     ArrayList<String> out = new ArrayList<String>();
     String[] split = equation.split(" ");
     for (int i = 0; i < split.length; i++) {
-      if (split[i].contains("(") || split[i].contains(")")) {
+      if (split[i].contains("(") && split[i].contains(")")) {
         out.add(split[i].substring(0, split[i].indexOf("(")));
         out.add("(");
         out.add(split[i].substring(split[i].indexOf("(") + 1, split[i].indexOf(")")));
         out.add(")");
+      } else if (split[i].contains("(")) {
+        for(int j = 0; j < split[i].length(); j++) {
+          if (split[i].charAt(j) == '(') {
+            out.add("" + split[i].charAt(j));
+          } else {
+            out.add(split[i].substring(split[i].lastIndexOf("(") + 1));
+            break;
+          }
+        }
+      } else if (split[i].contains(")")) {
+        out.add(split[i].substring(0, split[i].indexOf(")")));
+        for(int j = split[i].indexOf(')'); j < split[i].length(); j++) {
+          if (split[i].charAt(j) == ')') {
+            out.add("" + split[i].charAt(j));
+          } 
+        }
       } else {
         out.add(split[i]);
       }
