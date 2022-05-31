@@ -9,7 +9,7 @@ public class Fraction extends Variable implements Number {
   private Int denominator;
 
   /**
-   * Basic constructor taking two Ints and storing them in the numerator and denomonator
+   * Basic constructor taking two Ints and storing them in the numerator and denominator
    * @param num the Int in the Numerator
    * @param denom the Int in the Denominator
    * @param name the name of the variable
@@ -21,7 +21,7 @@ public class Fraction extends Variable implements Number {
   }
 
   /**
-   * Basic constructor taking a single int and storing it as a Fraction wiht deonomonator 1
+   * Basic constructor taking a single int and storing it as a Fraction wiht denominator 1
    * @param num The integer which goes in the numerator
    * @param name the name of the variable
    */
@@ -56,6 +56,22 @@ public class Fraction extends Variable implements Number {
   }
 
   /**
+   * The value of the numerator
+   * @return the value of the numerator of the fraction
+   */
+  public Int getNumerator() {
+    return numerator;
+  }
+
+  /**
+   * The value of the denominator
+   * @return the value of the denominator of the fraction
+   */
+  public Int getDenominator() {
+    return denominator;
+  }
+
+  /**
    * The value of the Fraction, the numerator over the denominator
    * @return The numerator divided by the denominator
    */
@@ -83,5 +99,21 @@ public class Fraction extends Variable implements Number {
    */
   public Variable copy() {
     return new Fraction(numerator, denominator, this.name());
+  }
+
+  /**
+   * Provides the reference of the Fraction as a Number
+   * @return the reference of the Fraction as a Number
+   */
+  public Number get() {
+    return new Fraction(numerator, denominator, this.name());
+  }
+
+  /**
+   * Constructs a string using the numberator and denominator of the Fraction object
+   * @return a string version of the Fraction object
+   */
+  public String toString() {
+    return "" + numerator + "/" + denominator;
   }
 }
