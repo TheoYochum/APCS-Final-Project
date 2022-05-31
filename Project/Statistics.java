@@ -23,20 +23,15 @@ public class Statistics extends Functions {
     return k;
   }
 
-  public static Number exp(Number x, Number y) {
+  public static Number expInt(Number x, Number y) {
     double res = 1.0;
-    Int[] k = scientificNot(y);
+    //Int[] k = scientificNot(y);
     Int max = floor(new Float(y.value(), "max"));
-    for (int i = 0; i < k[1].intValue(); i++) {
+    for (int i = 0; i < max.intValue(); i++) {
       res *= x.value();
     }
     Number j = x.get();
     j.setValue(res);
-    /*
-    if (k[0].intValue() < 0) {
-      res *= exp(j, exp(new Int(10, "ten"), new Int(-1, "one"))).value();
-    }
-    */
     return j;
   }
 
@@ -45,8 +40,6 @@ public class Statistics extends Functions {
     Int[] k = scientificNot(new Float(2.1, "k"));
     System.out.println(k[0]);
   }
-
-  private static Number nthRoot()
   */
 
   private static Int[] scientificNot(Number exp) {
@@ -57,6 +50,16 @@ public class Statistics extends Functions {
       ex.setValue(ex.value() * 10.0);
     }
     Int[] res = {new Int(n, "n"), new Int(ex.value(), "new exp")};
+    return res;
+  }
+
+  public static Number ln(Number x) {
+    double y = (x.value() - 1) / (x.value() + 1);
+    Number res = x.get();
+    double yt = expInt(new Float(y, "y"), new Int(3, "yt")).value(); // y to third
+    double yf = expInt(new Float(y, "y"), new Int(5, "yf")).value(); // y to fifth
+    double ys = expInt(new Float(y, "y"), new Int(7, "ys")).value(); // y to seventh
+    res.setValue(2 * (y + (yt / 3) + (yf / 5) + (ys / 7)));
     return res;
   }
   /*
@@ -80,7 +83,8 @@ public class Statistics extends Functions {
     Float g = new Float(2.1, "g");
     //test();
     //System.out.println(ceil(x));
-    System.out.println(exp(k, g));
+    //System.out.println(ln(k));
+    //System.out.println(exp(k, g));
     //System.out.println(k);
   }
 
