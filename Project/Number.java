@@ -45,4 +45,10 @@ public interface Number {
    * Sets the value of a Number to a new int value
    */
   public void setValue(int x);
+
+  /**
+   * Provides the name of the variable
+   * @return the name of the variable
+   */
+  public String name();
 }
