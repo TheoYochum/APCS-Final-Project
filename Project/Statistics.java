@@ -58,6 +58,9 @@ public class Statistics extends Functions {
   }
 
   public static Number ln(Number x) {
+    if (x.value() < 0) {
+      return new Float(0, "undefined");
+    }
     Number res = x.get();
     Int[] k = scientificNotD(x);
     Number temp = ln(new Float(sqrt(k[1]), "temp"), 1);
@@ -107,7 +110,7 @@ public class Statistics extends Functions {
   public static void main(String[] args) {
     Float x = new Float(1.22, "x");
     Float y = new Float(-420.0484838, "y");
-    Float k = new Float(20.0, "k");
+    Float k = new Float(-20.0, "k");
     Float g = new Float(2.1, "g");
     //test();
     //System.out.println(ceil(x));
