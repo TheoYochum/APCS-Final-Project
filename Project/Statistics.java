@@ -26,25 +26,38 @@ public class Statistics extends Functions {
   public static Number exp(Number x) { //e implementation
     int n = floor(x).intValue();
     double r1 = abs(x).value() - abs(floor(x)).value();
-    double sum = exp(new Float(e, "e"), new Int(n, "n")).value();
+    double out = exp(new Float(e, "e"), new Int(n, "n")).value();
     //System.out.println(n + " " + r1 + " " + sum);
     if (x.value() > 0 && x.value() < 1) { // values between 0 and 1 are wonky and this fixes them
       n = 1;
       r1 = x.value();
-      sum = 1.0;
+      out = 1.0;
     }
     if (n < 0) {
-      sum = 1 / exp(new Float(e, "e"), abs(new Int(n, "n"))).value();
+      out = 1 / exp(new Float(e, "e"), abs(new Int(n, "n"))).value();
     }
     Float r = new Float(r1, "r");
+    /*
     double rs = exp(r, new Float(2, "rs")).value(); // r to second
     double rt = exp(r, new Float(3, "rt")).value(); // r to third
     double rf = exp(r, new Float(4, "rf")).value(); // r to fourth
     double rfi = exp(r, new Float(5, "rfi")).value(); // r to fifth
     double rsx = exp(r, new Float(6, "rfi")).value(); // r to fifth
     sum *= (1 + r1 + (rs / 2) + (rt / 6) + (rf / 24) + (rfi / 120) + (rsx / 720));
+    */
+    double temp = 0.0;
+    double sum = 0.0;
+    for (int i = 0; i < 10; i++) {
+      temp = exp(r, new Float(i, "rs")).value();
+      int factorial = 1;
+      for (int j = 1; j <= 1; j++) {
+        factorial *= j;
+      }
+      sum += temp / factorial;
+    }
+    out *= sum;
     Number k = x.get();
-    k.setValue(sum);
+    k.setValue(out);
   return k;
 }
 
@@ -145,18 +158,18 @@ public class Statistics extends Functions {
   }
   */
   /*
+  */
   public static void main(String[] args) {
     Float x = new Float(1.22, "x");
     Float y = new Float(-420.0484838, "y");
-    Float k = new Float(5.2121, "k");
+    Float k = new Float(0.9, "k");
     Float g = new Float(2.11232, "g");
     //test();
     //System.out.println(ceil(x));
-    System.out.println(pow(k, g));
+    System.out.println(exp(k));
     //System.out.println(sqrt(k));
     //System.out.println(exp(k, g));
     //System.out.println(k);
   }
-  */
 
 }
