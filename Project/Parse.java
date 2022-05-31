@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.regex.*;;
 
 public class Parse {
 
@@ -16,65 +17,67 @@ public class Parse {
   }
 
   public static Float Parse(String equation) {
-    ArrayList<String> split = Split(equation);
-    while (split.contains("(")) {
-      Parentheses(split);
+    ArrayList<String> terms = Terms(equation);
+    for (int i = 0; i < terms.size(); i++) {
+      if (terms.get(i).contains("(")) {
+        terms.set(i, Parentheses(terms.get(i)));
+      }
     }
-    return new Float(Double.parseDouble(evaluate(split)), "equation");
+    return new Float(Double.parseDouble(evaluate(terms)), "equation");
   }
 
-  private static ArrayList<String> Split(String equation) {
+  private static ArrayList<String> Terms(String equation) {
     ArrayList<String> out = new ArrayList<String>();
-    String[] split = equation.split(" ");
-    for (int i = 0; i < split.length; i++) {
-      if (split[i].contains("(") && split[i].contains(")")) {
-        out.add(split[i].substring(0, split[i].indexOf("(")));
-        out.add("(");
-        out.add(split[i].substring(split[i].indexOf("(") + 1, split[i].indexOf(")")));
-        out.add(")");
-      } else if (split[i].contains("(")) {
-        for(int j = 0; j < split[i].length(); j++) {
-          if (split[i].charAt(j) == '(') {
-            out.add("" + split[i].charAt(j));
-          } else {
-            out.add(split[i].substring(split[i].lastIndexOf("(") + 1));
-            break;
-          }
+    while (equation.contains("(")) {
+      String regex = "[(](?:[^)(]+|[(](?:[^)(]+|[(][^)(]*[)])*[)])*[)]";
+      Pattern pattern = Pattern.compile(regex);
+      Matcher matcher =  pattern.matcher(equation);
+      matcher.find();
+      String block = matcher.group(0);
+      int index = equation.indexOf(block);
+      for (String term : equation.substring(0, index).split(" ")) {
+        int termIndex = equation.indexOf(term);
+        if (term.length() > 0) {
+          out.add(term);
+          equation = equation.substring(0, termIndex) + equation.substring(termIndex + term.length() + 1);
         }
-      } else if (split[i].contains(")")) {
-        out.add(split[i].substring(0, split[i].indexOf(")")));
-        for(int j = split[i].indexOf(')'); j < split[i].length(); j++) {
-          if (split[i].charAt(j) == ')') {
-            out.add("" + split[i].charAt(j));
-          } 
-        }
-      } else {
-        out.add(split[i]);
       }
+      out.add(block);
+      if (index + block.length() + 1 < equation.length()) {
+        equation = equation.substring(0, index) + equation.substring(index + block.length() + 1);
+      } else {
+        equation = equation.substring(0, index);
+      }
+    }
+    for (String term : equation.split(" ")) {
+      out.add(term);
     }
     return out;
   }
 
-  private static void Parentheses(ArrayList<String> in) {
-    int start = -1;
-    int end = -1;
-    ArrayList<String> block = new ArrayList<String>();
-    for (int i = 0; i < in.size(); i++) {
-      if (in.get(i).equals("(")) {
-        start = i;
-      }
-      if (in.get(i).equals(")")) {
-        end = i;
-        for (int j = start + 1; j < end; j++ ) {
-          block.add(in.get(j));
-        }
-        for (int j = start; j <= end; j++) {
-          in.remove(start);
-        }
-        in.add(start, evaluate(block));
-      }
-
+  private static String Parentheses(String in) {
+    int start = in.indexOf('(');
+    int end = in.lastIndexOf(')');
+    String out;
+    if (start != -1 && end != -1) {
+      out = evaluate(in.substring(start + 1, end));
+      return out;
+    } else {
+      out = evaluate(in);
+      return out;
     }
+  }
+
+  private static String evaluate(String in) {
+    while (in.contains("(")) {
+      Parentheses(in);
+    }
+    String[] temp = in.split(" ");
+    ArrayList<String> evaluate = new ArrayList<String>();
+    for (String term : temp) {
+      evaluate.add(term);
+    }
+    return evaluate(evaluate);
   }
 
   private static String evaluate(ArrayList<String> in) {
