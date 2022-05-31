@@ -1,85 +1,85 @@
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Scanner;
 import java.util.regex.*;;
 
 public class Parse {
 
+  /**
+   * Sets of operations to be conducted in order
+   */
   private static String[] trig = {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan", "arcsec", "arccsc", "arccot"};
   private static String[] operations = {"^", "*", "/", "+", "-"};
   
+  /**
+   * Input loop
+   * @param args Call arguments
+   */
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
     while (true) {
-      System.out.println("Enter the equation:");
+      System.out.println("Enter the expression:");
       System.out.println(Parse(input.nextLine()));
     }
   }
 
-  public static Float Parse(String equation) {
-    ArrayList<String> terms = Terms(equation);
-    for (int i = 0; i < terms.size(); i++) {
+  /**
+   * Takes an infix expression and breaks it down and evaluates it, 
+   * if it has paretheses it recursively evaluates them until all are removed
+   * @param expression A string in proper infix format, spaces between operators
+   * @return A float value of the results of this expression
+   */
+  public static Float Parse(String expression) {
+    ArrayList<String> terms = Terms(expression);
+    for (int i = terms.size() - 1; i >= 0; i--) {
       if (terms.get(i).contains("(")) {
-        terms.set(i, Parentheses(terms.get(i)));
+        terms.set(i, Parse(terms.get(i).substring(1, terms.get(i).length() - 1)).value() + "");
       }
     }
-    return new Float(Double.parseDouble(evaluate(terms)), "equation");
+    return new Float(Double.parseDouble(evaluate(terms)), "expression");
   }
 
-  private static ArrayList<String> Terms(String equation) {
+  /**
+   * Turns a string expression in proper infix form into an Arraylist, 
+   * uses regex to group parentheses
+   * @param in an infix expression with proper formatting
+   * @return an ArrayList of the expression broken down
+   */
+  private static ArrayList<String> Terms(String in) {
+    String expression = in;
     ArrayList<String> out = new ArrayList<String>();
-    while (equation.contains("(")) {
+    while (expression.contains("(")) {
       String regex = "[(](?:[^)(]+|[(](?:[^)(]+|[(][^)(]*[)])*[)])*[)]";
       Pattern pattern = Pattern.compile(regex);
-      Matcher matcher =  pattern.matcher(equation);
+      Matcher matcher =  pattern.matcher(expression);
       matcher.find();
       String block = matcher.group(0);
-      int index = equation.indexOf(block);
-      for (String term : equation.substring(0, index).split(" ")) {
-        int termIndex = equation.indexOf(term);
-        if (term.length() > 0) {
+      int index = expression.indexOf(block);
+      if (index != 0) {
+        String[] terms = expression.substring(0, index).split(" ");
+        for (String term : terms) {
           out.add(term);
-          equation = equation.substring(0, termIndex) + equation.substring(termIndex + term.length() + 1);
         }
       }
       out.add(block);
-      if (index + block.length() + 1 < equation.length()) {
-        equation = equation.substring(0, index) + equation.substring(index + block.length() + 1);
+      if (index + block.length() + 1 < expression.length()) {
+        expression = expression.substring(index + block.length() + 1);
       } else {
-        equation = equation.substring(0, index);
+        expression = "";
       }
     }
-    for (String term : equation.split(" ")) {
+    String[] terms = expression.split(" ");
+    for (String term : terms) {
       out.add(term);
     }
     return out;
   }
 
-  private static String Parentheses(String in) {
-    int start = in.indexOf('(');
-    int end = in.lastIndexOf(')');
-    String out;
-    if (start != -1 && end != -1) {
-      out = evaluate(in.substring(start + 1, end));
-      return out;
-    } else {
-      out = evaluate(in);
-      return out;
-    }
-  }
-
-  private static String evaluate(String in) {
-    while (in.contains("(")) {
-      Parentheses(in);
-    }
-    String[] temp = in.split(" ");
-    ArrayList<String> evaluate = new ArrayList<String>();
-    for (String term : temp) {
-      evaluate.add(term);
-    }
-    return evaluate(evaluate);
-  }
-
+  /**
+   * Steps through each operation, checking if they are present
+   * and then evaluating them
+   * @param in An arraylist of an expression with all parentheses removed
+   * @return a String of the value of the expression
+   */
   private static String evaluate(ArrayList<String> in) {
     for (String operation : trig) {
       while (in.indexOf(operation) != -1) {
@@ -94,6 +94,12 @@ public class Parse {
     return in.get(0);
   }
 
+  /**
+   * The set of switch statements to process trigonometric operations
+   * @param in The expression ArrayList containing the operation
+   * @param operation the operation to be evaluated
+   * @param i the index of the operation which is to be evaluated
+   */
   private static void trig(ArrayList<String> in, String operation, int i) {
     Angle angle;
     Float value;
@@ -161,6 +167,12 @@ public class Parse {
     }
   }
 
+  /**
+   * The set of switch statements to process arithmetic operations
+   * @param in The expression ArrayList containing the operation
+   * @param operation the operation to be evaluated
+   * @param i the index of the operation which is to be evaluated
+   */
   private static void operation(ArrayList<String> in, String operation, int i) {
     Number one;
     Number two;
