@@ -35,12 +35,6 @@ public class Statistics extends Functions {
     return j;
   }
 
-  /*
-  public static void test() {
-    Int[] k = scientificNotD(new Float(900, "k"));
-    System.out.println(k[1]);
-  }
-  */
   private static Int[] scientificNotD(Number exp) { //numbers with no dec
     int n = 0;
     Number ex = exp.get();
@@ -64,11 +58,16 @@ public class Statistics extends Functions {
   }
 
   public static Number ln(Number x) {
-    if (x.value() > 3.16227766017) { //placeholder number until i write sqrt
-
-    }
-    double y = (x.value() - 1) / (x.value() + 1);
     Number res = x.get();
+    Int[] k = scientificNotD(x);
+    Number temp = ln(new Float(sqrt(k[1]), "temp"), 1);
+    res.setValue( (2 * temp.value()) + (2.3025851 * k[0].value() ) );
+    return res;
+  }
+
+  public static Number ln(Number x , int i) {
+    Number res = x.get();
+    double y = (res.value() - 1) / (res.value() + 1);
     double yt = expInt(new Float(y, "y"), new Int(3, "yt")).value(); // y to third
     double yf = expInt(new Float(y, "y"), new Int(5, "yf")).value(); // y to fifth
     double ys = expInt(new Float(y, "y"), new Int(7, "ys")).value(); // y to seventh
@@ -80,10 +79,8 @@ public class Statistics extends Functions {
   *@param n any non-negative value you want to take the sqrt of
   *@return the approximate sqrt of n within a tolerance of 0.001%
   */
-  public static Number sqrt(Number n) {
-    Number k = n.get();
-    k.setValue(sqrt(n.value(), 1.0));
-    return k;
+  public static double sqrt(Number n) {
+    return sqrt(n.value(), 1.0);
   }
 
   private static double sqrt(double n, double guess) {
@@ -106,19 +103,19 @@ public class Statistics extends Functions {
   public static Int lcm (Int x, Int y) {
 
   }
+  */
   public static void main(String[] args) {
     Float x = new Float(1.22, "x");
     Float y = new Float(-420.0484838, "y");
-    Float k = new Float(10, "k");
+    Float k = new Float(20.0, "k");
     Float g = new Float(2.1, "g");
     //test();
     //System.out.println(ceil(x));
     System.out.println(ln(k));
-    System.out.println(sqrt(k));
+    //System.out.println(sqrt(k));
     //System.out.println(exp(k, g));
     //System.out.println(k);
   }
-  */
 
 
 }
