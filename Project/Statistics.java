@@ -25,30 +25,32 @@ public class Statistics extends Functions {
 
   public static Number exp(Number x) { //e implementation
     int n = floor(x).intValue();
-    double r1 = abs(floor(x)).value() - abs(x).value();
+    double r1 = abs(x).value() - abs(floor(x)).value();
     double sum = exp(new Float(e, "e"), new Int(n, "n")).value();
-    if (n < 0) {
-      sum = 1 / exp(new Float(e, "e"), abs(new Int(n, "n"))).value();
-    }
+    //System.out.println(n + " " + r1 + " " + sum);
     if (x.value() > 0 && x.value() < 1) { // values between 0 and 1 are wonky and this fixes them
       n = 1;
       r1 = x.value();
       sum = 1.0;
+    }
+    if (n < 0) {
+      sum = 1 / exp(new Float(e, "e"), abs(new Int(n, "n"))).value();
     }
     Float r = new Float(r1, "r");
     double rs = exp(r, new Float(2, "rs")).value(); // r to second
     double rt = exp(r, new Float(3, "rt")).value(); // r to third
     double rf = exp(r, new Float(4, "rf")).value(); // r to fourth
     double rfi = exp(r, new Float(5, "rfi")).value(); // r to fifth
-    sum *= (1 + r1 + (rs / 2) + (rt / 6) + (rf / 24) + (rfi / 120));
+    double rsx = exp(r, new Float(6, "rfi")).value(); // r to fifth
+    sum *= (1 + r1 + (rs / 2) + (rt / 6) + (rf / 24) + (rfi / 120) + (rsx / 720));
     Number k = x.get();
     k.setValue(sum);
-    return k;
-  }
+  return k;
+}
 
-  public static Number exp(Number x, Number y) {
+  public static Number exp(Number x, Number y) { //works only with integer exponents
     double res = 1.0;
-    Int max = floor(new Float(y.value(), "max"));
+    Int max = floor(y);
     for (int i = 0; i < max.intValue(); i++) {
       res *= x.value();
     }
@@ -56,6 +58,14 @@ public class Statistics extends Functions {
     j.setValue(res);
     return j;
   }
+
+
+  public static Number pow(Number x, Number y) {
+    Number k = x.get();
+    k.setValue(y.value() * ln(x).value());
+    return exp(k);
+  }
+
 
   private static Int[] scientificNotD(Number exp) { //numbers with no dec
     int n = 0;
@@ -138,11 +148,11 @@ public class Statistics extends Functions {
   public static void main(String[] args) {
     Float x = new Float(1.22, "x");
     Float y = new Float(-420.0484838, "y");
-    Float k = new Float(.56, "k");
-    Float g = new Float(2.1, "g");
+    Float k = new Float(5.2121, "k");
+    Float g = new Float(2.11232, "g");
     //test();
     //System.out.println(ceil(x));
-    System.out.println(exp(k));
+    System.out.println(pow(k, g));
     //System.out.println(sqrt(k));
     //System.out.println(exp(k, g));
     //System.out.println(k);
