@@ -38,6 +38,17 @@ public class Matrix extends Variable {
     }
   }
 
+  public Matrix(int[][] in) {
+    rows = in.length;
+    cols = in[0].length;
+    matrix = new int[rows][cols];
+    for (int i = 0; i < cols; i++) {
+      for (int j = 0; j < rows; j++) {
+        matrix[i][j] = in[i][j];
+      }
+    }
+  }
+
   public String toString() {
     String out = "";
     for (int i = 0; i < rows; i++) {
