@@ -14,4 +14,6 @@ The main goal of this project is to replicate as many functions as possible that
 **5/24/22** <p> Theo: Built basic strucutre and documentation of variables and worked on a conceptual but unrefined basis for the calculator. </p>
 **5/25/22** <p> Akram: Worked on the Statistics class, created toStrings for Int and Float classes. </p>
 **5/26/22** <p> Akram: Reworked Statistics class to make it return new objects and not edit the old ones. Refined methods in other classes to better work with each other </p>
+<p> Theo: Added all trig functions and series implementations of them </p>
 **5/30/22** <p> Theo: Refined the trig functions and created a rudimentary expression parser for demonstration, likely adapted for regex in the future </p>
+**5/31/22** <p> Theo: Simplified and improved the parser, uses a regex expression for parentheses and recursively evaluates them </p>
