@@ -27,7 +27,6 @@ public class Statistics extends Functions {
     int n = floor(x).intValue();
     double r1 = abs(x).value() - abs(floor(x)).value();
     double out = exp(new Float(e, "e"), new Int(n, "n")).value();
-    //System.out.println(n + " " + r1 + " " + sum);
     if (x.value() > 0 && x.value() < 1) { // values between 0 and 1 are wonky and this fixes them
       n = 1;
       r1 = x.value();
@@ -37,20 +36,12 @@ public class Statistics extends Functions {
       out = 1 / exp(new Float(e, "e"), abs(new Int(n, "n"))).value();
     }
     Float r = new Float(r1, "r");
-    /*
-    double rs = exp(r, new Float(2, "rs")).value(); // r to second
-    double rt = exp(r, new Float(3, "rt")).value(); // r to third
-    double rf = exp(r, new Float(4, "rf")).value(); // r to fourth
-    double rfi = exp(r, new Float(5, "rfi")).value(); // r to fifth
-    double rsx = exp(r, new Float(6, "rfi")).value(); // r to fifth
-    sum *= (1 + r1 + (rs / 2) + (rt / 6) + (rf / 24) + (rfi / 120) + (rsx / 720));
-    */
     double temp = 0.0;
     double sum = 0.0;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 20; i++) {
       temp = exp(r, new Float(i, "rs")).value();
       int factorial = 1;
-      for (int j = 1; j <= 1; j++) {
+      for (int j = 1; j <= i; j++) {
         factorial *= j;
       }
       sum += temp / factorial;
@@ -58,8 +49,8 @@ public class Statistics extends Functions {
     out *= sum;
     Number k = x.get();
     k.setValue(out);
-  return k;
-}
+    return k;
+  }
 
   public static Number exp(Number x, Number y) { //works only with integer exponents
     double res = 1.0;
@@ -74,8 +65,8 @@ public class Statistics extends Functions {
 
 
   public static Number pow(Number x, Number y) {
-    Number k = x.get();
-    k.setValue(y.value() * ln(x).value());
+    Float k = new Float(y.value(), "k");
+    k.setValue(k.value() * ln(x).value());
     return exp(k);
   }
 
@@ -106,6 +97,9 @@ public class Statistics extends Functions {
     if (x.value() < 0) {
       return new Float(0, "undefined"); // THROW ERROR LATER
     }
+    if (x.value() > 1 && x.value() < sqrt(new Int(10, "ten")).value()) {
+      return ln(x, 1);
+    }
     Int[] k;
     if (x.value() > 0 && x.value() < 1) {
       k = scientificNotU(x); // makes sure numbers between 0 and 1 return the correct natural logs
@@ -113,18 +107,22 @@ public class Statistics extends Functions {
       k = scientificNotD(x);
     }
     Number res = x.get();
-    Number temp = ln(new Float(sqrt(k[1]), "temp"), 1);
+    Number temp = ln(new Float(sqrt(k[1]).value(), "temp"), 1);
     res.setValue( (2 * temp.value()) + (2.3025851 * k[0].value() ) );
     return res;
   }
 
-  public static Number ln(Number x , int i) {
+  public static Number ln(Number x , int j) {
     Number res = x.get();
-    double y = (res.value() - 1) / (res.value() + 1);
-    double yt = exp(new Float(y, "y"), new Int(3, "yt")).value(); // y to third
-    double yf = exp(new Float(y, "y"), new Int(5, "yf")).value(); // y to fifth
-    double ys = exp(new Float(y, "y"), new Int(7, "ys")).value(); // y to seventh
-    res.setValue(2 * (y + (yt / 3) + (yf / 5) + (ys / 7)));
+    double y1 = (res.value() - 1) / (res.value() + 1);
+    Float y = new Float(y1, "y");
+    double temp = 0.0;
+    double sum = 0.0;
+    for (int i = 1; i < 49; i += 2) {
+      temp = exp(y, new Int(i, "exp")).value();
+      sum += temp / i;
+    }
+    res.setValue(2 * sum);
     return res;
   }
 
@@ -132,8 +130,10 @@ public class Statistics extends Functions {
   *@param n any non-negative value you want to take the sqrt of
   *@return the approximate sqrt of n within a tolerance of 0.001%
   */
-  private static double sqrt(Number n) {
-    return sqrt(n.value(), 1.0);
+  public static Number sqrt(Number n) {
+    Number res = n.get();
+    res.setValue(sqrt(n.value(), 1.0));
+    return res;
   }
 
   private static double sqrt(double n, double guess) {
@@ -156,20 +156,18 @@ public class Statistics extends Functions {
   public static Int lcm (Int x, Int y) {
 
   }
-  */
-  /*
-  */
   public static void main(String[] args) {
-    Float x = new Float(1.22, "x");
+    Float x = new Float(2.22, "x");
     Float y = new Float(-420.0484838, "y");
-    Float k = new Float(0.9, "k");
-    Float g = new Float(2.11232, "g");
+    Float k = new Float(5.2, "k");
+    Float g = new Float(3.6, "g");
     //test();
     //System.out.println(ceil(x));
-    System.out.println(exp(k));
+    System.out.println(ln(k));
+    System.out.println(pow(k, g));
     //System.out.println(sqrt(k));
-    //System.out.println(exp(k, g));
     //System.out.println(k);
   }
+  */
 
 }
