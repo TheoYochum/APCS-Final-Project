@@ -35,3 +35,7 @@ Theo: Refined the trig functions and created a rudimentary expression parser for
 **5/31/22** 
 
 Theo: Simplified and improved the parser, uses a regex expression for parentheses and recursively evaluates them
+
+**6/1/22** 
+
+Theo: Created Matrix functions, generally functional, not all functions made, need to be translated to using Fractions for easy rational decimals
