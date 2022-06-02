@@ -155,11 +155,21 @@ public class Statistics extends Functions {
       return gcd(y, new Int(x.value() % y.value(), "remainder"));
     }
   }
-  /*
 
   public static Int lcm (Int x, Int y) {
-
+    int k;
+    if (x.intValue() == 0 && y.intValue() == 0) {
+      k = 0;
+    }
+    if (x.intValue() < y.intValue()) {
+      k = abs(x).intValue() * ( (abs(y).intValue()) / gcd(x,y).value());
+    }
+    else if (y.intValue() < x.intValue()) {
+      k = abs(y).intValue() * ( (abs(x).intValue()) / gcd(x,y).value());
+    }
+    return new Int(k, "lcm");
   }
+  /*
 
   public static Number log(Number x, Number y) {
 
