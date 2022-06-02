@@ -104,7 +104,11 @@ public class Statistics extends Functions {
     if (x.value() > 0 && x.value() < 1) {
       k = scientificNotU(x); // makes sure numbers between 0 and 1 return the correct natural logs
     } else {
-      k = scientificNotD(x);
+      if (x.value() == (int)x.value()) {
+        k = scientificNotD(x);
+      } else {
+        k = scientificNotU(x);
+      }
     }
     Number res = x.get();
     Number temp = ln(new Float(sqrt(k[1]).value(), "temp"), 1);
@@ -118,7 +122,7 @@ public class Statistics extends Functions {
     Float y = new Float(y1, "y");
     double temp = 0.0;
     double sum = 0.0;
-    for (int i = 1; i < 49; i += 2) {
+    for (int i = 1; i < 199; i += 2) {
       temp = exp(y, new Int(i, "exp")).value();
       sum += temp / i;
     }
@@ -143,28 +147,36 @@ public class Statistics extends Functions {
       return sqrt(n, (n / guess + guess) / 2);
     }
   }
+
+  public static Int gcd(Int x, Int y) {
+    if (y.value() == 0) {
+      return x;
+    } else {
+      return gcd(y, new Int(x.value() % y.value(), "remainder"));
+    }
+  }
   /*
+
+  public static Int lcm (Int x, Int y) {
+
+  }
 
   public static Number log(Number x, Number y) {
 
   }
 
-  public static Int gcd(Int x, Int y) {
-
-  }
-
-  public static Int lcm (Int x, Int y) {
-
-  }
   public static void main(String[] args) {
     Float x = new Float(2.22, "x");
     Float y = new Float(-420.0484838, "y");
-    Float k = new Float(5.2, "k");
+    Float k = new Float(10.23, "k");
     Float g = new Float(3.6, "g");
+    Int a = new Int(10000, "a");
+    Int b = new Int(2000, "b");
     //test();
     //System.out.println(ceil(x));
-    System.out.println(ln(k));
-    System.out.println(pow(k, g));
+    System.out.println(gcd(a,b));
+    //System.out.println(ln(k));
+    //System.out.println(pow(k, g));
     //System.out.println(sqrt(k));
     //System.out.println(k);
   }
