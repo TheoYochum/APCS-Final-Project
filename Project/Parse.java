@@ -31,10 +31,10 @@ public class Parse {
   public static Float Parse(String expression) {
     ArrayList<String> terms = Terms(expression);
     for (int i = terms.size() - 1; i >= 0; i--) {
-      if (terms.get(i).contains("(")) {
+      if (terms.get(i).contains("(")) { // Targets any Term of parentheses and recursively breaks them down and evaluates them individually
         terms.set(i, Parse(terms.get(i).substring(1, terms.get(i).length() - 1)).value() + "");
       }
-    }
+    } // Evaluates each term
     return new Float(Double.parseDouble(evaluate(terms)), "expression");
   }
 
@@ -47,27 +47,27 @@ public class Parse {
   private static ArrayList<String> Terms(String in) {
     String expression = in;
     ArrayList<String> out = new ArrayList<String>();
-    while (expression.contains("(")) {
-      String regex = "[(](?:[^)(]+|[(](?:[^)(]+|[(][^)(]*[)])*[)])*[)]";
+    while (expression.contains("(")) { // As long as the string has parentheses left break them down
+      String regex = "[(](?:[^)(]+|[(](?:[^)(]+|[(][^)(]*[)])*[)])*[)]"; // Appropriated from here: https://stackoverflow.com/questions/546433/regular-expression-to-match-balanced-parentheses
       Pattern pattern = Pattern.compile(regex);
       Matcher matcher =  pattern.matcher(expression);
-      matcher.find();
+      matcher.find(); // RegEx operations
       String block = matcher.group(0);
       int index = expression.indexOf(block);
-      if (index != 0) {
+      if (index != 0) { // If the parentheses is not the first term then add every preceeding term
         String[] terms = expression.substring(0, index).split(" ");
         for (String term : terms) {
           out.add(term);
         }
-      }
-      out.add(block);
-      if (index + block.length() + 1 < expression.length()) {
+      } // Add the parenthese block
+      out.add(block); 
+      if (index + block.length() + 1 < expression.length()) { // Removes everything before and including the Parentheses block
         expression = expression.substring(index + block.length() + 1);
       } else {
         expression = "";
       }
     }
-    String[] terms = expression.split(" ");
+    String[] terms = expression.split(" "); // Once every parentheses is processed add the rest of the terms
     for (String term : terms) {
       out.add(term);
     }

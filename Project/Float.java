@@ -4,7 +4,7 @@
  */
 
 public class Float extends Variable implements Number {
-  double value;
+  private double value;
 
   /**
    * Basic constructor

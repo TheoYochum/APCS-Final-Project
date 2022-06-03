@@ -87,6 +87,10 @@ public class Angle extends Variable {
     return value;
   }
 
+  public void setValue(double in) {
+    value = in;
+  }
+
   public String toString() {
     return "" + value();
   }
