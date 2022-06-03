@@ -161,33 +161,22 @@ public class Statistics extends Functions {
     if (x.intValue() == 0 && y.intValue() == 0) {
       k = 0;
     }
-    Int newX = x.getInt();
-    Int newY = y.getInt();
-    while (newX.intValue() != newY.intValue()) {
-      if (newX.intValue() < newY.intValue()) {
-        newX.setValue(newX.intValue() + x.intValue());
-      } else if (newY.intValue() < newX.intValue()) {
-        newY.setValue(newY.intValue() + y.intValue());
-      }
+    Int tempX = abs(x).getInt();
+    Int tempY = abs(y).getInt();
+    if (x.intValue() < y.intValue()) {
+      k = tempX.intValue() * ( (tempY.intValue()) / gcd(x,y).intValue());
     }
-    Int lcm = new Int(newY.intValue(), "lcm");
+    else if (y.intValue() < x.intValue()) {
+      k = tempY.intValue() * ( (tempX.intValue()) / gcd(x,y).intValue());
+    }
+    Int lcm = new Int(k, "lcm");
     return lcm;
   }
   /*
-  Int tempX = abs(x).getInt();
-  Int tempY = abs(y).getInt();
-  if (x.intValue() < y.intValue()) {
-  k = tempX.intValue() * ( (tempY.intValue()) / gcd(x,y).intValue());
-}
-else if (y.intValue() < x.intValue()) {
-k = tempY.intValue() * ( (tempX.intValue()) / gcd(x,y).intValue());
-}
-Int lcm = new Int(k, "lcm");
 
   public static Number log(Number x, Number y) {
 
   }
-  */
 
   public static void main(String[] args) {
     Float x = new Float(2.22, "x");
@@ -204,5 +193,24 @@ Int lcm = new Int(k, "lcm");
     //System.out.println(sqrt(k));
     //System.out.println(k);
   }
+  */
 
-}
+} // end of class
+/*
+public static Int lcm (Int x, Int y) { // different lcm algorithm but keeping it her just in case for later
+  int k = 0;
+  if (x.intValue() == 0 && y.intValue() == 0) {
+    k = 0;
+  }
+  Int newX = x.getInt();
+  Int newY = y.getInt();
+  while (newX.intValue() != newY.intValue()) {
+    if (newX.intValue() < newY.intValue()) {
+      newX.setValue(newX.intValue() + x.intValue());
+    } else if (newY.intValue() < newX.intValue()) {
+      newY.setValue(newY.intValue() + y.intValue());
+    }
+  }
+  Int lcm = new Int(newY.intValue(), "lcm");
+  return lcm;
+}*/
