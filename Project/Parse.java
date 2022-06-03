@@ -9,7 +9,8 @@ public class Parse {
    */
   private static String[] trig = {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan", "arcsec", "arccsc", "arccot"};
   private static String[] operations = {"^", "*", "/", "+", "-"};
-  
+  private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm"};
+
   /**
    * Input loop
    * @param args Call arguments
@@ -23,7 +24,7 @@ public class Parse {
   }
 
   /**
-   * Takes an infix expression and breaks it down and evaluates it, 
+   * Takes an infix expression and breaks it down and evaluates it,
    * if it has paretheses it recursively evaluates them until all are removed
    * @param expression A string in proper infix format, spaces between operators
    * @return A float value of the results of this expression
@@ -39,7 +40,7 @@ public class Parse {
   }
 
   /**
-   * Turns a string expression in proper infix form into an Arraylist, 
+   * Turns a string expression in proper infix form into an Arraylist,
    * uses regex to group parentheses
    * @param in an infix expression with proper formatting
    * @return an ArrayList of the expression broken down
@@ -60,7 +61,7 @@ public class Parse {
           out.add(term);
         }
       } // Add the parenthese block
-      out.add(block); 
+      out.add(block);
       if (index + block.length() + 1 < expression.length()) { // Removes everything before and including the Parentheses block
         expression = expression.substring(index + block.length() + 1);
       } else {
@@ -82,6 +83,11 @@ public class Parse {
    */
   private static String evaluate(ArrayList<String> in) {
     for (String operation : trig) {
+      while (in.indexOf(operation) != -1) {
+        trig(in, operation, in.indexOf(operation));
+      }
+    }
+    for (String operation : stats) {
       while (in.indexOf(operation) != -1) {
         trig(in, operation, in.indexOf(operation));
       }
@@ -214,6 +220,15 @@ public class Parse {
         break;
     }
   }
+
+  private static void stats(ArrayList<String> in, String operation, int i) {
+    Number one;
+    Number two;
+    switch ((in.get(i))) {
+      case "abs":
+        //add in stats code
+      }
+    }
 
 
 }
