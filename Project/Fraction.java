@@ -81,10 +81,14 @@ public class Fraction extends Variable implements Number {
 
   public void setValue(int x) {
     //necesarry for overide
+    numerator.setValue(x);
+    denominator.setValue(1);
   }
 
   public void setValue(double x) {
     //necesarry for overide
+    numerator.setValue((int)x);
+    denominator.setValue(1);
   }
 
   /**
