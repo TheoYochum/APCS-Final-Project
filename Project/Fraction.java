@@ -8,6 +8,12 @@ public class Fraction extends Variable implements Number {
   private Int numerator;
   private Int denominator;
 
+
+  public static void main(String[] args) {
+    Fraction test = approx(3.245);
+    System.out.println(test);
+  }
+
   /**
    * Basic constructor taking two Ints and storing them in the numerator and denominator
    * @param num the Int in the Numerator
@@ -18,6 +24,18 @@ public class Fraction extends Variable implements Number {
     super(name, "Fraction");
     numerator = num;
     denominator = denom;
+  }
+
+  /**
+   * Basic constructor taking two Ints and storing them in the numerator and denominator
+   * @param num the Int in the Numerator
+   * @param denom the Int in the Denominator
+   * @param name the name of the variable
+   */
+  public Fraction(int num, int denom, String name) {
+    super(name, "Fraction");
+    numerator = new Int(num, "numerator");
+    denominator = new Int(denom, "numerator");
   }
 
   /**
@@ -94,8 +112,10 @@ public class Fraction extends Variable implements Number {
   /**
    * A method which attempts to reduce the fraction to its simplest form
    */
-  public void simplify() {
+  public void simplify(Fraction in) {
+    // Statistics.gcd();
   }
+
 
   /**
    * Creates an identical Fraction with a different reference
@@ -104,6 +124,25 @@ public class Fraction extends Variable implements Number {
   public Variable copy() {
     return new Fraction(numerator, denominator, this.name());
   }
+
+  public Variable reciprocal() {
+    return new Fraction(denominator, numerator, this.name() +  " reciprocal");
+  }
+
+  public static Fraction approx(double in) {
+    int num = 0;
+    int denom = 0;
+    double sum = 0;
+    
+    
+
+    return new Fraction(num, denom, "approx");
+  }
+
+  public static int wholePart(Fraction in) {
+    return (int) in.value();
+  }
+  
 
   /**
    * Provides the reference of the Fraction as a Number
