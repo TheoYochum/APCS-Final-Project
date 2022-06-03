@@ -107,7 +107,6 @@ public class Statistics extends Functions {
       if (x.value() == (int)x.value()) {
         k = scientificNotD(x);
       } else {
-        System.out.println(x.value());
         k = scientificNotU(x);
       }
     }
@@ -148,31 +147,70 @@ public class Statistics extends Functions {
       return sqrt(n, (n / guess + guess) / 2);
     }
   }
+
+  public static Int gcd(Int x, Int y) {
+    if (y.value() == 0) {
+      return x;
+    } else {
+      return gcd(y, new Int(x.value() % y.value(), "remainder"));
+    }
+  }
+
+  public static Int lcm (Int x, Int y) {
+    int k = 0;
+    if (x.intValue() == 0 && y.intValue() == 0) {
+      k = 0;
+    }
+    Int tempX = abs(x).getInt();
+    Int tempY = abs(y).getInt();
+    if (x.intValue() < y.intValue()) {
+      k = tempX.intValue() * ( (tempY.intValue()) / gcd(x,y).intValue());
+    }
+    else if (y.intValue() < x.intValue()) {
+      k = tempY.intValue() * ( (tempX.intValue()) / gcd(x,y).intValue());
+    }
+    Int lcm = new Int(k, "lcm");
+    return lcm;
+  }
   /*
 
   public static Number log(Number x, Number y) {
 
   }
 
-  public static Int gcd(Int x, Int y) {
-
-  }
-
-  public static Int lcm (Int x, Int y) {
-
-  }
   public static void main(String[] args) {
     Float x = new Float(2.22, "x");
     Float y = new Float(-420.0484838, "y");
     Float k = new Float(10.23, "k");
     Float g = new Float(3.6, "g");
+    Int a = new Int(16, "a");
+    Int b = new Int(19, "b");
     //test();
     //System.out.println(ceil(x));
-    System.out.println(ln(k));
+    System.out.println(lcm(a,b));
+    //System.out.println(ln(k));
     //System.out.println(pow(k, g));
     //System.out.println(sqrt(k));
     //System.out.println(k);
   }
   */
 
-}
+} // end of class
+/*
+public static Int lcm (Int x, Int y) { // different lcm algorithm but keeping it her just in case for later
+  int k = 0;
+  if (x.intValue() == 0 && y.intValue() == 0) {
+    k = 0;
+  }
+  Int newX = x.getInt();
+  Int newY = y.getInt();
+  while (newX.intValue() != newY.intValue()) {
+    if (newX.intValue() < newY.intValue()) {
+      newX.setValue(newX.intValue() + x.intValue());
+    } else if (newY.intValue() < newX.intValue()) {
+      newY.setValue(newY.intValue() + y.intValue());
+    }
+  }
+  Int lcm = new Int(newY.intValue(), "lcm");
+  return lcm;
+}*/
