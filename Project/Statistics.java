@@ -116,7 +116,7 @@ public class Statistics extends Functions {
     return res;
   }
 
-  public static Number ln(Number x , int j) {
+  private static Number ln(Number x , int j) {
     Number res = x.get();
     double y1 = (res.value() - 1) / (res.value() + 1);
     Float y = new Float(y1, "y");
