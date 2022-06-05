@@ -10,8 +10,13 @@ public class Fraction extends Variable implements Number {
 
 
   public static void main(String[] args) {
-    Fraction test = approx(3.245);
-    System.out.println(test);
+    // Fraction test = approx(3.245);
+    Fraction test2 = new Fraction(649, 200 , "test");
+    // System.out.println(test);
+    // System.out.println(test2);
+    // test2.simplify();
+    // System.out.println(test2);
+    System.out.println(floatToCont(new Float(Functions.pi, "test")));
   }
 
   /**
@@ -112,8 +117,10 @@ public class Fraction extends Variable implements Number {
   /**
    * A method which attempts to reduce the fraction to its simplest form
    */
-  public void simplify(Fraction in) {
-    // Statistics.gcd();
+  public void simplify() {
+    Int gcd = Statistics.gcd(numerator, denominator);
+    numerator.setValue(Arithmetic.divide(numerator, gcd).getInt().intValue());
+    denominator.setValue(Arithmetic.divide(denominator, gcd).getInt().intValue());
   }
 
 
@@ -141,6 +148,61 @@ public class Fraction extends Variable implements Number {
 
   public static int wholePart(Fraction in) {
     return (int) in.value();
+  }
+
+  public static double evalContFrac(String in) {
+    String[] contFrac = in.substring(1, in.length() - 1).split("[;,]");
+    return Integer.parseInt(contFrac[0]) + (1 / evalContFrac(contFrac, 1));
+  }
+
+  private static double evalContFrac(String[] in, int index) {
+    if (index == in.length - 1) {
+      return Integer.parseInt(in[index]);
+    }
+    double sum = Integer.parseInt(in[index]);
+    return sum + (1 / evalContFrac(in, index + 1));
+  }
+
+  public static Fraction contToFrac(String in) { // https://math.stackexchange.com/questions/3084970/how-to-convert-continued-fractions-into-normal-fractions
+    String[] ary = in.substring(1, in.length() - 1).split("[;,]");
+    return new Fraction(contToFrac(ary, ary.length - 1, 'h'), contToFrac(ary, ary.length - 1, 'k'), "test");
+  }
+
+  private static int contToFrac(String[] in, int index, char mode) {
+    if (index == -2) {
+      if (mode == 'h') {
+        return 0;
+      } else {
+        return 1;
+      }
+    } else if (index == -1) {
+      if (mode == 'h') {
+        return 1;
+      } else {
+        return 0;
+      }
+    }
+    return Integer.parseInt(in[index]) * contToFrac(in, index - 1, mode) + contToFrac(in, index - 2, mode);
+  }
+
+  public static String fractToCont(Fraction in) {
+    String out = "[";
+    out += (int) in.value() + ";";
+    return out.substring(0, out.length() - 1) + "]";
+  }
+
+  public static Fraction floatToCont(Float in) {
+    double x = in.value();
+    int a = (int) x;
+    String cont = "[" + a + ";";
+    for (int i = 0; i < 10; i++) {
+      x = 1 / (x - a);
+      a = (int) x;
+      cont += a + ",";
+    }
+    cont = cont.substring(0, cont.length() - 1) + "]"; 
+    System.out.println(cont);
+    return contToFrac(cont);
   }
   
 
