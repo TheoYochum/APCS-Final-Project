@@ -16,7 +16,11 @@ public class Fraction extends Variable implements Number {
     // System.out.println(test2);
     // test2.simplify();
     // System.out.println(test2);
-    System.out.println(floatToCont(new Float(Functions.pi, "test")));
+    String test1 = floatToCont(new Float(Functions.pi, "test"), 20);
+    System.out.println(test1);
+    Fraction test3 = contToFrac(test1);
+    System.out.println(test3);
+    System.out.println(test3.value());
   }
 
   /**
@@ -136,15 +140,15 @@ public class Fraction extends Variable implements Number {
     return new Fraction(denominator, numerator, this.name() +  " reciprocal");
   }
 
-  public static Fraction approx(double in) {
-    int num = 0;
-    int denom = 0;
-    double sum = 0;
+  // public static Fraction approx(double in) {
+  //   int num = 0;
+  //   int denom = 0;
+  //   double sum = 0;
     
     
 
-    return new Fraction(num, denom, "approx");
-  }
+  //   return new Fraction(num, denom, "approx");
+  // }
 
   public static int wholePart(Fraction in) {
     return (int) in.value();
@@ -191,18 +195,27 @@ public class Fraction extends Variable implements Number {
     return out.substring(0, out.length() - 1) + "]";
   }
 
-  public static Fraction floatToCont(Float in) {
+  public static String floatToCont(Float in, int tolerance) {
+    int i = 1;
+    String cont = floatToContHelp(in, 1);
+    while (Statistics.abs(new Float(in.value() - evalContFrac(cont), "name")).value() > Statistics.pow(new Int(5, "test"), new Float(-1 * tolerance, "test")).value()) {
+      i++;
+      cont = floatToContHelp(in, i);
+    }
+    return cont;
+  }
+
+  private static String floatToContHelp(Float in, int terms) {
     double x = in.value();
     int a = (int) x;
     String cont = "[" + a + ";";
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < terms; i++) {
       x = 1 / (x - a);
       a = (int) x;
       cont += a + ",";
     }
     cont = cont.substring(0, cont.length() - 1) + "]"; 
-    System.out.println(cont);
-    return contToFrac(cont);
+    return cont;
   }
   
 
