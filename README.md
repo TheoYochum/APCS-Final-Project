@@ -39,3 +39,16 @@ Theo: Simplified and improved the parser, uses a regex expression for parenthese
 **6/1/22** 
 
 Theo: Created Matrix functions, generally functional, not all functions made, need to be translated to using Fractions for easy rational decimals
+
+**6/3/22** 
+
+Theo: Experimented with continued fractions interoperability with fractions, did not finish still need to figure out decimal to Fraction
+
+**6/5/22** 
+
+Theo: Created semi-functional approximation of floats into Fractions
+
+**6/6/22** 
+
+Theo: Formatted and structured the decimal to fraction approximation with general documentation
+
