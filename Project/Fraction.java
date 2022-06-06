@@ -8,10 +8,6 @@ public class Fraction extends Variable implements Number {
   private Int numerator;
   private Int denominator;
 
-  // public static void main(String[] args) {
-  //   System.out.println(approx(Math.PI, 14));
-  // }
-  
   /**
    * Basic constructor taking two Ints and storing them in the numerator and denominator
    * @param num the Int in the Numerator
