@@ -116,7 +116,7 @@ public class Statistics extends Functions {
     return res;
   }
 
-  public static Number ln(Number x , int j) {
+  private static Number ln(Number x , int j) {
     Number res = x.get();
     double y1 = (res.value() - 1) / (res.value() + 1);
     Float y = new Float(y1, "y");
@@ -134,10 +134,9 @@ public class Statistics extends Functions {
   *@param n any non-negative value you want to take the sqrt of
   *@return the approximate sqrt of n within a tolerance of 0.001%
   */
-  public static Number sqrt(Number n) {
-    Number res = n.get();
-    res.setValue(sqrt(n.value(), 1.0));
-    return res;
+  public static Float sqrt(Number n) {
+    Float k = new Float(sqrt(n.value(), 1.0), "k");
+    return k;
   }
 
   private static double sqrt(double n, double guess) {
