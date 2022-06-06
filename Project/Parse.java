@@ -227,6 +227,47 @@ public class Parse {
     switch ((in.get(i))) {
       case "abs":
         //add in stats code
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one");
+        in.set(i, "" + Statistics.abs(one));
+        in.remove(i + 1);
+      case "ceil":
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one");
+        in.set(i, "" + Statistics.ceil(one));
+        in.remove(i + 1);
+      case "floor":
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one");
+        in.set(i, "" + Statistics.floor(one));
+        in.remove(i + 1);
+      case "exp": //e
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one");
+        in.set(i, "" + Statistics.exp(one));
+        in.remove(i + 1);
+      case "pow":
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one");
+        two = new Float(Double.parseDouble(in.get(i + 2)), "two");
+        in.set(i, "" + Statistics.pow(one, two));
+        in.remove(i + 1);
+        in.remove(i + 1);
+      case "ln":
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one");
+        in.set(i, "" + Statistics.ln(one));
+        in.remove(i + 1);
+      case "sqrt":
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one");
+        in.set(i, "" + Statistics.sqrt(one));
+        in.remove(i + 1);
+      case "gcd":
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one").getInt();
+        two = new Float(Double.parseDouble(in.get(i + 2)), "two").getInt();
+        in.set(i, "" + Statistics.gcd(one, two));
+        in.remove(i + 1);
+        in.remove(i + 1);
+      case "lcm":
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one").getInt();
+        two = new Float(Double.parseDouble(in.get(i + 2)), "two").getInt();
+        in.set(i, "" + Statistics.lcm(one, two));
+        in.remove(i + 1);
+        in.remove(i + 1);
       }
     }
 
