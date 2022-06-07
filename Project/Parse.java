@@ -186,7 +186,7 @@ public class Parse {
       case "^":
         one = new Float(Double.parseDouble(in.get(i - 1)), "one");
         two = new Float(Double.parseDouble(in.get(i + 1)), "two");
-        in.set(i - 1, "" + new Float(Math.pow(one.value(), two.value()), one.name() + " to the power of " + two.name()));
+        in.set(i - 1, "" + new Float(Statistics.pow(one, two).value(), one.name() + " to the power of " + two.name()));
         in.remove(i);
         in.remove(i);
         break;
