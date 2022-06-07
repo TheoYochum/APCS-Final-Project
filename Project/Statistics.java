@@ -70,26 +70,47 @@ public class Statistics extends Functions {
     return exp(k);
   }
 
-
-  private static Int[] scientificNotD(Number exp) { //numbers with no dec
-    int n = 0;
-    Number ex = exp.get();
-    while ( ex.value() / 10 > 1 ) {
-      n++;
-      ex.setValue(ex.value() / 10);
+  private static Number[] sciNot(Number exp, int outdated) {
+    String decimal;
+    int count = 0;
+    if (exp.value() == (int)exp.value()) {
+      decimal = Integer.toString((int)exp.value());
+      int temp = decimal.length();
+      if ( decimal.charAt(temp-1) == '0' ) {
+        for (int i = temp - 1; decimal.charAt(i) == '0'; i--) {
+          count--;
+          temp = i;
+        }
+      }
+      decimal = decimal.substring(0, temp);
+    } else {
+      decimal  = Double.toString(exp.value());
+      for (int i = decimal.indexOf(".") + 1; i < decimal.length(); i++) {
+        count++;
+      }
+      decimal = decimal.substring(0, decimal.indexOf(".")) + decimal.substring(decimal.indexOf(".") + 1);
     }
-    Int[] res = {new Int(n, "n"), new Int(ex.value(), "new exp")};
+    Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
     return res;
   }
 
-  private static Int[] scientificNotU(Number exp) { //numbers with decimals
-    int n = 0;
-    Number ex = exp.get();
-    while ( (abs(ex).value() - abs(exp).value()) / 10.0 < .09 ) {
-      n--;
-      ex.setValue(ex.value() * 10.0);
+  private static Number[] sciNot(Number exp) {
+    String decimal;
+    int count = 0;
+    decimal  = Double.toString(exp.value());
+    if (exp.value() > 1) {
+      count = -1 + decimal.indexOf(".");
+      int temp = decimal.length();
+      decimal = "" + decimal.charAt(0) + "." + decimal.substring(1, decimal.indexOf(".")) + decimal.substring(decimal.indexOf(".") + 1);
+    } else if (exp.value() > 0 && exp.value() < 1) {
+      Number ex = exp.get();
+      while (ex.value() < 1) {
+        count--;
+        ex.setValue(ex.value() * 10);
+      }
+      decimal = Double.toString(ex.value());
     }
-    Int[] res = {new Int(n, "n"), new Int(ex.value(), "new exp")};
+    Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
     return res;
   }
 
@@ -100,20 +121,11 @@ public class Statistics extends Functions {
     if (x.value() > 1 && x.value() < sqrt(new Int(10, "ten")).value()) {
       return ln(x, 1);
     }
-    Int[] k;
-    if (x.value() > 0 && x.value() < 1) {
-      k = scientificNotU(x); // makes sure numbers between 0 and 1 return the correct natural logs
-    } else {
-      if (x.value() == (int)x.value()) {
-        k = scientificNotD(x);
-      } else {
-        k = scientificNotU(x);
-      }
-    }
-    Number res = x.get();
-    Number temp = ln(new Float(sqrt(k[1]).value(), "temp"), 1);
-    res.setValue( (2 * temp.value()) + (2.3025851 * k[0].value() ) );
-    return res;
+    Number[] k = sciNot(x);
+    Float sqrtX = new Float(Math.sqrt(k[1].value()), "t");
+    Number temp = ln(sqrtX, 1);
+    temp.setValue( (2 * temp.value()) + (2.3025851 * k[0].value() ) );
+    return temp;
   }
 
   private static Number ln(Number x , int j) {
@@ -171,23 +183,26 @@ public class Statistics extends Functions {
     Int lcm = new Int(k, "lcm");
     return lcm;
   }
-  /*
 
   public static Number log(Number x, Number y) {
-
+    Float k = new Float(y.value(), "k");
+    k.setValue(ln(y).value() / ln(x).value());
+    return k;
   }
 
+  /*
   public static void main(String[] args) {
     Float x = new Float(2.22, "x");
     Float y = new Float(-420.0484838, "y");
     Float k = new Float(10.23, "k");
-    Float g = new Float(3.6, "g");
+    Float g = new Float(0.9, "g");
     Int a = new Int(16, "a");
     Int b = new Int(19, "b");
     //test();
     //System.out.println(ceil(x));
-    System.out.println(lcm(a,b));
-    //System.out.println(ln(k));
+    Number[] aa = sciNot(k);
+    System.out.println(aa[0] + " " +  aa[1]);
+    System.out.println(ln(g));
     //System.out.println(pow(k, g));
     //System.out.println(sqrt(k));
     //System.out.println(k);
@@ -195,21 +210,3 @@ public class Statistics extends Functions {
   */
 
 } // end of class
-/*
-public static Int lcm (Int x, Int y) { // different lcm algorithm but keeping it her just in case for later
-  int k = 0;
-  if (x.intValue() == 0 && y.intValue() == 0) {
-    k = 0;
-  }
-  Int newX = x.getInt();
-  Int newY = y.getInt();
-  while (newX.intValue() != newY.intValue()) {
-    if (newX.intValue() < newY.intValue()) {
-      newX.setValue(newX.intValue() + x.intValue());
-    } else if (newY.intValue() < newX.intValue()) {
-      newY.setValue(newY.intValue() + y.intValue());
-    }
-  }
-  Int lcm = new Int(newY.intValue(), "lcm");
-  return lcm;
-}*/
