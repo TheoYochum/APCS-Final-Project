@@ -183,12 +183,14 @@ public class Statistics extends Functions {
     Int lcm = new Int(k, "lcm");
     return lcm;
   }
-  /*
 
   public static Number log(Number x, Number y) {
-
+    Float k = new Float(y.value(), "k");
+    k.setValue(ln(y).value() / ln(x).value());
+    return k;
   }
 
+  /*
   public static void main(String[] args) {
     Float x = new Float(2.22, "x");
     Float y = new Float(-420.0484838, "y");

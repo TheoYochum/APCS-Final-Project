@@ -9,7 +9,7 @@ public class Parse {
    */
   private static String[] trig = {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan", "arcsec", "arccsc", "arccot"};
   private static String[] operations = {"^", "*", "/", "+", "-"};
-  private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm"};
+  private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm", "log"};
 
   /**
    * Input loop
@@ -274,6 +274,13 @@ public class Parse {
         one = new Int(Double.parseDouble(in.get(i + 1)), "one");
         two = new Int(Double.parseDouble(in.get(i + 2)), "two");
         in.set(i, "" + Statistics.lcm(one.getInt(), two.getInt()));
+        in.remove(i + 1);
+        in.remove(i + 1);
+        break;
+      case "log":
+        one = new Float(Double.parseDouble(in.get(i + 1)), "one");
+        two = new Float(Double.parseDouble(in.get(i + 2)), "two");
+        in.set(i, "" + Statistics.log(one, two));
         in.remove(i + 1);
         in.remove(i + 1);
         break;
