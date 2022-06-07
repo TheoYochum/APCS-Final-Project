@@ -89,7 +89,7 @@ public class Parse {
     }
     for (String operation : stats) {
       while (in.indexOf(operation) != -1) {
-        trig(in, operation, in.indexOf(operation));
+        stats(in, operation, in.indexOf(operation));
       }
     }
     for (String operation : operations) {
@@ -230,44 +230,53 @@ public class Parse {
         one = new Float(Double.parseDouble(in.get(i + 1)), "one");
         in.set(i, "" + Statistics.abs(one));
         in.remove(i + 1);
+        break;
       case "ceil":
         one = new Float(Double.parseDouble(in.get(i + 1)), "one");
         in.set(i, "" + Statistics.ceil(one));
         in.remove(i + 1);
+        break;
       case "floor":
         one = new Float(Double.parseDouble(in.get(i + 1)), "one");
         in.set(i, "" + Statistics.floor(one));
         in.remove(i + 1);
+        break;
       case "exp": //e
         one = new Float(Double.parseDouble(in.get(i + 1)), "one");
         in.set(i, "" + Statistics.exp(one));
         in.remove(i + 1);
+        break;
       case "pow":
         one = new Float(Double.parseDouble(in.get(i + 1)), "one");
         two = new Float(Double.parseDouble(in.get(i + 2)), "two");
         in.set(i, "" + Statistics.pow(one, two));
         in.remove(i + 1);
         in.remove(i + 1);
+        break;
       case "ln":
         one = new Float(Double.parseDouble(in.get(i + 1)), "one");
         in.set(i, "" + Statistics.ln(one));
         in.remove(i + 1);
+        break;
       case "sqrt":
         one = new Float(Double.parseDouble(in.get(i + 1)), "one");
         in.set(i, "" + Statistics.sqrt(one));
         in.remove(i + 1);
+        break;
       case "gcd":
-        one = new Float(Double.parseDouble(in.get(i + 1)), "one").getInt();
-        two = new Float(Double.parseDouble(in.get(i + 2)), "two").getInt();
-        in.set(i, "" + Statistics.gcd(one, two));
+        one = new Int(Double.parseDouble(in.get(i + 1)), "one");
+        two = new Int(Double.parseDouble(in.get(i + 2)), "two");
+        in.set(i, "" + Statistics.gcd(one.getInt(), two.getInt()));
         in.remove(i + 1);
         in.remove(i + 1);
+        break;
       case "lcm":
-        one = new Float(Double.parseDouble(in.get(i + 1)), "one").getInt();
-        two = new Float(Double.parseDouble(in.get(i + 2)), "two").getInt();
-        in.set(i, "" + Statistics.lcm(one, two));
+        one = new Int(Double.parseDouble(in.get(i + 1)), "one");
+        two = new Int(Double.parseDouble(in.get(i + 2)), "two");
+        in.set(i, "" + Statistics.lcm(one.getInt(), two.getInt()));
         in.remove(i + 1);
         in.remove(i + 1);
+        break;
       }
     }
 
