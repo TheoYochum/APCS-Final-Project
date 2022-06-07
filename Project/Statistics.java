@@ -1,4 +1,10 @@
 public class Statistics extends Functions {
+
+  /**
+   * Converts the value of the Number taken in into it's absolute value and returns a new Number with that absolute value
+   * @param Number with a positive or negative value
+   * @return the reference of a Number with the absolute value of the param
+   */
   public static Number abs(Number x) {
     Number k = x.get();
     if (k.value() < 0 ) {
@@ -7,6 +13,11 @@ public class Statistics extends Functions {
     return k;
   }
 
+  /**
+   * Provides the reference of a Int that has the value of the Number taken in rounded up
+   * @param Number with a unrounded value
+   * @return the reference of a Int with the rounded up value of the param
+   */
   public static Int ceil(Number x) {
     Int k = x.getInt();
     if (x.value() > 0) {
@@ -15,6 +26,11 @@ public class Statistics extends Functions {
     return k;
   }
 
+  /**
+   * Provides the reference of a Int that has the value of the Number taken in rounded down
+   * @param Number with a unrounded value
+   * @return the reference of a Int with the rounded down value of the param
+   */
   public static Int floor(Number x) {
     Int k = x.getInt();
     if (x.value() < 0) {
@@ -23,6 +39,11 @@ public class Statistics extends Functions {
     return k;
   }
 
+  /**
+   * Provides the reference of a Number that has e taken to the power of the value of the Number taken in
+   * @param Number with a value that e will be raised to
+   * @return the reference of a Number with the value of e taken to the power of the value of the param
+   */
   public static Number exp(Number x) { //e implementation
     int n = floor(x).intValue();
     double r1 = abs(x).value() - abs(floor(x)).value();
@@ -33,13 +54,13 @@ public class Statistics extends Functions {
       out = 1.0;
     }
     if (n < 0) {
-      out = 1 / exp(new Float(e, "e"), abs(new Int(n, "n"))).value();
+      out = 1 / exp(new Float(e, "e"), new Int(abs(new Float(n, "n")).value(), "exp")).value();
     }
     Float r = new Float(r1, "r");
     double temp = 0.0;
     double sum = 0.0;
     for (int i = 0; i < 20; i++) {
-      temp = exp(r, new Float(i, "rs")).value();
+      temp = exp(r, new Int(i, "rs")).value();
       int factorial = 1;
       for (int j = 1; j <= i; j++) {
         factorial *= j;
@@ -52,7 +73,13 @@ public class Statistics extends Functions {
     return k;
   }
 
-  public static Number exp(Number x, Number y) { //works only with integer exponents
+  /**
+   * Provides the reference of a Number that has taken the value of the Number param to the power of the value of the Int param
+   * @param Number with a value that will be the base
+   * @param Int with a value that will be the exponent of the base
+   * @return the reference of a Number with the value of Number param taken to the power of the value of the Int param
+   */
+  private static Number exp(Number x, Int y) { //works only with integer exponents
     double res = 1.0;
     Int max = floor(y);
     for (int i = 0; i < max.intValue(); i++) {
@@ -63,7 +90,12 @@ public class Statistics extends Functions {
     return j;
   }
 
-
+  /**
+   * Uses e to provide the reference of a Number that has taken the value of the Number param to the power of the value of the other Number param
+   * @param Number with a value that will be the base
+   * @param Number with a value that will be the exponent of the base
+   * @return the reference of a Number with the value of Number param taken to the power of the value of the other Number param
+   */
   public static Number pow(Number x, Number y) {
     Float k = new Float(y.value(), "k");
     k.setValue(k.value() * ln(x).value());
