@@ -8,17 +8,6 @@ public class Fraction extends Variable implements Number {
   private Int numerator;
   private Int denominator;
 
-
-  public static void main(String[] args) {
-    // Fraction test = approx(3.245);
-    Fraction test2 = new Fraction(649, 200 , "test");
-    // System.out.println(test);
-    // System.out.println(test2);
-    // test2.simplify();
-    // System.out.println(test2);
-    System.out.println(floatToCont(new Float(Functions.pi, "test")));
-  }
-
   /**
    * Basic constructor taking two Ints and storing them in the numerator and denominator
    * @param num the Int in the Numerator
@@ -44,14 +33,39 @@ public class Fraction extends Variable implements Number {
   }
 
   /**
-   * Basic constructor taking a single int and storing it as a Fraction wiht denominator 1
-   * @param num The integer which goes in the numerator
+   * Basic constructor taking a single int and storing it as a Fraction with denominator 1
+   * @param num the integer which goes in the numerator
    * @param name the name of the variable
    */
   public Fraction(int num, String name) {
     super(name, "Fraction");
     numerator = new Int(num, this.name() + " Numerator");
     denominator = new Int(1, this.name() + " Denominator");
+  }
+
+  /**
+   * Basic constructor taking in a single double and approximating it to a Fraction with a tolerance of 5 * 10 ^ -10
+   * @param in the double to be approximated
+   * @param name the name of the variable
+   */
+  public Fraction(double in, String name) {
+    super(name, "Fraction");
+    Fraction temp = approx(in, 10);
+    numerator = temp.getNumerator();
+    denominator = temp.getDenominator();
+  }
+  
+  /**
+   * Basic constructor taking in a single double and approximating it to a Fraction with a custom tolerance
+   * @param in the double to be approximated
+   * @param tolerance the set tolerance with the form of 5.0 * 10 ^ -n
+   * @param name the name of the variable
+   */
+  public Fraction(double in, int tolerance, String name) {
+    super(name, "Fraction");
+    Fraction temp = approx(in, tolerance);
+    numerator = temp.getNumerator();
+    denominator = temp.getDenominator();
   }
 
   /**
@@ -132,29 +146,40 @@ public class Fraction extends Variable implements Number {
     return new Fraction(numerator, denominator, this.name());
   }
 
+  /**
+   * Creates a new Fraction with the numerator and denomonator flipped
+   * @return a reference to the new reciprocal Fraction
+   */
   public Variable reciprocal() {
     return new Fraction(denominator, numerator, this.name() +  " reciprocal");
   }
 
-  public static Fraction approx(double in) {
-    int num = 0;
-    int denom = 0;
-    double sum = 0;
-    
-    
-
-    return new Fraction(num, denom, "approx");
+  /**
+   * Uses continued fractions to evaluate 
+   * @param in the decimal to be approximated
+   * @param tolerance the scientific notation exponent, for the differnce in the form of 5 * 10 ^ -n
+   * @return the fractional approximation of the provided touble, within the tolerance
+   */
+  public static Fraction approx(double in, int tolerance) {
+    return contToFrac(floatToCont(new Float(in, "name"), tolerance));
   }
 
-  public static int wholePart(Fraction in) {
-    return (int) in.value();
-  }
-
+  /**
+   * Evaluates a continued fraction in the form [a0;a1,a2,...,an]
+   * @param in a string of the continued fraction in proper form
+   * @return the double value of the continued fraction
+   */
   public static double evalContFrac(String in) {
     String[] contFrac = in.substring(1, in.length() - 1).split("[;,]");
     return Integer.parseInt(contFrac[0]) + (1 / evalContFrac(contFrac, 1));
   }
 
+  /**
+   * A helper function for the evaluation of the continued fraction
+   * @param in the string array of the continued fraction broken uo
+   * @param index the index of the current calue to be evaluated
+   * @return the reciprocal value of the current value plus the recursive call of the next value
+   */
   private static double evalContFrac(String[] in, int index) {
     if (index == in.length - 1) {
       return Integer.parseInt(in[index]);
@@ -163,11 +188,25 @@ public class Fraction extends Variable implements Number {
     return sum + (1 / evalContFrac(in, index + 1));
   }
 
-  public static Fraction contToFrac(String in) { // https://math.stackexchange.com/questions/3084970/how-to-convert-continued-fractions-into-normal-fractions
+  /**
+   * Converts a coninued fraction in the form [a0;a1,a2,...,an], to a standard fraction
+   * Uses the algorithm discussed here: https://math.stackexchange.com/questions/3084970/how-to-convert-continued-fractions-into-normal-fractions
+   * @param in a String of a continued fraction in the proper form
+   * @return the Fraction variable representation of the continued fraction
+   */
+  public static Fraction contToFrac(String in) {
     String[] ary = in.substring(1, in.length() - 1).split("[;,]");
     return new Fraction(contToFrac(ary, ary.length - 1, 'h'), contToFrac(ary, ary.length - 1, 'k'), "test");
   }
 
+  /**
+   * A recursive helper function for converting the continued fraction to a standard fraction
+   * Uses the algorithm discussed here: https://math.stackexchange.com/questions/3084970/how-to-convert-continued-fractions-into-normal-fractions
+   * @param in an array of the continued fraction's terms
+   * @param index the index of the term to be evaluated
+   * @param mode what mode the function should be evaluated in and the corresponding return values
+   * @return the sum of the n - 1 and n - 2 terms recurisve evaluating according to the algorithm
+   */
   private static int contToFrac(String[] in, int index, char mode) {
     if (index == -2) {
       if (mode == 'h') {
@@ -185,24 +224,50 @@ public class Fraction extends Variable implements Number {
     return Integer.parseInt(in[index]) * contToFrac(in, index - 1, mode) + contToFrac(in, index - 2, mode);
   }
 
+  /**
+   * UNFINISHED method that converts a fraction to a continued fraction
+   * @param in the input Fraction to be converted
+   * @return the string of hte continued fraction in the proper form [a0;a1,a2,...,an]
+   */
   public static String fractToCont(Fraction in) {
     String out = "[";
     out += (int) in.value() + ";";
     return out.substring(0, out.length() - 1) + "]";
   }
 
-  public static Fraction floatToCont(Float in) {
+  /**
+   * Converts the float taken in into a continued Fraction in the proper form [a0;a1,a2,...,an]
+   * @param in the decimal value to be converted
+   * @param tolerance the scientific notation exponent of the accepted tolerance according to 5.0 * 10 ^ -n
+   * @return the proper coninued fraction form of the approximated decimal
+   */
+  public static String floatToCont(Float in, int tolerance) {
+    int i = 1;
+    String cont = floatToContHelp(in, 1);
+    while (Statistics.abs(new Float(in.value() - evalContFrac(cont), "name")).value() > Statistics.pow(new Int(5, "test"), new Float(-1 * tolerance, "test")).value()) {
+      i++;
+      cont = floatToContHelp(in, i);
+    }
+    return cont;
+  }
+
+  /**
+   * A helper function which is called with increasing continued fraction terms to approach the desired tolerance
+   * @param in the decimal value to be approximated
+   * @param terms the number of terms desired in the continued fraction
+   * @return the proper sting form, [a0;a1,a2,...,an], of a contined fraction with the given terms
+   */
+  private static String floatToContHelp(Float in, int terms) {
     double x = in.value();
     int a = (int) x;
     String cont = "[" + a + ";";
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < terms; i++) {
       x = 1 / (x - a);
       a = (int) x;
       cont += a + ",";
     }
     cont = cont.substring(0, cont.length() - 1) + "]"; 
-    System.out.println(cont);
-    return contToFrac(cont);
+    return cont;
   }
   
 

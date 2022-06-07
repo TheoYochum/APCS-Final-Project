@@ -28,19 +28,35 @@ Akram: Reworked Statistics class to make it return new objects and not edit the 
 
 Theo: Added all trig functions and series implementations of them
 
-**5/30/22**
+**5/27/22**
+
+Akram: Added documentation for Number class, made a bunch of changes to what certain functions return, made two seperate copy methods for Number and Variable.
+
+**5/30/22** 
+
+Akram: Made a working exponent function that worked with only int powers. New functions for Fraction Researched lots of math theorems to make sure my code was accurate.
 
 Theo: Refined the trig functions and created a rudimentary expression parser for demonstration, likely adapted for regex in the future
 
 **5/31/22** 
 
+Akram: Created a scientific notation converter, created accurate ln function, and e implemntation of exp. 
+
 Theo: Simplified and improved the parser, uses a regex expression for parentheses and recursively evaluates them
 
 **6/1/22** 
 
+Akram: Honed in accuracy of e and ln functions with for loops.
+
 Theo: Created Matrix functions, generally functional, not all functions made, need to be translated to using Fractions for easy rational decimals
 
+**6/2/22**
+
+Akram: Created LCM function and GCD function.
+
 **6/3/22** 
+
+Akram: Started stats switch statement.
 
 Theo: Experimented with continued fractions interoperability with fractions, did not finish still need to figure out decimal to Fraction
 
@@ -49,6 +65,8 @@ Theo: Experimented with continued fractions interoperability with fractions, did
 Theo: Created semi-functional approximation of floats into Fractions
 
 **6/6/22** 
+
+Akram: Finished switch statement for stats function in parser. Sqrt now returns float.
 
 Theo: Formatted and structured the decimal to fraction approximation with general documentation
 
