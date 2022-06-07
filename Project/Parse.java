@@ -7,9 +7,9 @@ public class Parse {
   /**
    * Sets of operations to be conducted in order
    */
+  private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm"};
   private static String[] trig = {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan", "arcsec", "arccsc", "arccot"};
   private static String[] operations = {"^", "*", "/", "+", "-"};
-  private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm"};
 
   /**
    * Input loop
@@ -257,15 +257,15 @@ public class Parse {
         in.set(i, "" + Statistics.sqrt(one));
         in.remove(i + 1);
       case "gcd":
-        one = new Float(Double.parseDouble(in.get(i + 1)), "one").getInt();
-        two = new Float(Double.parseDouble(in.get(i + 2)), "two").getInt();
-        in.set(i, "" + Statistics.gcd(one, two));
+        one = new Int(Integer.parseInt(in.get(i + 1)), "one").getInt();
+        two = new Int(Integer.parseInt(in.get(i + 2)), "two").getInt();
+        in.set(i, "" + Statistics.gcd((Int) one, (Int) two));
         in.remove(i + 1);
         in.remove(i + 1);
       case "lcm":
-        one = new Float(Double.parseDouble(in.get(i + 1)), "one").getInt();
-        two = new Float(Double.parseDouble(in.get(i + 2)), "two").getInt();
-        in.set(i, "" + Statistics.lcm(one, two));
+        one = new Int(Integer.parseInt(in.get(i + 1)), "one").getInt();
+        two = new Int(Integer.parseInt(in.get(i + 2)), "two").getInt();
+        in.set(i, "" + Statistics.lcm((Int) one, (Int) two));
         in.remove(i + 1);
         in.remove(i + 1);
       }
