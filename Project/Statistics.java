@@ -70,7 +70,7 @@ public class Statistics extends Functions {
     return exp(k);
   }
 
-  private static Number[] sciNot(Number exp) {
+  private static Number[] sciNot(Number exp, int outdated) {
     String decimal;
     int count = 0;
     if (exp.value() == (int)exp.value()) {
@@ -94,25 +94,23 @@ public class Statistics extends Functions {
     return res;
   }
 
-  private static Int[] scientificNotD(Number exp) { //numbers with no dec
-    int n = 0;
-    Number ex = exp.get();
-    while ( abs(ex).value() / 10 > 1 ) {
-      n++;
-      ex.setValue(ex.value() / 10);
+  private static Number[] sciNot(Number exp) {
+    String decimal;
+    int count = 0;
+    decimal  = Double.toString(exp.value());
+    if (exp.value() > 1) {
+      count = -1 + decimal.indexOf(".");
+      int temp = decimal.length();
+      decimal = "" + decimal.charAt(0) + "." + decimal.substring(1, decimal.indexOf(".")) + decimal.substring(decimal.indexOf(".") + 1);
+    } else if (exp.value() > 0 && exp.value() < 1) {
+      Number ex = exp.get();
+      while (ex.value() < 1) {
+        count--;
+        ex.setValue(ex.value() * 10);
+      }
+      decimal = Double.toString(ex.value());
     }
-    Int[] res = {new Int(n, "n"), new Int(ex.value(), "new exp")};
-    return res;
-  }
-
-  private static Int[] scientificNotU(Number exp) { //numbers with decimals
-    int n = 0;
-    Number ex = exp.get();
-    while ( (abs(ex).value() - abs(exp).value()) / 10.0 < .09 ) {
-      n--;
-      ex.setValue(ex.value() * 10.0);
-    }
-    Int[] res = {new Int(n, "n"), new Int(ex.value(), "new exp")};
+    Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
     return res;
   }
 
@@ -123,20 +121,11 @@ public class Statistics extends Functions {
     if (x.value() > 1 && x.value() < sqrt(new Int(10, "ten")).value()) {
       return ln(x, 1);
     }
-    Int[] k;
-    if (x.value() > 0 && x.value() < 1) {
-      k = scientificNotU(x); // makes sure numbers between 0 and 1 return the correct natural logs
-    } else {
-      if (x.value() == (int)x.value()) {
-        k = scientificNotD(x);
-      } else {
-        k = scientificNotU(x);
-      }
-    }
-    Number res = x.get();
-    Number temp = ln(new Float(sqrt(k[1]).value(), "temp"), 1);
-    res.setValue( (2 * temp.value()) + (2.3025851 * k[0].value() ) );
-    return res;
+    Number[] k = sciNot(x);
+    Float sqrtX = new Float(Math.sqrt(k[1].value()), "t");
+    Number temp = ln(sqrtX, 1);
+    temp.setValue( (2 * temp.value()) + (2.3025851 * k[0].value() ) );
+    return temp;
   }
 
   private static Number ln(Number x , int j) {
@@ -199,7 +188,6 @@ public class Statistics extends Functions {
   public static Number log(Number x, Number y) {
 
   }
-  */
 
   public static void main(String[] args) {
     Float x = new Float(2.22, "x");
@@ -210,12 +198,13 @@ public class Statistics extends Functions {
     Int b = new Int(19, "b");
     //test();
     //System.out.println(ceil(x));
-    Number[] aa = sciNot(g);
+    Number[] aa = sciNot(k);
     System.out.println(aa[0] + " " +  aa[1]);
-    //System.out.println(ln(k));
+    System.out.println(ln(g));
     //System.out.println(pow(k, g));
     //System.out.println(sqrt(k));
     //System.out.println(k);
   }
+  */
 
 } // end of class
