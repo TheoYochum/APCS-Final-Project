@@ -102,50 +102,11 @@ public class Statistics extends Functions {
     return exp(k);
   }
 
-  private static Number[] sciNot(Number exp, int outdated) {
-    String decimal;
-    int count = 0;
-    if (exp.value() == (int)exp.value()) {
-      decimal = Integer.toString((int)exp.value());
-      int temp = decimal.length();
-      if ( decimal.charAt(temp-1) == '0' ) {
-        for (int i = temp - 1; decimal.charAt(i) == '0'; i--) {
-          count--;
-          temp = i;
-        }
-      }
-      decimal = decimal.substring(0, temp);
-    } else {
-      decimal  = Double.toString(exp.value());
-      for (int i = decimal.indexOf(".") + 1; i < decimal.length(); i++) {
-        count++;
-      }
-      decimal = decimal.substring(0, decimal.indexOf(".")) + decimal.substring(decimal.indexOf(".") + 1);
-    }
-    Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
-    return res;
-  }
-
-  private static Number[] sciNot(Number exp) {
-    String decimal;
-    int count = 0;
-    decimal  = Double.toString(exp.value());
-    if (exp.value() > 1) {
-      count = -1 + decimal.indexOf(".");
-      int temp = decimal.length();
-      decimal = "" + decimal.charAt(0) + "." + decimal.substring(1, decimal.indexOf(".")) + decimal.substring(decimal.indexOf(".") + 1);
-    } else if (exp.value() > 0 && exp.value() < 1) {
-      Number ex = exp.get();
-      while (ex.value() < 1) {
-        count--;
-        ex.setValue(ex.value() * 10);
-      }
-      decimal = Double.toString(ex.value());
-    }
-    Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
-    return res;
-  }
-
+  /**
+   * Provides the reference of a Number that is the natural log of the value of the Number param
+   * @param Number with a value that will be used for natural log
+   * @return the reference of a Number that is the natural log of the value of the Number param
+   */
   public static Number ln(Number x) {
     if (x.value() < 0) {
       return new Float(0, "undefined"); // THROW ERROR LATER
@@ -222,23 +183,48 @@ public class Statistics extends Functions {
     return k;
   }
 
-  /*
-  public static void main(String[] args) {
-    Float x = new Float(2.22, "x");
-    Float y = new Float(-420.0484838, "y");
-    Float k = new Float(10.23, "k");
-    Float g = new Float(0.9, "g");
-    Int a = new Int(16, "a");
-    Int b = new Int(19, "b");
-    //test();
-    //System.out.println(ceil(x));
-    Number[] aa = sciNot(k);
-    System.out.println(aa[0] + " " +  aa[1]);
-    System.out.println(ln(g));
-    //System.out.println(pow(k, g));
-    //System.out.println(sqrt(k));
-    //System.out.println(k);
+  private static Number[] sciNot(Number exp, int outdated) {
+    String decimal;
+    int count = 0;
+    if (exp.value() == (int)exp.value()) {
+      decimal = Integer.toString((int)exp.value());
+      int temp = decimal.length();
+      if ( decimal.charAt(temp-1) == '0' ) {
+        for (int i = temp - 1; decimal.charAt(i) == '0'; i--) {
+          count--;
+          temp = i;
+        }
+      }
+      decimal = decimal.substring(0, temp);
+    } else {
+      decimal  = Double.toString(exp.value());
+      for (int i = decimal.indexOf(".") + 1; i < decimal.length(); i++) {
+        count++;
+      }
+      decimal = decimal.substring(0, decimal.indexOf(".")) + decimal.substring(decimal.indexOf(".") + 1);
+    }
+    Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
+    return res;
   }
-  */
+
+  private static Number[] sciNot(Number exp) {
+    String decimal;
+    int count = 0;
+    decimal  = Double.toString(exp.value());
+    if (exp.value() > 1) {
+      count = -1 + decimal.indexOf(".");
+      int temp = decimal.length();
+      decimal = "" + decimal.charAt(0) + "." + decimal.substring(1, decimal.indexOf(".")) + decimal.substring(decimal.indexOf(".") + 1);
+    } else if (exp.value() > 0 && exp.value() < 1) {
+      Number ex = exp.get();
+      while (ex.value() < 1) {
+        count--;
+        ex.setValue(ex.value() * 10);
+      }
+      decimal = Double.toString(ex.value());
+    }
+    Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
+    return res;
+  }
 
 } // end of class
