@@ -70,3 +70,6 @@ Akram: Finished switch statement for stats function in parser. Sqrt now returns 
 
 Theo: Formatted and structured the decimal to fraction approximation with general documentation
 
+**6/7/22**
+
+Akram: Documentation for statistics, geometric-arithmetic mean calculator.
