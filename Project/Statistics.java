@@ -102,11 +102,33 @@ public class Statistics extends Functions {
     return exp(k);
   }
 
+
+  public static Number ln(Number x, double y) { //arithmetic-geometric implementation
+    return new Float(1, "temp");
+  }
+
+  private static Float agM(Number ln, int precision) {
+    double x = 1;
+    Int exp = new Int(2 - precision, "pr");
+    exp = abs(exp).getInt();
+    double y = 1 / (exp(new Float(2, "2"), exp)).value();
+    y = y / ln.value();
+    for (int i = 0; i < precision; i++) {
+      x = (x + y) / 2;
+      y = sqrt(new Float(x*y, "temp")).value();
+    }
+    return new Float(x, "y");
+  }
+
+  public static void main(String[] args) {
+    System.out.println(agM(10));
+  }
+  
   /**
-   * Provides the reference of a Number that is the natural log of the value of the Number param
-   * @param Number with a value that will be used for natural log
-   * @return the reference of a Number that is the natural log of the value of the Number param
-   */
+  * Provides the reference of a Number that is the natural log of the value of the Number param
+  * @param Number with a value that will be used for natural log
+  * @return the reference of a Number that is the natural log of the value of the Number param
+  */
   public static Number ln(Number x) {
     if (x.value() < 0) {
       return new Float(0, "undefined"); // THROW ERROR LATER
@@ -121,7 +143,7 @@ public class Statistics extends Functions {
     return temp;
   }
 
-  private static Number ln(Number x , int j) {
+  private static Number ln(Number x , int j) { //tailor series for values in between 1 and sqrt10
     Number res = x.get();
     double y1 = (res.value() - 1) / (res.value() + 1);
     Float y = new Float(y1, "y");
@@ -177,6 +199,12 @@ public class Statistics extends Functions {
     return lcm;
   }
 
+  /**
+   * Provides the reference of a Number that will have a value of the exponent a base (first param) must be raised to equal the second param
+   * @param Number with a value that will be the base
+   * @param Number with a set value that base must be raised to
+   * @return the reference of a Number that will have a value of the exponent a base (first param) must be raised to equal the second param
+   */
   public static Number log(Number x, Number y) {
     Float k = new Float(y.value(), "k");
     k.setValue(ln(y).value() / ln(x).value());
