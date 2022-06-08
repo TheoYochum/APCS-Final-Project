@@ -103,27 +103,26 @@ public class Statistics extends Functions {
   }
 
 
-  public static Number ln(Number x, double y) { //arithmetic-geometric implementation
-    return new Float(1, "temp");
+  private static Number ln(Number x, String k) { //arithmetic-geometric implementation
+    double j = (Math.PI / (2 * agM(x, 16).value()) ) - 16 * ln(new Float(2, "two")).value();
+    return new Float(j, "temp");
   }
 
   private static Float agM(Number ln, int precision) {
-    double x = 1;
+    double x = 1.0;
     Int exp = new Int(2 - precision, "pr");
     exp = abs(exp).getInt();
-    double y = 1 / (exp(new Float(2, "2"), exp)).value();
+    double y = 1.0 / (exp(new Float(2, "2"), exp)).value();
     y = y / ln.value();
     for (int i = 0; i < precision; i++) {
-      x = (x + y) / 2;
-      y = sqrt(new Float(x*y, "temp")).value();
+      Float temp = new Float(x*y, "temp");
+      x = (x + y) / 2.0;
+      y = sqrt(temp).value();
     }
-    return new Float(x, "y");
+    return new Float(y, "y");
   }
 
-  public static void main(String[] args) {
-    System.out.println(agM(10));
-  }
-  
+
   /**
   * Provides the reference of a Number that is the natural log of the value of the Number param
   * @param Number with a value that will be used for natural log
