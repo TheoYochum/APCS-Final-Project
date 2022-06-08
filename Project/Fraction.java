@@ -237,6 +237,7 @@ public class Fraction extends Variable implements Number {
 
   /**
    * Converts the float taken in into a continued Fraction in the proper form [a0;a1,a2,...,an]
+   * Uses the algorith described here: https://youtu.be/f-86g6kSFG4
    * @param in the decimal value to be converted
    * @param tolerance the scientific notation exponent of the accepted tolerance according to 5.0 * 10 ^ -n
    * @return the proper coninued fraction form of the approximated decimal
@@ -253,6 +254,7 @@ public class Fraction extends Variable implements Number {
 
   /**
    * A helper function which is called with increasing continued fraction terms to approach the desired tolerance
+   * Uses the algorithm described here: https://youtu.be/f-86g6kSFG4
    * @param in the decimal value to be approximated
    * @param terms the number of terms desired in the continued fraction
    * @return the proper sting form, [a0;a1,a2,...,an], of a contined fraction with the given terms

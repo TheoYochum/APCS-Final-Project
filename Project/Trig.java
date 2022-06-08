@@ -95,7 +95,7 @@ public class Trig extends Functions {
     }
     double temp;
     int seq;
-    for (int i = 1; i <= 25; i++) {
+    for (int i = 1; i <= 1000001; i++) {
       seq = (i - 1) * 2 + 1;
       temp = 0;
       temp += Math.pow(val, seq);
