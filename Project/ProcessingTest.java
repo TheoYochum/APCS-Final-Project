@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 
 // Compile with: javac -cp ./core.jar ./ProcessingTest.java ProcessingTest.java
-// Run with: javac -cp ./core.jar ./ProcessingTest.java ProcessingTest.java
+// Run with: java -cp ./core.jar ./ProcessingTest.java ProcessingTest
 
 public class ProcessingTest extends PApplet{
 
