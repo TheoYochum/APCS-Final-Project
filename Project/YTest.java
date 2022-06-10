@@ -3,18 +3,21 @@ import processing.core.PApplet;
 // Compile with: javac -cp ./core.jar ./ProcessingTest.java ProcessingTest.java
 // Run with: javac -cp ./core.jar ./ProcessingTest.java ProcessingTest.java
 
-public class ProcessingTest extends PApplet{
+public class YTest extends PApplet{
 
     @Override
     public void settings() {
-        size(200, 200);
+        size(600, 400);
     }
 
     @Override
     public void draw() {
-        background(0);
-        fill(255, 0, 0);
-        ellipse(100, 100, 100, 100);
+      background(115, 118, 61);
+      fill(0, 0, 0);
+      textSize(38);
+      text("Y=", width/2, 40);
+      strokeWeight(8);
+      line(0, 60, width, 60);
     }
 
     public static void main (String[] args) {
