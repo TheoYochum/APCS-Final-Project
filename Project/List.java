@@ -5,8 +5,8 @@ import java.util.ArrayList;
  * List varaible which abstracts functionality
  * and allows storage of a single type of variable
  */
-public class List extends Variable {
-  private ArrayList<Variable> list;
+public class List<E> extends Variable {
+  private ArrayList<E> list;
   
   /**
    * Provides The length of the list
@@ -22,7 +22,7 @@ public class List extends Variable {
    * @param element The reference of the element which will be set
    * @return false if the set failed likely due to out of bounds, true if worked
    */
-  public boolean set(int index, Variable element) {
+  public boolean set(int index, E element) {
     if (index >= list.size() || index < 0) {
       return false;
     }
@@ -35,11 +35,19 @@ public class List extends Variable {
    * @param index the value of the index to be returned
    * @return the value at the index, null if out of bounds
    */
-  public Variable get(int index) {
+  public E get(int index) {
     if (index >= list.size() || index < 0) {
       return null;
     }
     return list.get(index);
+  }
+
+  public void add(E element) {
+    list.add(element);
+  }
+
+  public E remove(int index) {
+    return list.remove(index);
   }
 
 }
