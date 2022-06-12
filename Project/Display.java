@@ -7,7 +7,7 @@ public class Display {
   public void display(Variable x) {
 
   }
-  
+
   public static void clear() {
     System.out.println("\033[2J");
     start();
