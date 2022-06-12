@@ -16,7 +16,7 @@ public class Equation extends Variable {
 
   public List<Point> values(double start, double end, double inc, String var) {
     List<Point> out = new List<Point>();
-    for (double i = start; start < end; i += inc) {
+    for (double i = start; i < end; i += inc) {
       out.add(new Point(i, substitute(var, i), "point"));
     }
     return out;

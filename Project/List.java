@@ -16,6 +16,10 @@ public class List<E> extends Variable {
     return list.size();
   }
 
+  public List() {
+    list = new ArrayList<E>();
+  }
+
   /**
    * Attempts to set the calue of the list to the provided element
    * @param index The index of the elemtn to be set

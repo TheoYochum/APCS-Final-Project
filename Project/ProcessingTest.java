@@ -1,7 +1,7 @@
 import processing.core.PApplet;
 
-// Compile with: javac -cp ./core.jar ./ProcessingTest.java ProcessingTest.java
-// Run with: java -cp ./core.jar ./ProcessingTest.java ProcessingTest
+// Compile with: javac -classpath "../Libraries/core.jar;../Project" ProcessingTest.java
+// Run with: java -classpath "../Libraries/core.jar;../Project" ProcessingTest
 
 public class ProcessingTest extends PApplet{
 
@@ -9,9 +9,9 @@ public class ProcessingTest extends PApplet{
 
     @Override
     public void settings() {
-        size(800, 800);
-        Equation test = new Equation("2 * x ^ 2");
-        points = test.values(0, 800, 1, "x");
+        size(400, 400);
+        Equation test = new Equation("100 * sin(x) - 200");
+        points = test.values(0, 800, 1.0, "x");
     }
 
     @Override
@@ -30,7 +30,7 @@ public class ProcessingTest extends PApplet{
         for (int i = 1; i < in.length(); i++) {
             Point p1 = in.get(i - 1);
             Point p2 = in.get(i);
-            line((float) p1.getX().value(), (float) p1.getY().value(), (float) p2.getX().value(), (float) p2.getY().value());
+            line((float) p1.getX().value(), (float) p1.getY().value() * -1, (float) p2.getX().value(), (float) p2.getY().value() * -1);
         }
     }
  
