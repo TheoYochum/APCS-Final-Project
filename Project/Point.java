@@ -1,5 +1,5 @@
 /**
- * A variable designed to store points which 
+ * A variable designed to store points which
  * can be used in calculations or graphing
  */
 
@@ -56,10 +56,19 @@ public class Point extends Variable {
   }
 
   /**
-   * Sets the y coordinate  
+   * Sets the y coordinate
    * @param in the reference of the new y coordinate
    */
   public void setY(Number in) {
     yCor = in;
   }
+
+  /**
+   * Constructs a string using the xCor and yCor of the Point object
+   * @return a string version of the Point object
+   */
+  public String toString() {
+    return "(" + xCor + ", " + yCor + ")";
+  }
+
 }
