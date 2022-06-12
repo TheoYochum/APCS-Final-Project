@@ -20,6 +20,18 @@ public class Point extends Variable {
   }
 
   /**
+   * Basic constructor taking an x and y coordinate
+   * @param x the x coordinate of the point as a Number
+   * @param y the y coordinate of the point as a Number
+   * @param name the name of the variable
+   */
+  public Point(double x, double y, String name) {
+    super(name, "Point");
+    xCor = new Float(x, "x-cor");
+    yCor = new Float(y, "y-cor");;
+  }
+
+  /**
    * Provides the reference of the x coordinate
    * @return the reference of the x coordinate
    */
