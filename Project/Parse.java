@@ -361,19 +361,4 @@ public class Parse {
       }
     }
 
-    private static void constants(ArrayList<String> in, String operation, int i) {
-      switch ((in.get(i))) {
-        case "pi":
-          in.set(i, "" + Functions.pi);
-          break;
-        case "e":
-          in.set(i, "" + Functions.e);
-          break;
-        case "tau":
-          in.set(i, "" + Functions.tau);
-          break;
-      }
-    }
-
-
 }
