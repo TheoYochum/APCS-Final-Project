@@ -181,6 +181,12 @@ public class Statistics extends Functions {
     }
   }
 
+  /**
+   * Provides the reference of a Int that will be the least common multiple of the two Int params
+   * @param One of the Int's used to find least common multiple
+   * @param One of the Int's used to find least common multiple
+   * @return the reference of a  Int that will be the least common multiple of the two Int params
+   */
   public static Int lcm (Int x, Int y) {
     int k = 0;
     if (x.intValue() == 0 && y.intValue() == 0) {
