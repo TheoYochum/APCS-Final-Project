@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.*;
 
@@ -9,10 +10,16 @@ public class Parse {
   /**
    * Sets of operations to be conducted in order
    */
+  private static HashMap<String,Variable> variables = null;
   private static String[] constants = {"e", "pi", "tau"};
   private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm", "log"};
   private static String[] trig = {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan", "arcsec", "arccsc", "arccot"};
   private static String[] operations = {"^", "*", "/", "+", "-"};
+
+  /**
+   * Boolean to detect when to exit
+   */
+  private boolean done = false;
 
   /**
    * Input loop
@@ -24,6 +31,31 @@ public class Parse {
       try {
         System.out.println("Enter the expression:");
         System.out.println(Parse(input.nextLine()));
+      } catch (NumberFormatException e) {
+        System.out.println("Improper formatting \n");
+      }
+    }
+  }
+
+  public static void call(HashMap<String, Variable> in) {
+    variables = in;
+    Scanner input = new Scanner(System.in);
+    while (true) {
+      try {
+        Display.clear();
+        Display.display();
+        Display.printAt("Enter the expression:", 1, 3);
+        String line = input.nextLine();
+        if (line.toLowerCase().equals("exit")) {
+          return;
+        }
+        Float temp = Parse(line);
+        System.out.println(temp);
+        System.out.println("Would you like to store this as a variable? y/n");
+        if (input.nextLine().equals("y")) {
+          System.out.println("Name:");
+          in.put(input.nextLine(), temp);
+        }
       } catch (NumberFormatException e) {
         System.out.println("Improper formatting \n");
       }
@@ -133,6 +165,11 @@ public class Parse {
    * @return a String of the value of the expression
    */
   private static String evaluate(ArrayList<String> in) {
+    for (String name : variables.keySet()) {
+      while (in.indexOf(name) != -1) {
+        in.set(in.indexOf(name), "" + variables.get(name).value());
+      }
+    }
     for (String value : constants) {
       while (in.indexOf(value) != -1) {
         constants(in, value, in.indexOf(value));

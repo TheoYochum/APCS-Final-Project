@@ -62,4 +62,8 @@ public class Point extends Variable {
   public void setY(Number in) {
     yCor = in;
   }
+
+  public String toString() {
+    return "(" + xCor.toString() + ", " + yCor.toString() + ")";
+  }
 }

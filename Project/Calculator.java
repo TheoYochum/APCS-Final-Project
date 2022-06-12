@@ -1,6 +1,5 @@
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.concurrent.ThreadPoolExecutor.DiscardPolicy;
 
 public class Calculator {
   HashMap<String, Variable> Variables;
@@ -38,6 +37,10 @@ public class Calculator {
         listVariable();
         break;
 
+      case "evaluate":
+        evaluate();
+        break;
+
       default:
         Display.printAt("Invalid Command", 1, 2);
         break;
@@ -60,6 +63,7 @@ public class Calculator {
     System.out.println("What type of Number");
     String type = input.nextLine();
     type = type.toLowerCase();
+    System.out.println(type);
     System.out.println("Name:");
     name = input.nextLine();
     return (Number)(parser(type, name));
@@ -113,6 +117,14 @@ public class Calculator {
         out = new Angle(doubleValue, degrees, name);
         Variables.put(name, new Angle(doubleValue, degrees, name));
         break;
+      case "matrix":
+        Matrix matrix = new Matrix(name);
+        Variables.putIfAbsent(name, matrix);
+        break;
+      default:
+        System.out.println("Invalid Type");
+        hold();
+        return null;
     }
     return out;
   }
@@ -134,11 +146,16 @@ public class Calculator {
     Display.display();
     Display.goTo(1, 2);
     for (String key : Variables.keySet()) {
+      System.out.println("Type: " + Variables.get(key).type());
       System.out.println("Name: " + key);
       System.out.println("Value: " + Variables.get(key));
       System.out.println();
     }
     hold();
+  }
+
+  public void evaluate() {
+    Parse.call(Variables);
   }
 
   private void hold() {
