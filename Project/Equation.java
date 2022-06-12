@@ -9,7 +9,8 @@ public class Equation extends Variable {
     String expression = equation;
     while (expression.contains(var)) {
       int index = expression.indexOf(var);
-      expression = expression.substring(0, index) + val + expression.substring(index + var.length());
+      //System.out.println(expression);
+      expression = expression.substring(0, index) + val + expression.substring(index + 1);
     }
     return Parse.Parse(expression).value();
   }
@@ -23,5 +24,3 @@ public class Equation extends Variable {
   }
 
 }
-
-
