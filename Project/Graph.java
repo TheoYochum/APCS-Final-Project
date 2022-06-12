@@ -3,7 +3,7 @@ import processing.core.PApplet;
 // Compile with: javac -classpath "../Libraries/core.jar;../Project" ProcessingTest.java
 // Run with: java -classpath "../Libraries/core.jar;../Project" ProcessingTest
 
-public class ProcessingTest extends PApplet{
+public class Graph extends PApplet{
 
     List<Point> points;
 
@@ -40,7 +40,7 @@ public class ProcessingTest extends PApplet{
     }
 
     public static void main (String[] args) {
-        ProcessingTest pt = new ProcessingTest();
-        PApplet.runSketch(new String[]{"ProcessingTest"}, pt);
+        Graph pt = new Graph();
+        PApplet.runSketch(new String[]{"Graph"}, pt);
     }
 }
