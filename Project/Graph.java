@@ -6,11 +6,15 @@ import processing.core.PApplet;
 public class Graph extends PApplet{
 
     List<Point> points;
+    Equation test;
+
+    public Graph(String exp) {
+      test = new Equation(exp);
+    }
 
     @Override
     public void settings() {
         size(1000, 1000);
-        Equation test = new Equation("-1 * (sqrt(90 + x) * sqrt(90 - x) ) + 40");
         points = test.values(-width/2, width/2, 0.1, "x");
     }
 
@@ -40,7 +44,7 @@ public class Graph extends PApplet{
     }
 
     public static void main (String[] args) {
-        Graph pt = new Graph();
+        Graph pt = new Graph("-1 * (sqrt(90 + x) * sqrt(90 - x) ) + 40");
         PApplet.runSketch(new String[]{"Graph"}, pt);
     }
 }
