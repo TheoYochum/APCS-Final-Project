@@ -1,10 +1,17 @@
 public class Display {
 
-  public void goTo(int x, int y) {
-
+  public static void goTo(int x, int y) {
+    System.out.print("\033[" + y + ";" + x + "H");
   }
 
-  public void display(Variable x) {
+  public static void printAt(String in, int x, int y) {
+    goTo(x, y);
+    System.out.println(in);
+  }
+
+  public static void display() {
+    goTo(1, 1);
+    System.out.println("The Thakram Calculator™");
 
   }
 
