@@ -1,2 +1,2 @@
 #!/usr/bin/env bash
-javac -cp ./core.jar ./ProcessingTest.java ProcessingTest.java && java-cp ./core.jar ./ProcessingTest.java ProcessingTest.java
+javac -classpath "../Libraries/core.jar;../Project" ProcessingTest.java && java -classpath "../Libraries/core.jar;../Project" ProcessingTest
