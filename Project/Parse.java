@@ -34,17 +34,38 @@ public class Parse {
     int openCount = 0;
     int closeCount = 0;
     for (int i = 0; i < expression.length(); i++) {
-      if (expression.charAt(i) == '(') {
+      char current = expression.charAt(i);
+      if (current == '(') {
         openCount++;
+        if (i > 0 && expression.charAt(i - 1) != ' ') {
+          return false;
+        }
       }
-      if (expression.charAt(i) == ')') {
+      if (current == ')') {
         closeCount++;
+        if (i < expression.length() - 1 && expression.charAt(i + 1) != ' ') {
+          return false;
+        }
+      }
+      if (contains(operations, "" + current)) {
+        if (i > 0 && expression.charAt(i - 1) != ' ' || i < expression.length() - 1 && expression.charAt(i + 1) != ' ') {
+          return false;
+        }
       }
     }
     if (openCount != closeCount) {
       return false;
     }
     return true;
+  }
+
+  private static boolean contains(String[] list, String val) {
+    for (int i = 0; i < list.length; i++) {
+      if (list[i].equals(val)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   /**
@@ -89,7 +110,6 @@ public class Parse {
         }
       } // Add the parenthese block
       out.add(block);
-      System.out.println(out);
       if (index + block.length() + 1 < expression.length()) { // Removes everything before and including the Parentheses block
         expression = expression.substring(index + block.length() + 1);
       } else {
