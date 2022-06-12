@@ -1,12 +1,15 @@
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.regex.*;;
+import java.util.regex.*;
+
+import javax.swing.text.StyledEditorKit.BoldAction;;
 
 public class Parse {
 
   /**
    * Sets of operations to be conducted in order
    */
+  private static String[] constants = {"e", "pi", "tau"};
   private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm", "log"};
   private static String[] trig = {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan", "arcsec", "arccsc", "arccot"};
   private static String[] operations = {"^", "*", "/", "+", "-"};
@@ -18,9 +21,30 @@ public class Parse {
   public static void main(String[] args) {
     Scanner input = new Scanner(System.in);
     while (true) {
-      System.out.println("Enter the expression:");
-      System.out.println(Parse(input.nextLine()));
+      try {
+        System.out.println("Enter the expression:");
+        System.out.println(Parse(input.nextLine()));
+      } catch (NumberFormatException e) {
+        System.out.println("Improper formatting \n");
+      }
     }
+  }
+
+  public static boolean screen(String expression) {
+    int openCount = 0;
+    int closeCount = 0;
+    for (int i = 0; i < expression.length(); i++) {
+      if (expression.charAt(i) == '(') {
+        openCount++;
+      }
+      if (expression.charAt(i) == ')') {
+        closeCount++;
+      }
+    }
+    if (openCount != closeCount) {
+      return false;
+    }
+    return true;
   }
 
   /**
@@ -30,6 +54,9 @@ public class Parse {
    * @return A float value of the results of this expression
    */
   public static Float Parse(String expression) {
+    if (!screen(expression)) {
+      throw new NumberFormatException("Improper parentheses");
+    }
     ArrayList<String> terms = Terms(expression);
     for (int i = terms.size() - 1; i >= 0; i--) {
       if (terms.get(i).contains("(")) { // Targets any Term of parentheses and recursively breaks them down and evaluates them individually
@@ -62,6 +89,7 @@ public class Parse {
         }
       } // Add the parenthese block
       out.add(block);
+      System.out.println(out);
       if (index + block.length() + 1 < expression.length()) { // Removes everything before and including the Parentheses block
         expression = expression.substring(index + block.length() + 1);
       } else {
@@ -82,6 +110,11 @@ public class Parse {
    * @return a String of the value of the expression
    */
   private static String evaluate(ArrayList<String> in) {
+    for (String value : constants) {
+      while (in.indexOf(value) != -1) {
+        constants(in, value, in.indexOf(value));
+      }
+    }
     for (String operation : trig) {
       while (in.indexOf(operation) != -1) {
         trig(in, operation, in.indexOf(operation));
@@ -98,6 +131,24 @@ public class Parse {
       }
     }
     return in.get(0);
+  }
+
+  private static void constants(ArrayList<String> in, String operation, int i) {
+    Float value;
+    switch ((in.get(i))) {
+      case "e":
+        value = new Float(Functions.e, "e");
+        in.set(i, "" + value);
+        break;
+      case "pi":
+        value = new Float(Functions.pi, "pi");
+        in.set(i, "" + value);
+        break;
+      case "tau":
+        value = new Float(Functions.tau, "tau");
+        in.set(i, "" + value);
+        break;
+    }
   }
 
   /**
