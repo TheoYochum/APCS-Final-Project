@@ -7,6 +7,7 @@ public class Parse {
   /**
    * Sets of operations to be conducted in order
    */
+  private static String[] constants = {"pi", "e", "tau"};
   private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm", "log"};
   private static String[] trig = {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan", "arcsec", "arccsc", "arccot"};
   private static String[] operations = {"^", "*", "/", "+", "-"};
@@ -82,6 +83,11 @@ public class Parse {
    * @return a String of the value of the expression
    */
   private static String evaluate(ArrayList<String> in) {
+    for (String operation : constants) {
+      while (in.indexOf(operation) != -1) {
+        constants(in, operation, in.indexOf(operation));
+      }
+    }
     for (String operation : trig) {
       while (in.indexOf(operation) != -1) {
         trig(in, operation, in.indexOf(operation));
@@ -284,6 +290,20 @@ public class Parse {
         in.remove(i + 1);
         in.remove(i + 1);
         break;
+      }
+    }
+
+    private static void constants(ArrayList<String> in, String operation, int i) {
+      switch ((in.get(i))) {
+        case "pi":
+          in.set(i, "" + Functions.pi);
+          break;
+        case "e":
+          in.set(i, "" + Functions.e);
+          break;
+        case "tau":
+          in.set(i, "" + Functions.tau);
+          break;
       }
     }
 
