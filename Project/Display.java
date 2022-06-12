@@ -14,7 +14,7 @@ public class Display {
     System.out.println("The Thakram Calculator™");
 
   }
-  
+
   public static void clear() {
     System.out.println("\033[2J");
     start();
