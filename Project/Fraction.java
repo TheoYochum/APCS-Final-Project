@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /**
  * Fraction variable which implements the number interface
  * Allows the storage of non integer values while avoiding
@@ -7,6 +9,10 @@
 public class Fraction extends Variable implements Number {
   private Int numerator;
   private Int denominator;
+
+  public static void main(String[] args) {
+    // System.out.println(approx(1, 2));
+  }
 
   /**
    * Basic constructor taking two Ints and storing them in the numerator and denominator
@@ -50,7 +56,9 @@ public class Fraction extends Variable implements Number {
    */
   public Fraction(double in, String name) {
     super(name, "Fraction");
+    // System.out.println(in);
     Fraction temp = approx(in, 10);
+    // System.out.println(temp);
     numerator = temp.getNumerator();
     denominator = temp.getDenominator();
   }
@@ -113,6 +121,9 @@ public class Fraction extends Variable implements Number {
    * @return The numerator divided by the denominator
    */
   public double value() {
+    if (numerator.value() == 0) {
+      return 0;
+    }
     return (double) numerator.intValue() / denominator.intValue();
   }
 
@@ -161,6 +172,10 @@ public class Fraction extends Variable implements Number {
    * @return the fractional approximation of the provided touble, within the tolerance
    */
   public static Fraction approx(double in, int tolerance) {
+    if (in == 0) {
+      return new Fraction(0, 1, "zero fraction");
+    }
+    // System.out.println(in);
     return contToFrac(floatToCont(new Float(in, "name"), tolerance));
   }
 
@@ -171,7 +186,11 @@ public class Fraction extends Variable implements Number {
    */
   public static double evalContFrac(String in) {
     String[] contFrac = in.substring(1, in.length() - 1).split("[;,]");
-    return Integer.parseInt(contFrac[0]) + (1 / evalContFrac(contFrac, 1));
+    double next =  evalContFrac(contFrac, 1);
+    if (next == 0) {
+      return Integer.parseInt(contFrac[0]);
+    }
+    return Integer.parseInt(contFrac[0]) + (1 / next);
   }
 
   /**
@@ -182,6 +201,9 @@ public class Fraction extends Variable implements Number {
    */
   private static double evalContFrac(String[] in, int index) {
     if (index == in.length - 1) {
+      if (Integer.parseInt(in[index]) == 0) {
+        return 0;
+      }
       return Integer.parseInt(in[index]);
     }
     double sum = Integer.parseInt(in[index]);
@@ -244,11 +266,14 @@ public class Fraction extends Variable implements Number {
    */
   public static String floatToCont(Float in, int tolerance) {
     int i = 1;
+    System.out.println(in);
     String cont = floatToContHelp(in, 1);
     while (Statistics.abs(new Float(in.value() - evalContFrac(cont), "name")).value() > Statistics.pow(new Int(5, "test"), new Float(-1 * tolerance, "test")).value()) {
-      i++;
+      // System.out.println(evalContFrac(cont));
       cont = floatToContHelp(in, i);
+      i++;
     }
+    System.out.println(cont);
     return cont;
   }
 
@@ -263,10 +288,14 @@ public class Fraction extends Variable implements Number {
     double x = in.value();
     int a = (int) x;
     String cont = "[" + a + ";";
-    for (int i = 0; i < terms; i++) {
+    if (terms == 1) {
+      return "[" + a + ";" + "0" + "]";
+    }
+    for (int i = 1; i < terms; i++) {
       x = 1 / (x - a);
       a = (int) x;
       cont += a + ",";
+      // System.out.println(cont);
     }
     cont = cont.substring(0, cont.length() - 1) + "]"; 
     return cont;

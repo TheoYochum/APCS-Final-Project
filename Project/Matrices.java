@@ -12,7 +12,7 @@ public class Matrices extends Functions {
                         {1, 2}};
     Matrix test1 = new Matrix(matrix1);
     Matrix test2 = new Matrix(matrix2);
-    System.out.println(multiplication(inverse(test2), test2));
+    System.out.println(det(test1));
   }
 
   public static Matrix emptyMatrix(int row, int col) {
@@ -33,9 +33,9 @@ public class Matrices extends Functions {
       for (int j = 0; j < out.cols(); j++) {
         int val = 0;
         for (int k = 0; k < out.cols(); k++) {
-          val += a.get(j, k) * b.get(k, i)  ;
+          val += a.get(j, k).value() * b.get(k, i).value();
         }
-        out.set(i, j, val);
+        out.set(i, j, new Fraction(val, "matrix"));
       }
     }
     return out;
@@ -49,7 +49,7 @@ public class Matrices extends Functions {
     
     for (int i = 0; i < out.rows(); i++) {
       for (int j = 0; j < out.cols(); j++) {
-        out.set(i, j, a.get(i, j) + b.get(i, j));
+        out.set(i, j, new Fraction(a.get(i, j).value() + b.get(i, j).value(), "matrix"));
       }
     }
     return out;
@@ -59,23 +59,23 @@ public class Matrices extends Functions {
     Matrix out = emptyMatrix(in.rows(), in.cols());
     for (int i = 0; i < out.rows(); i++) {
       for (int j = 0; j < out.cols(); j++) {
-        out.set(i, j,(int) (in.get(i,j) * scalar));
+        out.set(i, j, new Fraction(in.get(i,j).value() * scalar, "matrix"));
       }
     }
     return out;
   }
 
-  public static int det(Matrix in) {
+  public static double det(Matrix in) {
     if (in.rows() != 2 || in.cols() != 2) {
       if (in.rows() == 1 && in.cols() == 1) {
-        return in.get(0, 0);
+        return in.get(0, 0).value();
       }
       if (in.rows() == in.cols()) {
         return bigDet(in);
       }
       throw new IllegalArgumentException("Determinant calculation requires a square matrix");
     }
-    return in.get(0, 0) * in.get(1, 1) - in.get(0, 1) * in.get(1, 0);
+    return in.get(0, 0).value() * in.get(1, 1).value() - in.get(0, 1).value() * in.get(1, 0).value();
   }
 
   private static int bigDet(Matrix in) {
@@ -88,15 +88,17 @@ public class Matrices extends Functions {
       for (int j = 1; j < size; j++) {
         for (int k = 0; k < size; k++) {
           if (k != i) {
-            pass += in.get(j, k) + " ";
+            pass += in.get(j, k).value() + " ";
           }
         }
       }
+      System.out.println(pass);
       sub = new Matrix(new Scanner(pass), size - 1, size - 1);
       if (i % 2 == 1) {
         sign = -1;
       }
-      sum += sign * in.get(0, i) * det(sub);
+      System.out.println(sub);
+      sum += sign * in.get(0, i).value() * det(sub);
     }
     return sum;
   }
@@ -114,7 +116,7 @@ public class Matrices extends Functions {
         for (int j = 0; j < size; j++) {
           for (int k = 0; k < size; k++) {
             if (k != i && j != ii) {
-              pass += in.get(j, k) + " ";
+              pass += in.get(j, k).value() + " ";
             }
           }
         }
@@ -122,7 +124,9 @@ public class Matrices extends Functions {
         if (i % 2 + ii % 2 == 1) {
           sign = -1;
         }
-        out.set(i, ii, sign * det(sub));
+        System.out.println(pass);
+        System.out.println(sub);
+        out.set(i, ii, new Fraction(sign * det(sub), 2, "matrix"));
       }
     }
     return out;
@@ -150,10 +154,10 @@ public class Matrices extends Functions {
   // https://www.cuemath.com/algebra/inverse-of-3x3-matrix/
   public static Matrix inverse(Matrix in) {
     Matrix adjoint = adjoint(in);
-    int det = det(in);
+    double det = det(in);
     if (det == 0) {
       throw new IllegalArgumentException("The determinant of the matrix is 0, it does not have an inverse"); // Throw an error
     }
-    return scale((1.0 / (double) det), adjoint);
+    return scale((1.0 / det), adjoint);
   }
 }
