@@ -10,8 +10,8 @@ public class ProcessingTest extends PApplet{
     @Override
     public void settings() {
         size(1000, 1000);
-        Equation test = new Equation("200 * sin(x) - 250");
-        points = test.values(0, width, 1, "x");
+        Equation test = new Equation("100 * ln x");
+        points = test.values(-width/2, width/2, 1, "x");
     }
 
     @Override
@@ -20,6 +20,7 @@ public class ProcessingTest extends PApplet{
         line(width/2, 0, width/2, height);
         line(0, height/2, width, height/2);
         strokeWeight(4);
+        fill(255, 0, 0);
         graph(points);
     }
 
@@ -43,7 +44,7 @@ public class ProcessingTest extends PApplet{
             Point p2 = in.get(i);
             line((float) (p1.getX().value() + width/2), (float) (height - p1.getY().value() - height/2),
                 (float) (p2.getX().value() + width/2), (float) (height - p2.getY().value() - height/2) );
-            wait(10);
+            //wait(10);
         }
     }
 
