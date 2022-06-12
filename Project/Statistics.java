@@ -158,15 +158,18 @@ public class Statistics extends Functions {
 
   /*
   *@param n any non-negative value you want to take the sqrt of
-  *@return the approximate sqrt of n within a tolerance of 0.001%
+  *@return the approximate sqrt of n within a tolerance of 0.00000001%
   */
   public static Float sqrt(Number n) {
+    if (n.value() < 0) {
+      return new Float(0, "temp");
+    }
     Float k = new Float(sqrt(n.value(), 1.0), "k");
     return k;
   }
 
   private static double sqrt(double n, double guess) {
-    if (Math.abs( (n / guess + guess) / 2 - guess) < (guess * 0.00001)) {
+    if (Math.abs( (n / guess + guess) / 2 - guess) < (guess * 0.0000000001)) {
       return guess;
     } else {
       return sqrt(n, (n / guess + guess) / 2);
@@ -181,6 +184,12 @@ public class Statistics extends Functions {
     }
   }
 
+  /**
+   * Provides the reference of a Int that will be the least common multiple of the two Int params
+   * @param One of the Int's used to find least common multiple
+   * @param One of the Int's used to find least common multiple
+   * @return the reference of a  Int that will be the least common multiple of the two Int params
+   */
   public static Int lcm (Int x, Int y) {
     int k = 0;
     if (x.intValue() == 0 && y.intValue() == 0) {

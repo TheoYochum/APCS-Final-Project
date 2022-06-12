@@ -9,14 +9,18 @@ public class ProcessingTest extends PApplet{
 
     @Override
     public void settings() {
-        size(400, 400);
-        Equation test = new Equation("100 * sin(x) - 200");
-        points = test.values(0, 800, 1.0, "x");
+        size(1000, 1000);
+        Equation test = new Equation("100 * ln x");
+        points = test.values(-width/2, width/2, 1, "x");
     }
 
     @Override
     public void draw() {
+        strokeWeight(2);
+        line(width/2, 0, width/2, height);
+        line(0, height/2, width, height/2);
         strokeWeight(4);
+        fill(255, 0, 0);
         graph(points);
     }
 
@@ -26,14 +30,24 @@ public class ProcessingTest extends PApplet{
         }
     }
 
+    private static void wait(int millis){
+      try {
+        Thread.sleep(millis);
+      }
+      catch (InterruptedException e) {
+      }
+    }
+
     public void graph(List<Point> in) {
         for (int i = 1; i < in.length(); i++) {
             Point p1 = in.get(i - 1);
             Point p2 = in.get(i);
-            line((float) p1.getX().value(), (float) p1.getY().value() * -1, (float) p2.getX().value(), (float) p2.getY().value() * -1);
+            line((float) (p1.getX().value() + width/2), (float) (height - p1.getY().value() - height/2),
+                (float) (p2.getX().value() + width/2), (float) (height - p2.getY().value() - height/2) );
+            //wait(10);
         }
     }
- 
+
     public static void main (String[] args) {
         ProcessingTest pt = new ProcessingTest();
         PApplet.runSketch(new String[]{"ProcessingTest"}, pt);
