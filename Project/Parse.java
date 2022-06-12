@@ -2,8 +2,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.regex.*;
 
-import javax.swing.text.StyledEditorKit.BoldAction;;
-
 public class Parse {
 
   /**
@@ -38,6 +36,7 @@ public class Parse {
       if (current == '(') {
         openCount++;
         if (i > 0 && !(expression.charAt(i - 1) == ' ' || expression.charAt(i - 1) == '(')) {
+          System.out.println(expression);
           System.out.println(i + " " + (expression.charAt(i)));
           return false;
         }
@@ -45,14 +44,18 @@ public class Parse {
       if (current == ')') {
         closeCount++;
         if (i < expression.length() - 1 && !(expression.charAt(i + 1) == ' ' || expression.charAt(i + 1) == ')')) {
+          System.out.println(expression);
           System.out.println(i + " " + (expression.charAt(i)));
           return false;
         }
       }
       if (contains(operations, "" + current)) {
         if (i > 0 && (expression.charAt(i - 1) != ' ' || i < expression.length() - 1 && expression.charAt(i + 1) != ' ')) {
+          if (!(Character.isDigit(expression.charAt(i + 1)))) {
+            return false;
+          }
+          System.out.println(expression);
           System.out.println(i + " " + (expression.charAt(i)));
-          return false;
         }
       }
     }
