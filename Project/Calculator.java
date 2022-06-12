@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.ThreadPoolExecutor.DiscardPolicy;
 
 public class Calculator {
   HashMap<String, Variable> Variables;
@@ -14,7 +15,9 @@ public class Calculator {
     Display.clear();
     boolean running = true;
     while(running) {
-      System.out.println("Command:");
+      Display.clear();
+      Display.display();
+      Display.printAt("Command:", 1, 3);
       String term = input.nextLine();
       Display.clear();
       route(term);
@@ -30,18 +33,25 @@ public class Calculator {
       case "print variable":
         printVariable();
         break;
+      
+      case "list variables":
+        listVariable();
+        break;
+
+      default:
+        Display.printAt("Invalid Command", 1, 2);
+        break;
     }
   }
 
   public Variable newVariable() {
     String name;
-    System.out.println("Type:");
+    Display.display();
+    Display.printAt("Type:", 1, 3);
     String type = input.nextLine();
     type = type.toLowerCase();
-    Display.clear();
-    System.out.println("Name:");
+    Display.printAt("Name:", 1, 5);
     name = input.nextLine();
-    Display.clear();
     return parser(type, name);
   }
 
@@ -52,7 +62,6 @@ public class Calculator {
     type = type.toLowerCase();
     System.out.println("Name:");
     name = input.nextLine();
-    Display.clear();
     return (Number)(parser(type, name));
   }
 
@@ -69,14 +78,12 @@ public class Calculator {
       case "integer":
         System.out.println("Value:");
         intValue = input.nextInt();
-        Display.clear();
         out = new Int(intValue, name);
         Variables.put(name, new Int(intValue, name));
         break;
       case "float":
         System.out.println("Value:");
         doubleValue = input.nextDouble();
-        Display.clear();
         out = new Float(doubleValue, name);
         Variables.put(name, new Float(doubleValue, name));
         break;
@@ -85,7 +92,6 @@ public class Calculator {
         numerator = new Int(input.nextInt(), name + " Numerator");
         System.out.println("Denominator:");
         denominator = new Int(input.nextInt(), name + " Denominator");
-        Display.clear();
         out = new Fraction(numerator, denominator, name);
         Variables.put(name, new Fraction(numerator, denominator, name));
         break;
@@ -94,16 +100,16 @@ public class Calculator {
         xCor = newNumber();
         System.out.println("Y Coordinate:");
         yCor = newNumber();
-        Display.clear();
         out = new Point(xCor, yCor, name);
         Variables.put(name, new Point(xCor, yCor, name));
         break;
       case "angle":
-        System.out.println("Measure");
+        System.out.println("Measure:");
         doubleValue = input.nextDouble();
+        System.out.println("happens");
+        hold();
         System.out.println("Is it in degrees? y/n");
         degrees = input.nextLine().toLowerCase().equals("y");
-        Display.clear();
         out = new Angle(doubleValue, degrees, name);
         Variables.put(name, new Angle(doubleValue, degrees, name));
         break;
@@ -112,18 +118,31 @@ public class Calculator {
   }
 
   private void printVariable() {
-    System.out.println("Name:");
+    Display.display();
+    Display.printAt("Name:", 1, 3);
     String name = input.nextLine();
     if (!Variables.containsKey(name)) {
-      System.out.println("Not a valid variable name");
-      Display.clear();
+      Display.printAt("Not a valid variable name", 1, 2);
+      hold();
       return;
     }
     System.out.println(Variables.get(name).value());
     hold();
   }
 
+  public void listVariable(){
+    Display.display();
+    Display.goTo(1, 2);
+    for (String key : Variables.keySet()) {
+      System.out.println("Name: " + key);
+      System.out.println("Value: " + Variables.get(key));
+      System.out.println();
+    }
+    hold();
+  }
+
   private void hold() {
+    System.out.println("Press enter to contine");
     input.nextLine();
   }
 
@@ -131,5 +150,4 @@ public class Calculator {
     Calculator calc = new Calculator();
     calc.run();
   }
-
 }
