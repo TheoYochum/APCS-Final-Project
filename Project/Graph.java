@@ -8,17 +8,20 @@ public class Graph extends PApplet{
     List<Point> points, point;
     Equation test, test2;
     boolean list = false;
-    float[] xVals, yVals;
+    double[] xVals, yVals;
+    double limit;
 
-    public Graph(String exp) {
+    public Graph(String exp, double max) {
       test = new Equation(exp);
+      limit = max;
       //test2 = new Equation("-1 * " + exp);
       list = true;
     }
 
-    public Graph(float[] x, float[] y) {
+    public Graph(double[] x, double[] y, double max) {
       xVals = x;
       yVals = y;
+      limit = max;
     }
 
     @Override
@@ -46,10 +49,13 @@ public class Graph extends PApplet{
         }
     }
 
-    public void graph(float[] x,  float[] y) {
-        for (int i = 1; i < x.length; i++) {
-            line(x[i - 1] + width/2, height - y[i - 1] - height/2, x[i] + width/2, height - y[i] - height/2);
+    public void graph(double[] x, double[] y) {
+        points = new List<Point>();
+        for (int i = 0; i < x.length; i++) {
+            Point p1 = new Point(x[i], y[i], "point");
+            points.add(p1);
         }
+        graph(points);
     }
 
     public void graph(List<Point> in) {
@@ -63,8 +69,8 @@ public class Graph extends PApplet{
 
     public static void main (String[] args) {
         //Graph pt = new Graph("((9 * sqrt(x + 36) * sqrt(x + 4) ) / 16) + 40");
-        float[] x = {100, 200, 300};
-        Graph pt1 = new Graph(x, x);
+        double[] x = {10, 20, 30};
+        Graph pt1 = new Graph(x, x, 40);
         PApplet.runSketch(new String[]{"Graph"}, pt1);
         //PApplet.runSketch(new String[]{"Graph"}, pt1);
         // hyperbola right side: "((9 * sqrt(x + 36) * sqrt(x + 4) ) / 16) + 40"
