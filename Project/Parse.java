@@ -37,18 +37,21 @@ public class Parse {
       char current = expression.charAt(i);
       if (current == '(') {
         openCount++;
-        if (i > 0 && expression.charAt(i - 1) != ' ') {
+        if (i > 0 && !(expression.charAt(i - 1) == ' ' || expression.charAt(i - 1) == '(')) {
+          System.out.println(i + " " + (expression.charAt(i)));
           return false;
         }
       }
       if (current == ')') {
         closeCount++;
-        if (i < expression.length() - 1 && expression.charAt(i + 1) != ' ') {
+        if (i < expression.length() - 1 && !(expression.charAt(i + 1) == ' ' || expression.charAt(i + 1) == ')')) {
+          System.out.println(i + " " + (expression.charAt(i)));
           return false;
         }
       }
       if (contains(operations, "" + current)) {
-        if (i > 0 && expression.charAt(i - 1) != ' ' || i < expression.length() - 1 && expression.charAt(i + 1) != ' ') {
+        if (i > 0 && (expression.charAt(i - 1) != ' ' || i < expression.length() - 1 && expression.charAt(i + 1) != ' ')) {
+          System.out.println(i + " " + (expression.charAt(i)));
           return false;
         }
       }
