@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -83,6 +84,10 @@ public class Calculator {
       case "matrix operation":
         matrixOps();
         break;
+      
+      case "graph":
+        graph();
+        break;
 
       case "help":
         String out = "";
@@ -94,6 +99,7 @@ public class Calculator {
         out += "Set radians: Sets the angle evaluation to radians\n";
         out += "Set degrees: Sets the angle evaluation to degrees\n";
         out += "Matrix operations: Operations on matrices including multiplication, addition, scale, det, adjoint, cofactor, transpose, inverse\n";
+        out += "Graph: Graphs the given function in a processing window\n";
         out += "Exit: Exits!\n";
         out += "Help: This!\n";
         out += "\n";
@@ -390,6 +396,40 @@ public class Calculator {
         System.out.println("Not an operation");
         break;
     }
+  }
+  
+  private void graph() {
+    ArrayList<Equation> equations = new ArrayList<Equation>();
+    Display.clear();
+    Display.display();
+    Display.printAt("How many equations do you want to graph?", 1, 3);
+    int times = input.nextInt();
+    System.out.println(times);
+    hold();
+    for (int i = 0; i < times; i++) {
+      Display.clear();
+      Display.display();
+      Display.printAt("Would you like to use a stored equation? y/n", 1, 3);
+      if (input.nextLine().toLowerCase().equals("y")) {
+        System.out.println("Name:"); 
+        String name = input.nextLine();
+        if (Variables.containsKey(name) && Variables.get(name).type().equals("equation")) {
+          equations.add((Equation) Variables.get(name));
+        } else {
+          System.out.println("Invalid name");
+          hold();
+          return;
+        }
+      } else {
+        System.out.println("Enter the equation with x as the variable");
+        String equation = input.nextLine();
+        System.out.println("Is the equation in degrees? y/n");
+        boolean isDegrees = input.nextLine().toLowerCase().equals("y");
+        equations.add(new Equation(equation, "name", isDegrees));
+      }
+    }
+    Graph graph = new Graph(equations);
+    Graph.run(graph);
   }
 
   /**
