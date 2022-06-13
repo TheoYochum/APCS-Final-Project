@@ -98,28 +98,23 @@ public class Statistics extends Functions {
    */
   public static Number pow(Number x, Number y) {
     Float k = new Float(y.value(), "k");
-    k.setValue(k.value() * ln(x).value());
-    return exp(k);
-  }
-
-
-  private static Number ln(Number x, String k) { //arithmetic-geometric implementation
-    double j = (Math.PI / (2 * agM(x, 16).value()) ) - 16 * ln(new Float(2, "two")).value();
-    return new Float(j, "temp");
-  }
-
-  private static Float agM(Number ln, int precision) {
-    double x = 1.0;
-    Int exp = new Int(2 - precision, "pr");
-    exp = abs(exp).getInt();
-    double y = 1.0 / (exp(new Float(2, "2"), exp)).value();
-    y = y / ln.value();
-    for (int i = 0; i < precision; i++) {
-      Float temp = new Float(x*y, "temp");
-      x = (x + y) / 2.0;
-      y = sqrt(temp).value();
+    Float xC = x.getFloat();
+    double j = 0;
+    if (x.value() < 0) {
+      xC.setValue(-1 * x.value());
     }
-    return new Float(y, "y");
+    if (y.value() < 0 {
+      j = 1.0 / (pow(xC, abs(y))).value();
+      k.setValue(j);
+    } else if (y.value() > 0) {
+      j = y.value() * ln(xC).value();
+      k.setValue(j);
+      k = exp(k).getFloat();
+    }
+    if (x.value() < 0) {
+      k.setValue(k.value() * -1);
+    }
+    return k;
   }
 
 
@@ -261,6 +256,25 @@ public class Statistics extends Functions {
     }
     Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
     return res;
+  }
+
+  private static Number ln(Number x, String k) { //arithmetic-geometric implementation
+    double j = (Math.PI / (2 * agM(x, 16).value()) ) - 16 * ln(new Float(2, "two")).value();
+    return new Float(j, "temp");
+  }
+
+  private static Float agM(Number ln, int precision) {
+    double x = 1.0;
+    Int exp = new Int(2 - precision, "pr");
+    exp = abs(exp).getInt();
+    double y = 1.0 / (exp(new Float(2, "2"), exp)).value();
+    y = y / ln.value();
+    for (int i = 0; i < precision; i++) {
+      Float temp = new Float(x*y, "temp");
+      x = (x + y) / 2.0;
+      y = sqrt(temp).value();
+    }
+    return new Float(y, "y");
   }
 
 } // end of class
