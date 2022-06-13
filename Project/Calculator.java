@@ -99,7 +99,7 @@ public class Calculator {
         out += "Set radians: Sets the angle evaluation to radians\n";
         out += "Set degrees: Sets the angle evaluation to degrees\n";
         out += "Matrix operations: Operations on matrices including multiplication, addition, scale, det, adjoint, cofactor, transpose, inverse\n";
-        out += "Graph: Graphs the given function in a processing window\n";
+        out += "Graph: Graphs the given function in a processing window, use left and right click to zoom in and out\n";
         out += "Exit: Exits!\n";
         out += "Help: This!\n";
         out += "\n";
@@ -120,6 +120,8 @@ public class Calculator {
         out += "(3 + 8) * 3\n";
         out += "((3 * 8) - 4 * sin (20)\n";
         out += "sin 20 * tan 20\n";
+        out += "sin x * tan x\n";
+        out += "x ^ 2 + x * 3 + 5\n";
         Display.display();
         Display.printAt(out, 1, 3);
         hold();
