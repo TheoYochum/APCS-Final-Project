@@ -137,6 +137,11 @@ public class Statistics extends Functions {
     return temp;
   }
 
+  /**
+  * Helper function that provides the reference of a Number that is the natural log of any value between 1 and rad 10
+  * @param Number with a value between 1 and rad 10
+  * @return the reference of a Number that is the natural log of the value of the Number param
+  */
   private static Number ln(Number x , int j) { //tailor series for values in between 1 and sqrt10
     Number res = x.get();
     double y1 = (res.value() - 1) / (res.value() + 1);
@@ -152,8 +157,8 @@ public class Statistics extends Functions {
   }
 
   /*
-  *@param n any non-negative value you want to take the sqrt of
-  *@return the approximate sqrt of n within a tolerance of 0.00000001%
+  * @param n any non-negative value you want to take the sqrt of
+  * @return the approximate sqrt of n within a tolerance of 0.00000001%
   */
   public static Float sqrt(Number n) {
     if (n.value() < 0) {
@@ -163,6 +168,11 @@ public class Statistics extends Functions {
     return k;
   }
 
+  /*
+  * Helper function that uses newtonian method of deriving sqrt
+  * @param n any non-negative value you want to take the sqrt of
+  * @return the approximate sqrt of n within a tolerance of 0.00000001%
+  */
   private static double sqrt(double n, double guess) {
     if (Math.abs( (n / guess + guess) / 2 - guess) < (guess * 0.0000000001)) {
       return guess;
@@ -171,6 +181,12 @@ public class Statistics extends Functions {
     }
   }
 
+  /**
+   * Provides the reference of a Int that will be the greatest common denominator of the two Int params by decrementing until both values are equal
+   * @param One of the Int's used to find greatest common denominator
+   * @param One of the Int's used to find greatest common denominator
+   * @return the reference of a Int that will be the greatest common denominator of the two Int params
+   */
   public static Int gcd(Int x, Int y) {
     if (y.value() == 0) {
       return x;
@@ -238,6 +254,11 @@ public class Statistics extends Functions {
     return res;
   }
 
+  /**
+   * Provides the reference of an array of Numbers with the first index being the mantissa of the param and the second being the exponent
+   * @param Number that will be converted to scientific notation
+   * @return the reference of an array of Numbers with the first index being the mantissa of the param and the second being the exponent
+   */
   private static Number[] sciNot(Number exp) {
     String decimal;
     int count = 0;
@@ -263,6 +284,12 @@ public class Statistics extends Functions {
     return new Float(j, "temp");
   }
 
+  /**
+   * Provides the reference of an Float that is the arithmetic-geometric mean of a Number param and 1.0 that is used to derive a different formula for ln
+   * @param Number that will be used to calculate arithmetic-geometric implementation
+   * @param The number of times the inner loop will be run to converge to a single number
+   * @return the reference of an Float that is the arithmetic-geometric mean of a Number param and 1.0 that is used to derive a different formula for ln
+   */
   private static Float agM(Number ln, int precision) {
     double x = 1.0;
     Int exp = new Int(2 - precision, "pr");
