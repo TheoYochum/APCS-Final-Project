@@ -18,8 +18,8 @@ public class Point extends Variable {
    */
   public Point(Number x, Number y, String name) {
     super(name, "Point");
-    xCor = x;
-    yCor = y;
+    xCor = x.get();
+    yCor = y.get();
   }
 
   /**
