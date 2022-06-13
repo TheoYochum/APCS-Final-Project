@@ -6,22 +6,21 @@ public class Matrix extends Variable {
   private int rows;
   private int cols;
 
-  public static void main(String[] args) {
-    Matrix test = new Matrix();
-  }
-
-  public Matrix() {
+  public Matrix(String name) {
+    super(name, "Matrix");
     Scanner input = new Scanner(System.in);
-    System.out.println("Name:");
-    String name = input.nextLine();
     System.out.println("# of rows:");
     rows = input.nextInt();
     System.out.println("# of cols:");
     cols = input.nextInt();
     matrix = new int[rows][cols];
+    System.out.println();
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        System.out.println(toString());
+        Display.clear();
+        Display.display();
+        Display.printAt("Enter values left to right top to bottom", 1, 3);
+        Display.printAt(toString(), 1, 5);
         matrix[i][j] = input.nextInt();
       }
     }
@@ -50,7 +49,7 @@ public class Matrix extends Variable {
   }
 
   public String toString() {
-    String out = "";
+    String out = "\n";
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         out += matrix[i][j] + " ";

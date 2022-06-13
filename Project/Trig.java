@@ -1,7 +1,7 @@
 /**
- * A set of trigonometric functions, 
+ * A set of trigonometric functions,
  * all either dependnet on sin or arctan
- * Currently uses the taylor series for sin up to 5 iterations and 
+ * Currently uses the taylor series for sin up to 5 iterations and
  * series function for arctan
  */
 public class Trig extends Functions {
