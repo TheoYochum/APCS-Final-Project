@@ -99,6 +99,7 @@ public class Calculator {
         out += "Set radians: Sets the angle evaluation to radians\n";
         out += "Set degrees: Sets the angle evaluation to degrees\n";
         out += "Matrix operations: Operations on matrices including multiplication, addition, scale, det, adjoint, cofactor, transpose, inverse\n";
+        out += "Graph: Graphs the given function in a processing window\n";
         out += "Exit: Exits!\n";
         out += "Help: This!\n";
         out += "\n";
