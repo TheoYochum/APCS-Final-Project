@@ -1,8 +1,10 @@
 /**
  * Integer variable to abstract certain functions
  */
-
 public class Int extends Variable implements Number {
+  /**
+   * The value of the integer
+   */
   private int value;
 
   /**

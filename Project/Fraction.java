@@ -5,7 +5,14 @@
  */
 
 public class Fraction extends Variable implements Number {
+  /**
+   * The numerator stored as a rational number
+   */
   private Int numerator;
+
+  /**
+   * The denominator stored as a rational number
+   */
   private Int denominator;
 
   /**
@@ -119,16 +126,21 @@ public class Fraction extends Variable implements Number {
     return (double) numerator.intValue() / denominator.intValue();
   }
 
+  /**
+   * The set value implementation taking an int
+   */
   public void setValue(int x) {
-    //necesarry for overide
     numerator.setValue(x);
     denominator.setValue(1);
   }
 
+  /**
+   * The set value implementation taking a double and approximating
+   */
   public void setValue(double x) {
-    //necesarry for overide
-    numerator.setValue((int)x);
-    denominator.setValue(1);
+    Fraction temp = approx(x, 10);
+    numerator = temp.getNumerator();
+    denominator = temp.getDenominator();
   }
 
   /**
@@ -157,6 +169,12 @@ public class Fraction extends Variable implements Number {
     return new Fraction(denominator, numerator, this.name() +  " reciprocal");
   }
 
+  /**
+   * An overload to approxumate the value when given an integer, setting it as a fraction with denominator 1
+   * @param in the integer to be approximated
+   * @param tolerance the tolerance which is ignored, necessary for overload
+   * @return the approximated Fraction
+   */
   public static Fraction approx(int in, int tolerance) {
     return new Fraction(in, "name");
   }
@@ -305,7 +323,7 @@ public class Fraction extends Variable implements Number {
   }
 
   /**
-   * Constructs a string using the numberator and denominator of the Fraction object
+   * Constructs a string using the numberator and denominator of the Fraction object, returns as an int if denominator = 1
    * @return a string version of the Fraction object
    */
   public String toString() {

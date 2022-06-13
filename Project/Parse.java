@@ -3,6 +3,10 @@ import java.util.HashMap;
 import java.util.Scanner;
 import java.util.regex.*;
 
+
+/**
+ * The class which parses any expressions
+ */
 public class Parse {
 
   /**
@@ -28,7 +32,7 @@ public class Parse {
     while (true) {
       try {
         System.out.println("Enter the expression:");
-        System.out.println(Parse(input.nextLine()));
+        System.out.println(parse(input.nextLine()));
       } catch (NumberFormatException e) {
         System.out.println("Improper formatting \n");
       } catch (IllegalArgumentException e) {
@@ -37,10 +41,19 @@ public class Parse {
     }
   }
 
+  /**
+   * Calls the Parse function from calculator assuming its in degrees
+   * @param in the hashmap of the variables
+   */
   public static void call(HashMap<String, Variable> in) {
     call(in, true);
   }
 
+  /**
+   * Calls the Parse function from calculator
+   * @param in the hashmap of the variables
+   * @param isDegrees whether or not it is in degrees
+   */
   public static void call(HashMap<String, Variable> in, boolean isDegrees) {
     variables = in;
     Scanner input = new Scanner(System.in);
@@ -53,7 +66,7 @@ public class Parse {
         if (line.toLowerCase().equals("exit")) {
           return;
         }
-        Float temp = Parse(line, isDegrees);
+        Float temp = parse(line, isDegrees);
         System.out.println(temp);
         System.out.println("Would you like to store this as a variable? y/n");
         if (input.nextLine().equals("y")) {
@@ -68,6 +81,11 @@ public class Parse {
     }
   }
 
+  /**
+   * An unfinished function intended to screen for improper formatting, faulty logic
+   * @param expression the expression to be screened
+   * @return whether or not it has proper formatiing
+   */
   public static boolean screen(String expression) {
     int openCount = 0;
     int closeCount = 0;
@@ -103,6 +121,12 @@ public class Parse {
     return true;
   }
 
+  /**
+   * A function to check the presence of a string in an array
+   * @param list the array to be checked
+   * @param val the value to check for
+   * @return whether or not the value is found
+   */
   private static boolean contains(String[] list, String val) {
     for (int i = 0; i < list.length; i++) {
       if (list[i].equals(val)) {
@@ -112,8 +136,13 @@ public class Parse {
     return false;
   }
 
-  public static Float Parse(String expression) {
-    return Parse(expression, true);
+  /**
+   * Calls the parsing method assuming its in degrees
+   * @param expression the expression to be parsed
+   * @return the Float returned from the expression
+   */
+  public static Float parse(String expression) {
+    return parse(expression, true);
   }
 
   /**
@@ -122,14 +151,14 @@ public class Parse {
    * @param expression A string in proper infix format, spaces between operators
    * @return A float value of the results of this expression
    */
-  public static Float Parse(String expression, boolean isDegrees) {
+  public static Float parse(String expression, boolean isDegrees) {
     // if (!screen(expression)) {
     //   throw new NumberFormatException("Improper parentheses");
     // }
-    ArrayList<String> terms = Terms(expression);
+    ArrayList<String> terms = terms(expression);
     for (int i = terms.size() - 1; i >= 0; i--) {
       if (terms.get(i).contains("(")) { // Targets any Term of parentheses and recursively breaks them down and evaluates them individually
-        terms.set(i, Parse(terms.get(i).substring(1, terms.get(i).length() - 1)).value() + "");
+        terms.set(i, parse(terms.get(i).substring(1, terms.get(i).length() - 1)).value() + "");
       }
     } // Evaluates each term
     return new Float(Double.parseDouble(evaluate(terms, isDegrees)), "expression");
@@ -141,7 +170,7 @@ public class Parse {
    * @param in an infix expression with proper formatting
    * @return an ArrayList of the expression broken down
    */
-  private static ArrayList<String> Terms(String in) {
+  private static ArrayList<String> terms(String in) {
     String expression = in;
     ArrayList<String> out = new ArrayList<String>();
     while (expression.contains("(")) { // As long as the string has parentheses left break them down
@@ -206,9 +235,15 @@ public class Parse {
     return in.get(0);
   }
 
+  /**
+   * The method to subsitute constants
+   * @param in the arraylist of terms to be subtituted
+   * @param operation the constant to be checked for
+   * @param i the index of the value to be checked
+   */
   private static void constants(ArrayList<String> in, String operation, int i) {
     Float value;
-    switch ((in.get(i))) {
+    switch (in.get(i)) {
       case "e":
         value = new Float(Functions.e, "e");
         in.set(i, "" + value);
@@ -345,12 +380,17 @@ public class Parse {
     }
   }
 
+  /**
+   * Carries out all the statistical operators
+   * @param in the terms to be substituted
+   * @param operation the operation to be substituted
+   * @param i the index of the value to be substituted
+   */
   private static void stats(ArrayList<String> in, String operation, int i) {
     Number one;
     Number two;
-    switch ((in.get(i))) {
+    switch (in.get(i)) {
       case "abs":
-        //add in stats code
         one = new Float(Double.parseDouble(in.get(i + 1)), "one");
         in.set(i, "" + Statistics.abs(one));
         in.remove(i + 1);
@@ -408,6 +448,6 @@ public class Parse {
         in.remove(i + 1);
         in.remove(i + 1);
         break;
-      }
     }
+  }
 }

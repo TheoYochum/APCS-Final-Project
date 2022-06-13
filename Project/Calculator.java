@@ -1,17 +1,35 @@
-import java.nio.file.WatchEvent;
 import java.util.HashMap;
 import java.util.Scanner;
 
+
+/**
+ * The main class for interactions with the terminal
+ */
 public class Calculator {
+  /**
+   * Stores the variables
+   */
   HashMap<String, Variable> Variables;
+  /**
+   * Input scanning
+   */
   Scanner input;
+  /**
+   * Univeral isDegrees
+   */
   boolean isDegrees = true;
 
+  /**
+   * Initiates the calculator to be run
+   */
   public Calculator() {
     Variables = new HashMap<String, Variable>();
     input = new Scanner(System.in);
   }
 
+  /**
+   * Main input loop to call various methods
+   */
   private void run() {
     Display.clear();
     boolean running = true;
@@ -28,6 +46,10 @@ public class Calculator {
     }
   }
 
+  /**
+   * Routes the the main groups of methods
+   * @param term the method name to route to
+   */
   private void route(String term) {
     switch (term) {
       case "new variable":
@@ -105,7 +127,11 @@ public class Calculator {
     }
   }
 
-  public Variable newVariable() {
+  /**
+   * Method to instantiate a new variable
+   * @return the Variable to return to the hashmap
+   */
+  private Variable newVariable() {
     String name;
     Display.display();
     Display.printAt("Type:", 1, 3);
@@ -116,7 +142,11 @@ public class Calculator {
     return parser(type, name);
   }
 
-  public Number newNumber() {
+  /**
+   * Method to instantiate a Number interface specifically
+   * @return the Number to return to the hashmap
+   */
+  private Number newNumber() {
     String name;
     System.out.println("What type of Number");
     String type = input.nextLine();
@@ -127,6 +157,12 @@ public class Calculator {
     return (Number)(parser(type, name));
   }
 
+  /**
+   * The parser and routing to return a new variable
+   * @param type the type name of the variable
+   * @param name the name of the variable
+   * @return the newly created variable
+   */
   private Variable parser(String type, String name) {
     int intValue;
     double doubleValue;
@@ -194,6 +230,9 @@ public class Calculator {
     return out;
   }
   
+  /**
+   * The routing of the matrix operations
+   */
   public void matrixOps() {
     Matrix in;
     Matrix two;
@@ -353,6 +392,9 @@ public class Calculator {
     }
   }
 
+  /**
+   * The function to print a variable by name from the hashmap
+   */
   private void printVariable() {
     Display.display();
     Display.printAt("Name:", 1, 3);
@@ -366,7 +408,10 @@ public class Calculator {
     hold();
   }
 
-  public void listVariable(){
+  /**
+   * The function to print all the variables from the hashmap
+   */
+  private void listVariable(){
     Display.display();
     Display.goTo(1, 3);
     for (String key : Variables.keySet()) {
@@ -378,7 +423,9 @@ public class Calculator {
     hold();
   }
 
-
+  /**
+   * The function to route to the Parse function
+   */
   public void evaluate() {
     boolean isDegrees = true;
     System.out.println("Are the values in degrees? y/n");
@@ -388,12 +435,18 @@ public class Calculator {
     Parse.call(Variables, isDegrees);
   }
 
-
+  /**
+   * The function to hold the display as is
+   */
   private void hold() {
     System.out.println("Press enter to contine");
     input.nextLine();
   }
 
+  /**
+   * The main which instantiates and runs the calculator
+   * @param args terminal arguments
+   */
   public static void main(String[] args) {
     Calculator calc = new Calculator();
     calc.run();

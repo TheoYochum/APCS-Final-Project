@@ -4,6 +4,9 @@
  */
 
 public class Point extends Variable {
+  /**
+   * The x and y coordinates
+   */
   private Number xCor;
   private Number yCor;
 
