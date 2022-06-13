@@ -111,9 +111,6 @@ public class Parse {
    * @return A float value of the results of this expression
    */
   public static Float Parse(String expression) {
-    if (!screen(expression)) {
-      throw new NumberFormatException("Improper parentheses");
-    }
     ArrayList<String> terms = Terms(expression);
     for (int i = terms.size() - 1; i >= 0; i--) {
       if (terms.get(i).contains("(")) { // Targets any Term of parentheses and recursively breaks them down and evaluates them individually
