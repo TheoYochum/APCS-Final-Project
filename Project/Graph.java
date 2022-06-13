@@ -42,11 +42,10 @@ public class Graph extends PApplet{
 
     @Override
     public void settings() {
-        size(1600, 900);
+        size(500, 500);
         if (expre) {
           points = test.values(-limit, limit, limit/10000, "x");
         }
-        //point = test2.values(-width/2, width/2, 0.1, "x");
     }
 
     @Override
@@ -96,9 +95,10 @@ public class Graph extends PApplet{
     public static void main (String[] args) {
         Graph pt = new Graph("100 * cos(x) + 200", 1000);
         ArrayList<Equation> eqs = new ArrayList<Equation>();
-        eqs.add(new Equation("100 * cos(x) + 200"));
-        eqs.add(new Equation("100 * sin(x) + 200"));
-        Graph pt1 = new Graph(eqs, 1000);
+        //eqs.add(new Equation("sqrt(1 + x) * sqrt(1 - x)"));
+        eqs.add(new Equation("sqrt((1 + x) * (1 - x))"));
+        eqs.add(new Equation("-1 * sqrt((1 + x) * (1 - x))"));
+        Graph pt1 = new Graph(eqs, 10);
         PApplet.runSketch(new String[]{"Graph"}, pt1);
         //PApplet.runSketch(new String[]{"Graph"}, pt1);
         // hyperbola right side: "((9 * sqrt(x + 36) * sqrt(x + 4) ) / 16) + 40"
