@@ -81,11 +81,13 @@ Akram: New doc for lcm, played around with processing in a java file.
 **6/11/22**
 
 Theo: Created basics of graph class and figured out compile instructions
+
 Akram: Working positive x axis on the Graph class using Theo's new equation class.
 
 **6/12/22**
 
 Theo: Built up calculator to route to all desired and built functions
+
 Akram: Added all constructors and functions for Graph, made sure zoom and scaling works, fixed edge cases for certain graphs. Made sure pow could handle any kind of value. Wrote doc for the rest of the files.
 
 **6/13/22**
