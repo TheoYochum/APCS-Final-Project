@@ -10,9 +10,7 @@ public class Display {
   }
 
   public static void display() {
-    goTo(1, 1);
-    System.out.println("The Thakram Calculator™");
-
+    printAt("The Thakram Calculator™,  Type help if you need it", 1, 1);
   }
 
   public static void clear() {

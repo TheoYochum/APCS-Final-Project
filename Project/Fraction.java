@@ -8,6 +8,10 @@ public class Fraction extends Variable implements Number {
   private Int numerator;
   private Int denominator;
 
+  public static void main(String[] args) {
+    System.out.println(approx(0.2, 10));
+  }
+
   /**
    * Basic constructor taking two Ints and storing them in the numerator and denominator
    * @param num the Int in the Numerator
@@ -152,6 +156,10 @@ public class Fraction extends Variable implements Number {
    */
   public Variable reciprocal() {
     return new Fraction(denominator, numerator, this.name() +  " reciprocal");
+  }
+
+  public static Fraction approx(int in, int tolerance) {
+    return new Fraction(in, "name");
   }
 
   /**
