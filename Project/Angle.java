@@ -87,10 +87,18 @@ public class Angle extends Variable {
     return value;
   }
 
+  /**
+   * Sets the value given a double
+   * @param in
+   */
   public void setValue(double in) {
     value = in;
   }
 
+  /**
+   *  Override toString
+   *  @return toString
+   */
   public String toString() {
     return "" + value();
   }

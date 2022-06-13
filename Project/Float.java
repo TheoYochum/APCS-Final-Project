@@ -2,8 +2,10 @@
  * Floating point variable which stores value as doubles
  *
  */
-
 public class Float extends Variable implements Number {
+  /**
+   * The double value of the Float
+   */
   private double value;
 
   /**

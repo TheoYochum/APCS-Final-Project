@@ -1,11 +1,13 @@
 import java.util.ArrayList;
 
-
 /**
  * List varaible which abstracts functionality
  * and allows storage of a single type of variable
  */
 public class List<E> extends Variable {
+  /**
+   * The internal ArrayList
+   */
   private ArrayList<E> list;
   
   /**
@@ -16,6 +18,9 @@ public class List<E> extends Variable {
     return list.size();
   }
 
+  /**
+   * The basic constructor
+   */
   public List() {
     list = new ArrayList<E>();
   }
@@ -46,10 +51,19 @@ public class List<E> extends Variable {
     return list.get(index);
   }
 
+  /**
+   * The method to add the variable to the list
+   * @param element the element to be added
+   */
   public void add(E element) {
     list.add(element);
   }
 
+  /**
+   * Removes a value at the given index
+   * @param index the index to be removed from
+   * @return the value of the removed element
+   */
   public E remove(int index) {
     return list.remove(index);
   }
