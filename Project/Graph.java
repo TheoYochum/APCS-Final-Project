@@ -24,6 +24,11 @@ public class Graph extends PApplet{
       test = new Equation(exp, "test");
       limit = 10 * 2;
       expre = true;
+
+    }
+
+    public static void run(Graph graph) {
+      PApplet.runSketch(new String[]{"Graph"}, graph);
     }
 
     /**
