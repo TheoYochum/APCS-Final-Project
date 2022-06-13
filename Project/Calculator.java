@@ -43,6 +43,7 @@ public class Calculator {
 
       default:
         Display.printAt("Invalid Command", 1, 2);
+        hold();
         break;
     }
   }
@@ -144,7 +145,7 @@ public class Calculator {
 
   public void listVariable(){
     Display.display();
-    Display.goTo(1, 2);
+    Display.goTo(1, 3);
     for (String key : Variables.keySet()) {
       System.out.println("Type: " + Variables.get(key).type());
       System.out.println("Name: " + key);
