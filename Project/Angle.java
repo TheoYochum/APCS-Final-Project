@@ -1,5 +1,5 @@
 /**
- * Angle variable which can store values 
+ * Angle variable which can store values
  * in both degrees and radians and allows
  * easy transfer between them
  */
@@ -89,7 +89,7 @@ public class Angle extends Variable {
 
   /**
    * Sets the value given a double
-   * @param in
+   * @param in is the new value for the Angle object
    */
   public void setValue(double in) {
     value = in;
