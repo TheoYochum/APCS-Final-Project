@@ -73,3 +73,19 @@ Theo: Formatted and structured the decimal to fraction approximation with genera
 **6/7/22**
 
 Akram: Documentation for statistics, geometric-arithmetic mean calculator.
+
+**6/10/22**
+
+Akram: New doc for lcm, played around with processing in a java file.
+
+**6/11/22**
+
+Akram: Working positive x axis on the Graph class using Theo's new equation class.
+
+**6/12/22**
+
+Akram: Added all constructors and functions for Graph, made sure zoom and scaling works, fixed edge cases for certain graphs. Made sure pow could handle any kind of value. Wrote doc for the rest of the files.
+
+**6/13/22**
+
+Thakram: Compiled a working graphing calculator.
