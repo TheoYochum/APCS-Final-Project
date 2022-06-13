@@ -3,7 +3,7 @@
 
 [Javadocs](https://theoyochum.github.io/APCS-Final-Project/index-all.html)
 
-[Prototyping Document](https://theoyochum.github.io/APCS-Final-Project/package-summary.html)
+[Prototyping Document](https://docs.google.com/document/d/180BusO_vznPpkCsnz28LtAkmPrC_HMbmgoyS5ju0bSs/edit?usp=sharing)
 
 [UML Diagram](https://github.com/TheoYochum/APCS-Final-Project/blob/main/UMLDiagrams/APCS%20Final%20UML.pdf)
 
