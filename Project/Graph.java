@@ -26,9 +26,9 @@ public class Graph extends PApplet{
 
     @Override
     public void settings() {
-        size(1000, 1000);
+        size(1600, 900);
         if (list) {
-          points = test.values(-limit, limit, .1, "x");
+          points = test.values(-limit, limit, limit/10000, "x");
         }
         //point = test2.values(-width/2, width/2, 0.1, "x");
     }
@@ -61,20 +61,18 @@ public class Graph extends PApplet{
 
     public void graph(List<Point> in) {
         Point p3 = in.get(0);
-        System.out.println(p3);
         for (int i = 1; i < in.length(); i++) {
             Point p1 = in.get(i - 1);
             Point p2 = in.get(i);
             line((float) (p1.getX().value() * (width/limit) + width/2), (float) (height - p1.getY().value() * (height/limit) - height/2),
                  (float) (p2.getX().value() * (width/limit) + width/2), (float) (height - p2.getY().value() * (height/limit) - height/2) );
-           System.out.println(p2);
         }
     }
 
     public static void main (String[] args) {
-        Graph pt = new Graph("10 * cos(x)", 100);
-        //double[] x = {10, 20, 30};
-        //Graph pt1 = new Graph(x, x, 100);
+        Graph pt = new Graph("100 * cos(x)", 10000);
+        double[] x = {100, 100};
+        Graph pt1 = new Graph(x, x, 100);
         PApplet.runSketch(new String[]{"Graph"}, pt);
         //PApplet.runSketch(new String[]{"Graph"}, pt1);
         // hyperbola right side: "((9 * sqrt(x + 36) * sqrt(x + 4) ) / 16) + 40"
