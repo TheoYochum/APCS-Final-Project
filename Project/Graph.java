@@ -16,28 +16,28 @@ public class Graph extends PApplet{
     double[] xVals, yVals;
     double limit;
 
-    public Graph(String exp, double max) {
+    public Graph(String exp) {
       test = new Equation(exp, "test");
-      limit = max * 2;
+      limit = 10 * 2;
       expre = true;
     }
 
-    public Graph(Equation x, double max) {
+    public Graph(Equation x) {
       test = x;
-      limit = max * 2;
+      limit = 10 * 2;
       expre = true;
     }
 
-    public Graph(double[] x, double[] y, double max) {
+    public Graph(double[] x, double[] y) {
       xVals = x;
       yVals = y;
-      limit = max * 2;
+      limit = 10 * 2;
     }
 
-    public Graph(ArrayList<Equation> eq, double max) {
+    public Graph(ArrayList<Equation> eq) {
       eqs = eq;
       multG = true;
-      limit = max * 2;
+      limit = 10 * 2;
     }
 
     @Override
@@ -123,7 +123,7 @@ public class Graph extends PApplet{
     }
 
     public static void main (String[] args) {
-        Graph pt = new Graph("100 * cos(x) + 200", 1000);
+        Graph pt = new Graph("100 * cos(x) + 200");
         ArrayList<Equation> eqs = new ArrayList<Equation>();
         eqs.add(new Equation("sqrt(1 + x) * sqrt(1 - x)", "test"));
         eqs.add(new Equation("sqrt((1 + x) * (1 - x))", "test"));
@@ -131,7 +131,8 @@ public class Graph extends PApplet{
         //eqs.add(new Equation("7"));
         eqs.add(new Equation("x ^ 4.2323", "test"));
         eqs.add(new Equation("100 * sin(x) + 20", "test"));
-        Graph pt1 = new Graph(eqs, 10);
+        Equation sin = new Equation("100000 * sin(x)", "test");
+        Graph pt1 = new Graph(sin);
         PApplet.runSketch(new String[]{"Graph"}, pt1);
         //PApplet.runSketch(new String[]{"Graph"}, pt1);
         // hyperbola right side: "((9 * sqrt(x + 36) * sqrt(x + 4) ) / 16) + 40"
