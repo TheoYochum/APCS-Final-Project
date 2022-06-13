@@ -98,28 +98,23 @@ public class Statistics extends Functions {
    */
   public static Number pow(Number x, Number y) {
     Float k = new Float(y.value(), "k");
-    k.setValue(k.value() * ln(x).value());
-    return exp(k);
-  }
-
-
-  private static Number ln(Number x, String k) { //arithmetic-geometric implementation
-    double j = (Math.PI / (2 * agM(x, 16).value()) ) - 16 * ln(new Float(2, "two")).value();
-    return new Float(j, "temp");
-  }
-
-  private static Float agM(Number ln, int precision) {
-    double x = 1.0;
-    Int exp = new Int(2 - precision, "pr");
-    exp = abs(exp).getInt();
-    double y = 1.0 / (exp(new Float(2, "2"), exp)).value();
-    y = y / ln.value();
-    for (int i = 0; i < precision; i++) {
-      Float temp = new Float(x*y, "temp");
-      x = (x + y) / 2.0;
-      y = sqrt(temp).value();
+    Float xC = x.getFloat();
+    double j = 0;
+    if (x.value() < 0) {
+      xC.setValue(-1 * x.value());
     }
-    return new Float(y, "y");
+    if (y.value() < 0) {
+      j = 1.0 / (pow(xC, abs(y))).value();
+      k.setValue(j);
+    } else if (y.value() > 0) {
+      j = y.value() * ln(xC).value();
+      k.setValue(j);
+      k = exp(k).getFloat();
+    }
+    if (x.value() < 0) {
+      k.setValue(k.value() * -1);
+    }
+    return k;
   }
 
 
@@ -142,6 +137,11 @@ public class Statistics extends Functions {
     return temp;
   }
 
+  /**
+  * Helper function that provides the reference of a Number that is the natural log of any value between 1 and rad 10
+  * @param Number with a value between 1 and rad 10
+  * @return the reference of a Number that is the natural log of the value of the Number param
+  */
   private static Number ln(Number x , int j) { //tailor series for values in between 1 and sqrt10
     Number res = x.get();
     double y1 = (res.value() - 1) / (res.value() + 1);
@@ -157,17 +157,22 @@ public class Statistics extends Functions {
   }
 
   /*
-  *@param n any non-negative value you want to take the sqrt of
-  *@return the approximate sqrt of n within a tolerance of 0.00000001%
+  * @param n any non-negative value you want to take the sqrt of
+  * @return the approximate sqrt of n within a tolerance of 0.00000001%
   */
   public static Float sqrt(Number n) {
     if (n.value() < 0) {
-      return new Float(0, "temp");
+      return new Float(0.0, "get rid");
     }
     Float k = new Float(sqrt(n.value(), 1.0), "k");
     return k;
   }
 
+  /*
+  * Helper function that uses newtonian method of deriving sqrt
+  * @param n any non-negative value you want to take the sqrt of
+  * @return the approximate sqrt of n within a tolerance of 0.00000001%
+  */
   private static double sqrt(double n, double guess) {
     if (Math.abs( (n / guess + guess) / 2 - guess) < (guess * 0.0000000001)) {
       return guess;
@@ -176,6 +181,12 @@ public class Statistics extends Functions {
     }
   }
 
+  /**
+   * Provides the reference of a Int that will be the greatest common denominator of the two Int params by decrementing until both values are equal
+   * @param One of the Int's used to find greatest common denominator
+   * @param One of the Int's used to find greatest common denominator
+   * @return the reference of a Int that will be the greatest common denominator of the two Int params
+   */
   public static Int gcd(Int x, Int y) {
     if (y.value() == 0) {
       return x;
@@ -243,6 +254,11 @@ public class Statistics extends Functions {
     return res;
   }
 
+  /**
+   * Provides the reference of an array of Numbers with the first index being the mantissa of the param and the second being the exponent
+   * @param Number that will be converted to scientific notation
+   * @return the reference of an array of Numbers with the first index being the mantissa of the param and the second being the exponent
+   */
   private static Number[] sciNot(Number exp) {
     String decimal;
     int count = 0;
@@ -261,6 +277,31 @@ public class Statistics extends Functions {
     }
     Number[] res = {new Int(count, "n"), new Float(Double.valueOf(decimal), "int simp")};
     return res;
+  }
+
+  private static Number ln(Number x, String k) { //arithmetic-geometric implementation
+    double j = (Math.PI / (2 * agM(x, 16).value()) ) - 16 * ln(new Float(2, "two")).value();
+    return new Float(j, "temp");
+  }
+
+  /**
+   * Provides the reference of an Float that is the arithmetic-geometric mean of a Number param and 1.0 that is used to derive a different formula for ln
+   * @param Number that will be used to calculate arithmetic-geometric implementation
+   * @param The number of times the inner loop will be run to converge to a single number
+   * @return the reference of an Float that is the arithmetic-geometric mean of a Number param and 1.0 that is used to derive a different formula for ln
+   */
+  private static Float agM(Number ln, int precision) {
+    double x = 1.0;
+    Int exp = new Int(2 - precision, "pr");
+    exp = abs(exp).getInt();
+    double y = 1.0 / (exp(new Float(2, "2"), exp)).value();
+    y = y / ln.value();
+    for (int i = 0; i < precision; i++) {
+      Float temp = new Float(x*y, "temp");
+      x = (x + y) / 2.0;
+      y = sqrt(temp).value();
+    }
+    return new Float(y, "y");
   }
 
 } // end of class
