@@ -8,7 +8,7 @@ public class Parse {
   /**
    * Sets of operations to be conducted in order
    */
-  private static HashMap<String,Variable> variables = null;
+  private static HashMap<String,Variable> variables = new HashMap<String, Variable>();
   private static String[] constants = {"e", "pi", "tau"};
   private static String[] stats = {"abs", "ceil", "floor", "exp", "pow", "ln", "sqrt", "gcd", "lcm", "log"};
   private static String[] trig = {"sin", "cos", "tan", "csc", "sec", "cot", "arcsin", "arccos", "arctan", "arcsec", "arccsc", "arccot"};
@@ -31,23 +31,29 @@ public class Parse {
         System.out.println(Parse(input.nextLine()));
       } catch (NumberFormatException e) {
         System.out.println("Improper formatting \n");
+      } catch (IllegalArgumentException e) {
+        System.out.println("Improper input \n");
       }
     }
   }
 
   public static void call(HashMap<String, Variable> in) {
+    call(in, true);
+  }
+
+  public static void call(HashMap<String, Variable> in, boolean isDegrees) {
     variables = in;
     Scanner input = new Scanner(System.in);
     while (true) {
       try {
         Display.clear();
         Display.display();
-        Display.printAt("Enter the expression:", 1, 3);
+        Display.printAt("Enter the expression, or exit to return to the main menu:", 1, 3);
         String line = input.nextLine();
         if (line.toLowerCase().equals("exit")) {
           return;
         }
-        Float temp = Parse(line);
+        Float temp = Parse(line, isDegrees);
         System.out.println(temp);
         System.out.println("Would you like to store this as a variable? y/n");
         if (input.nextLine().equals("y")) {
@@ -56,6 +62,8 @@ public class Parse {
         }
       } catch (NumberFormatException e) {
         System.out.println("Improper formatting \n");
+      } catch (IllegalArgumentException e) {
+        System.out.println("Improper input \n");
       }
     }
   }
@@ -104,20 +112,27 @@ public class Parse {
     return false;
   }
 
+  public static Float Parse(String expression) {
+    return Parse(expression, true);
+  }
+
   /**
    * Takes an infix expression and breaks it down and evaluates it,
    * if it has paretheses it recursively evaluates them until all are removed
    * @param expression A string in proper infix format, spaces between operators
    * @return A float value of the results of this expression
    */
-  public static Float Parse(String expression) {
+  public static Float Parse(String expression, boolean isDegrees) {
+    // if (!screen(expression)) {
+    //   throw new NumberFormatException("Improper parentheses");
+    // }
     ArrayList<String> terms = Terms(expression);
     for (int i = terms.size() - 1; i >= 0; i--) {
       if (terms.get(i).contains("(")) { // Targets any Term of parentheses and recursively breaks them down and evaluates them individually
         terms.set(i, Parse(terms.get(i).substring(1, terms.get(i).length() - 1)).value() + "");
       }
     } // Evaluates each term
-    return new Float(Double.parseDouble(evaluate(terms)), "expression");
+    return new Float(Double.parseDouble(evaluate(terms, isDegrees)), "expression");
   }
 
   /**
@@ -162,7 +177,7 @@ public class Parse {
    * @param in An arraylist of an expression with all parentheses removed
    * @return a String of the value of the expression
    */
-  private static String evaluate(ArrayList<String> in) {
+  private static String evaluate(ArrayList<String> in, boolean isDegrees) {
     for (String name : variables.keySet()) {
       while (in.indexOf(name) != -1) {
         in.set(in.indexOf(name), "" + variables.get(name).value());
@@ -175,7 +190,7 @@ public class Parse {
     }
     for (String operation : trig) {
       while (in.indexOf(operation) != -1) {
-        trig(in, operation, in.indexOf(operation));
+        trig(in, operation, in.indexOf(operation), isDegrees);
       }
     }
     for (String operation : stats) {
@@ -215,68 +230,68 @@ public class Parse {
    * @param operation the operation to be evaluated
    * @param i the index of the operation which is to be evaluated
    */
-  private static void trig(ArrayList<String> in, String operation, int i) {
+  private static void trig(ArrayList<String> in, String operation, int i, boolean isDegrees) {
     Angle angle;
     Float value;
     switch ((in.get(i))) {
       case "sin":
-        angle = new Angle(Double.parseDouble(in.get(i + 1)), true, "angle");
+        angle = new Angle(Double.parseDouble(in.get(i + 1)), isDegrees, "angle");
         in.set(i, "" + new Float(Trig.sin(angle).value(), "Sine of " + angle.name()));
         in.remove(i + 1);
         break;
       case "cos":
-        angle = new Angle(Double.parseDouble(in.get(i + 1)), true, "angle");
+        angle = new Angle(Double.parseDouble(in.get(i + 1)), isDegrees, "angle");
         in.set(i, "" + new Float(Trig.cos(angle).value(), "Cosine of " + angle.name()));
         in.remove(i + 1);
         break;
       case "tan":
-        angle = new Angle(Double.parseDouble(in.get(i + 1)), true, "angle");
+        angle = new Angle(Double.parseDouble(in.get(i + 1)), isDegrees, "angle");
         in.set(i, "" + new Float(Trig.tan(angle).value(), "Tangent of " + angle.name()));
         in.remove(i + 1);
         break;
       case "sec":
-        angle = new Angle(Double.parseDouble(in.get(i + 1)), true, "angle");
+        angle = new Angle(Double.parseDouble(in.get(i + 1)), isDegrees, "angle");
         in.set(i, "" + new Float(Trig.sec(angle).value(), "Cotangent of " + angle.name()));
         in.remove(i + 1);
         break;
       case "csc":
-        angle = new Angle(Double.parseDouble(in.get(i + 1)), true, "angle");
+        angle = new Angle(Double.parseDouble(in.get(i + 1)), isDegrees, "angle");
         in.set(i, "" + new Float(Trig.csc(angle).value(), "Sin of " + angle.name()));
         in.remove(i + 1);
         break;
       case "cot":
-        angle = new Angle(Double.parseDouble(in.get(i + 1)), true, "angle");
+        angle = new Angle(Double.parseDouble(in.get(i + 1)), isDegrees, "angle");
         in.set(i, "" + new Float(Trig.cot(angle).value(), "Sin of " + angle.name()));
         in.remove(i + 1);
         break;
       case "arcsin":
         value = new Float(Double.parseDouble(in.get(i + 1)), "float");
-        in.set(i, "" + new Float(Trig.arcsin(value, true).value(), "Sin of " + value.name()));
+        in.set(i, "" + new Float(Trig.arcsin(value, isDegrees).value(), "Sin of " + value.name()));
         in.remove(i + 1);
         break;
       case "arccos":
         value = new Float(Double.parseDouble(in.get(i + 1)), "float");
-        in.set(i, "" + new Float(Trig.arccos(value, true).value(), "Sin of " + value.name()));
+        in.set(i, "" + new Float(Trig.arccos(value, isDegrees).value(), "Sin of " + value.name()));
         in.remove(i + 1);
         break;
       case "arctan":
         value = new Float(Double.parseDouble(in.get(i + 1)), "float");
-        in.set(i, "" + new Float(Trig.arctan(value, true).value(), "Sin of " + value.name()));
+        in.set(i, "" + new Float(Trig.arctan(value, isDegrees).value(), "Sin of " + value.name()));
         in.remove(i + 1);
         break;
       case "arcsec":
         value = new Float(Double.parseDouble(in.get(i + 1)), "float");
-        in.set(i, "" + new Float(Trig.arccsc(value, true).value(), "Sin of " + value.name()));
+        in.set(i, "" + new Float(Trig.arccsc(value, isDegrees).value(), "Sin of " + value.name()));
         in.remove(i + 1);
         break;
       case "arccsc":
         value = new Float(Double.parseDouble(in.get(i + 1)), "float");
-        in.set(i, "" + new Float(Trig.arcsec(value, true).value(), "Sin of " + value.name()));
+        in.set(i, "" + new Float(Trig.arcsec(value, isDegrees).value(), "Sin of " + value.name()));
         in.remove(i + 1);
         break;
       case "arccot":
         value = new Float(Double.parseDouble(in.get(i + 1)), "float");
-        in.set(i, "" + new Float(Trig.arccot(value, true).value(), "Sin of " + value.name()));
+        in.set(i, "" + new Float(Trig.arccot(value, isDegrees).value(), "Sin of " + value.name()));
         in.remove(i + 1);
         break;
     }

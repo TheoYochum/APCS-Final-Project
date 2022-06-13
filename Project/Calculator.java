@@ -1,10 +1,10 @@
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.concurrent.ThreadPoolExecutor.DiscardPolicy;
 
 public class Calculator {
   HashMap<String, Variable> Variables;
   Scanner input;
+  boolean isDegrees = true;
 
   public Calculator() {
     Variables = new HashMap<String, Variable>();
@@ -14,11 +14,14 @@ public class Calculator {
   private void run() {
     Display.clear();
     boolean running = true;
-    while(running) {
+    while(true) {
       Display.clear();
       Display.display();
       Display.printAt("Command:", 1, 3);
       String term = input.nextLine();
+      if (term.equals("exit")) {
+        return;
+      }
       Display.clear();
       route(term);
     }
@@ -42,7 +45,52 @@ public class Calculator {
         evaluate();
         break;
 
+      case "set radians":
+        isDegrees = false;
+        System.out.println("Done!");
+        hold();
+        break;
+
+      case "set degrees":
+        isDegrees = true;
+        System.out.println("Done!");
+        hold();
+        break;
+
+      case "help":
+        String out = "";
+        out += "Commands:\n";
+        out += "New Variable: Creates a new variable\n";
+        out += "Print variable: Prints a stored variable given its name\n";
+        out += "List variable: Lists all the current variables\n";
+        out += "Evaluate: Will evaluate a series of operations, can be stored as a variable\n";
+        out += "Set radians: Sets the angle evaluation to radians\n";
+        out += "Set degrees: Sets the angle evaluation to degrees\n";
+        out += "Exit: Exits!\n";
+        out += "Help: This!\n";
+        out += "\n";
+        out += "Variables:\n";
+        out += "Integer: An integer value\n";
+        out += "Float: A floating point decimal\n";
+        out += "Fraction: A value with a rational integer numerator and denominator\n";
+        out += "Point: A set of two values, x and y\n";
+        out += "Angle: A value storing an angle that can be converted betwee degrees and radians\n";
+        out += "Matrix: An integer matrix\n";
+        out += "Equation: An equation, assumed to always be y in terms of x\n";
+        out += "\n";
+        out += "Proper syntax: All operations seperated by a space, including functions, no spaces between parentheses\n";
+        out += "Examples: \n";
+        out += "sin (20)\n";
+        out += "sin 20\n";
+        out += "log 2 8\n";
+        out += "(3 + 8) * 3\n";
+        Display.display();
+        Display.printAt(out, 1, 3);
+        hold();
+        break;
+
       default:
+        Display.display();
         Display.printAt("Invalid Command", 1, 2);
         hold();
         break;
@@ -123,6 +171,13 @@ public class Calculator {
         Matrix matrix = new Matrix(name);
         Variables.putIfAbsent(name, matrix);
         break;
+      case "equation":
+        System.out.println("Enter the equation with x as the variable");
+        String equation = input.nextLine();
+        System.out.println("Is the equation in degrees? y/n");
+        boolean isDegrees = input.nextLine().toLowerCase().equals("y");
+        Variables.put(name, new Equation(equation, name, isDegrees));
+        break;
       default:
         System.out.println("Invalid Type");
         hold();
@@ -158,7 +213,12 @@ public class Calculator {
 
 
   public void evaluate() {
-    Parse.call(Variables);
+    boolean isDegrees = true;
+    System.out.println("Are the values in degrees? y/n");
+    if (input.nextLine().toLowerCase().equals("n")) {
+      isDegrees = false;
+    }
+    Parse.call(Variables, isDegrees);
   }
 
   private void hold() {
