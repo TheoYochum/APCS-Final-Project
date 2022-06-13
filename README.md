@@ -3,7 +3,7 @@
 
 [Javadocs](https://theoyochum.github.io/APCS-Final-Project/index-all.html)
 
-[Prototyping Document](https://docs.google.com/document/d/180BusO_vznPpkCsnz28LtAkmPrC_HMbmgoyS5ju0bSs/edit?usp=sharing)
+[Prototyping Document](https://theoyochum.github.io/APCS-Final-Project/package-summary.html)
 
 [UML Diagram](https://github.com/TheoYochum/APCS-Final-Project/blob/main/UMLDiagrams/APCS%20Final%20UML.pdf)
 
@@ -11,10 +11,20 @@ Group Members: Theodore Yochum, Akram Khalifa
 
 Target: The main goal of this project is to replicate as many functions as possible that are found on a standard graphing/scientific calculator. The majority of it will be utilizing the terminal and be written in plain java, using processing to graph the equations. It will have the ability to store and manipulate variables, including standard number formats, int, float, fraction, and simple data structures such as matrices, equations, lists, and points. The tentative plan for graphing is for the equations to be declared in the command line, and then call a processing executable to graph them, with manipulation available. The rest of the functions will all be available through parsing of the terminal inputs.
 
-End Product: Most of the target was achieved, many standard functions are not only accessible but manually implemented. All interactions are through the command line and it is possible to graph all equations that can also be evaluated. Storage and printing of variables works as intended, terminal interactions are clean but could be spruced up given more time and effort. It was not extensively tested but as long as you are acting as intended every function operates predictibly. Notable features inclue: the ability to graph any expression given its terms are implemented, matrix operations including inverse, rref was not done, a backend implementation of continued fraction approximations of decimals to fractions with variable percision, could be brought to frontend with more infrastructure.
+End Product: Most of the target was achieved, many standard functions are not only accessible but manually implemented. All interactions are through the command line and it is possible to graph all equations that can also be evaluated. Storage and printing of variables works as intended, terminal interactions are clean but could be spruced up given more time and effort. It was not extensively tested but as long as you are acting as intended every function operates predictibly. Notable features inclue: the ability to graph any expression given its terms are implemented; matrix operations including inverse, rref was not done; a backend implementation of continued fraction approximations of decimals to fractions with variable percision, could be brought to frontend with more infrastructure; a fully developed JavaDoc hosted on github pages.
 
+Compile/Run Instructions: Use the following command line codes in the `/project` subdirectory:
+First Time Windows: `javac -classpath "../Libraries/core.jar;../Project" *.java && java -classpath "../Libraries/core.jar;../Project" Calculator`
 
+First Time Mac/Linux: `javac -classpath "../Libraries/core.jar:../Project" *.java && java -classpath "../Libraries/core.jar:../Project" Calculator`
 
+Later Runs Windows: `java -classpath "../Libraries/core.jar;../Project" Calculator`
+
+Later Runs Mac/Linux: `java -classpath "../Libraries/core.jar:../Project" Calculator`
+
+Typing help gives you a list of the functions and variable types as well as a description of syntax. Reccomendations would be to declare a few variables, fractions, ints, floats, and evaluate some expressions with them as values. Declare a square matrix of any size, find and store the inverse and then multiply the two, you should be given an identity matrix. Write out one or more equations and then graph them, use left and right click to zoom in and out.
+
+## Development Logs
 
 **5/23/22** 
 
@@ -87,11 +97,13 @@ Akram: New doc for lcm, played around with processing in a java file.
 **6/11/22**
 
 Theo: Created basics of graph class and figured out compile instructions
+
 Akram: Working positive x axis on the Graph class using Theo's new equation class.
 
 **6/12/22**
 
 Theo: Built up calculator to route to all desired and built functions
+
 Akram: Added all constructors and functions for Graph, made sure zoom and scaling works, fixed edge cases for certain graphs. Made sure pow could handle any kind of value. Wrote doc for the rest of the files.
 
 **6/13/22**
