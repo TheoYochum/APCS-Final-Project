@@ -6,6 +6,12 @@
  */
 public class Trig extends Functions {
 
+  /**
+   * The taylor series implemntation fo sin
+   * Using this website: https://mathonweb.com/help_ebook/html/algorithms.htm#exp
+   * @param in the angle to be evalueated
+   * @return the sin fo the angle
+   */
   public static Float sin(Angle in) {
     double val = in.value();
     int sign = 1;
@@ -44,6 +50,11 @@ public class Trig extends Functions {
     return new Float(sum, in.name() + " sine");
   }
 
+  /**
+   * The cosine in terms of sin
+   * @param in the angle to be evaluated
+   * @return the cosine of the angle
+   */
   public static Float cos(Angle in) {
     double val = in.value();
     val = constrain(val, in.isDegrees());
@@ -56,34 +67,67 @@ public class Trig extends Functions {
     return new Float(sin(shifted).value(), in.name() + "cosine");
   }
 
+  /**
+   * The tangent in terms of sin and cos
+   * @param in the angle to be evaluated
+   * @return the tangent of the angle
+   */
   public static Float tan(Angle in) {
     double val = sin(in).value() / cos(in).value();
     val = constrain(val, in.isDegrees());
     return new Float(val, in.name() + " tangent");
   }
 
+  /**
+   * The cosecant in terms of sin
+   * @param in the angle to be evaluated
+   * @return the cosecant of the angle
+   */
   public static Float csc(Angle in) {
     double val = 1 / sin(in).value();
     val = constrain(val, in.isDegrees());
     return new Float(val, in.name() + " secant");
   }
 
+  /**
+   * The secant in terms of cosine
+   * @param in the angle to be evaluated
+   * @return the secant of the angle
+   */
   public static Float sec(Angle in) {
     double val = 1 / cos(in).value();
     val = constrain(val, in.isDegrees());
     return new Float(val, in.name() + " cosecant");
   }
 
+  /**
+   * The cotangent in terms of tangent
+   * @param in the angle to be evaluated
+   * @return the cotangent of the angle
+   */
   public static Float cot(Angle in) {
     double val = 1 / tan(in).value();
     val = constrain(val, in.isDegrees());
     return new Float(val, in.name() + " cotangent");
   }
 
+  /**
+   * The overload of arctan
+   * @param in the value to be evaluated
+   * @param isDegrees whether or not it should return in degrees
+   * @return the arctan Angle of the input
+   */
   public static Angle arctan(Float in, boolean isDegrees) {
     return arctan(in, isDegrees, false);
   }
 
+  /**
+   * The helper function to deal with exceptions
+   * @param in the value to be evaluated
+   * @param isDegrees whether or not it should return in degrees
+   * @param cosine if the value is computing cosine or not
+   * @return the arctan Angle of the input
+   */
   private static Angle arctan(Float in, boolean isDegrees, boolean cosine) {
     double val = in.value();
     double sum = 0.0;
@@ -114,6 +158,12 @@ public class Trig extends Functions {
     return new Angle(sum, isDegrees, in.name() + " arctangent");
   }
 
+   /**
+   * The overload of arccos in terms of arctan
+   * @param in the value to be evaluated
+   * @param isDegrees whether or not it should return in degrees
+   * @return the arccos Angle of the input
+   */
   public static Angle arccos(Float in, boolean isDegrees) {
     if (in.value() > 1 || in.value() < -1) {
       throw new IllegalArgumentException("Input is not between -1 and 1");
@@ -123,6 +173,12 @@ public class Trig extends Functions {
     return new Angle(val, isDegrees, in.name() + " arccosine");
   }
 
+   /**
+   * The overload of arcsin in terms of arctan
+   * @param in the value to be evaluated
+   * @param isDegrees whether or not it should return in degrees
+   * @return the arcsin Angle of the input
+   */
   public static Angle arcsin(Float in, boolean isDegrees) {
     if (in.value() > 1 || in.value() < -1) {
       throw new IllegalArgumentException("Input is not between -1 and 1");
@@ -132,6 +188,12 @@ public class Trig extends Functions {
     return new Angle(val, isDegrees, in.name() + " arcsine");
   }
 
+   /**
+   * The overload of arcsec in terms of arctan
+   * @param in the value to be evaluated
+   * @param isDegrees whether or not it should return in degrees
+   * @return the srcsec Angle of the input
+   */
   public static Angle arcsec(Float in, boolean isDegrees) {
     if (in.value() < 1 && in.value() > -1) {
       throw new IllegalArgumentException("Inputs between -1 and 1 are not valid");
@@ -141,6 +203,12 @@ public class Trig extends Functions {
     return new Angle(val, isDegrees, in.name() + " arcsecant");
   }
 
+   /**
+   * The overload of arccsc in terms of arcsin
+   * @param in the value to be evaluated
+   * @param isDegrees whether or not it should return in degrees
+   * @return the arcsin Angle of the input
+   */
   public static Angle arccsc(Float in, boolean isDegrees) {
     if (in.value() < 1 && in.value() > -1) {
       throw new IllegalArgumentException("Inputs between -1 and 1 are not valid");
@@ -150,12 +218,24 @@ public class Trig extends Functions {
     return new Angle(val, isDegrees, in.name() + " arccosecant");
   }
 
+  /**
+   * The overload of arccot in terms of arctan
+   * @param in the value to be evaluated
+   * @param isDegrees whether or not it should return in degrees
+   * @return the arccot Angle of the input
+   */
   public static Angle arccot(Float in, boolean isDegrees) {
     Float shfited = new Float(1 / in.value(), in.name() +  " shifted");
     double val = arctan(shfited, isDegrees).value();
     return new Angle(val, isDegrees, in.name() + " arctangent");
   }
 
+  /**
+   * A value to constain the angles to 360
+   * @param in the angle to be constained
+   * @param isDegrees whether or not it is in degrees
+   * @return
+   */
   private static double constrain(double in, boolean isDegrees) {
     double out = 0.0;
     if (isDegrees) {

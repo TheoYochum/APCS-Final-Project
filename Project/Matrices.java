@@ -1,23 +1,16 @@
 import java.util.Scanner;
 
+/**
+ * The matrix class to carry out most matrix operations
+ */
 public class Matrices extends Functions {
-  
-  public static void main(String[] args) {
-    int[][] matrix1 = { {14, 2, 3, 4, 13},
-                        {5, 6, 2, 8, 3},
-                        {9, 10, 11, 12, 4},
-                        {13, 14, 15, 16, 5},
-                        {1, 17, 2, 6, 2}};
-    int[][] matrix2 = { {1, 1,},
-                        {1, 2}};
-    int[][] matrix3 = { {1, 3, 4},
-                        {2, -1, 5},
-                        {10, 3, 4}};
-    Matrix test1 = new Matrix(matrix1);
-    Matrix test2 = new Matrix(matrix2);
-    System.out.println(inverse(test1));
-  }
 
+  /**
+   * Creates an empty matrix with the given dimensions
+   * @param row the rows of the matrix
+   * @param col the columns of the matrix
+   * @return the empty Matrix
+   */
   public static Matrix emptyMatrix(int row, int col) {
     String in = "";
     for (int i = 0; i < row * col; i++) {
@@ -26,6 +19,12 @@ public class Matrices extends Functions {
     return new Matrix(new Scanner(in), row, col);
   }
 
+  /**
+   * Multiplies the two given matrices
+   * @param a the first matrix to be multiplied
+   * @param b the second matrix to be multiplied
+   * @return the resulting product of the matrix multiplication
+   */
   public static Matrix multiplication(Matrix a, Matrix b) {
     if (a.rows() != b.cols()) {
       throw new IllegalArgumentException("The number of rows in matrix a must be equal to the number of columns in matrix b for multiplication");
@@ -44,6 +43,12 @@ public class Matrices extends Functions {
     return out;
   }
 
+  /**
+   * Sums the two given matrices
+   * @param a the first matrix to be added
+   * @param b the second matrix to be added
+   * @return the resulting sum matrix
+   */
   public static Matrix addition(Matrix a, Matrix b) {
     if (a.rows() != b.rows() || a.cols() != b.cols()) {
       throw new IllegalArgumentException("Matrix size must be the same for addition");
@@ -58,17 +63,27 @@ public class Matrices extends Functions {
     return out;
   }
 
+  /**
+   * Scales the matrix by a given value
+   * @param scalar the value to scale by
+   * @param in the matrix to be scaled
+   * @return the scaled version of the matrix
+   */
   public static Matrix scale(double scalar, Matrix in) {
     Matrix out = emptyMatrix(in.rows(), in.cols());
     for (int i = 0; i < out.rows(); i++) {
       for (int j = 0; j < out.cols(); j++) {
-        // System.out.println(in.get(i, j).value() * scalar);
         out.set(i, j, new Fraction(in.get(i,j).value() * scalar, "matrix"));
       }
     }
     return out;
   }
 
+  /**
+   * Returns the deterimnant of the matrix
+   * @param in the input matrix
+   * @return the determinant of the input matrix
+   */
   public static double det(Matrix in) {
     if (in.rows() != 2 || in.cols() != 2) {
       if (in.rows() == 1 && in.cols() == 1) {
@@ -82,6 +97,11 @@ public class Matrices extends Functions {
     return in.get(0, 0).value() * in.get(1, 1).value() - in.get(0, 1).value() * in.get(1, 0).value();
   }
 
+  /**
+   * A helper function to recrusively simplify matrices for determinant calculation
+   * @param in the matrix to be shrunk 
+   * @return the integer of the reduced matrix
+   */
   private static int bigDet(Matrix in) {
     int size = in.rows();
     int sum = 0;
@@ -105,8 +125,11 @@ public class Matrices extends Functions {
     return sum;
   }
 
-
-  // https://semath.info/src/cofactor-matrix.html
+  /**
+   * The cofactor of the given matrix according to this website: https://semath.info/src/cofactor-matrix.html
+   * @param in the input matrix
+   * @return the cofactor of the input matrix
+   */
   public static Matrix cofactor(Matrix in) {
     Matrix out = emptyMatrix(in.rows(), in.cols());
     int size = in.rows();
@@ -132,8 +155,11 @@ public class Matrices extends Functions {
     return out;
   }
 
-
-  // https://mathinsight.org/matrix_transpose
+  /**
+   * The transposed matrix accoding to this website: https://mathinsight.org/matrix_transpose
+   * @param in the input matrix
+   * @return the transposed input matrix
+   */
   public static Matrix transpose(Matrix in) {
     Matrix out = emptyMatrix(in.cols(), in.rows());
     for (int i = 0; i < in.rows(); i++) {
@@ -144,19 +170,26 @@ public class Matrices extends Functions {
     return out;
   }
 
-
-  // https://www.varsitytutors.com/hotmath/hotmath_help/topics/adjoint-of-a-matrix
+  /**
+   * The adjoint matrix according to this website: https://www.varsitytutors.com/hotmath/hotmath_help/topics/adjoint-of-a-matrix
+   * @param in the input matrix
+   * @return the adjoint of the input matrix
+   */
   public static Matrix adjoint(Matrix in) {
     Matrix out = transpose(cofactor(in));
     return out;
   }
 
-  // https://www.cuemath.com/algebra/inverse-of-3x3-matrix/
+  /**
+   * The inverse of an nxn matrix according to this website: https://www.cuemath.com/algebra/inverse-of-3x3-matrix/
+   * @param in the input matrix
+   * @return the inverse of the input matrix
+  */
   public static Matrix inverse(Matrix in) {
     Matrix adjoint = adjoint(in);
     double det = det(in);
     if (det == 0) {
-      throw new IllegalArgumentException("The determinant of the matrix is 0, it does not have an inverse"); // Throw an error
+      throw new IllegalArgumentException("The determinant of the matrix is 0, it does not have an inverse");
     }
     return transpose(scale((1.0 / det), adjoint));
   }
