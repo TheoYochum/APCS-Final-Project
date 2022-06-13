@@ -71,16 +71,17 @@ public class Calculator {
         out += "Evaluate: Will evaluate a series of operations, can be stored as a variable\n";
         out += "Set radians: Sets the angle evaluation to radians\n";
         out += "Set degrees: Sets the angle evaluation to degrees\n";
+        out += "Matrix operations: Operations on matrices including multiplication, addition, scale, det, adjoint, cofactor, transpose, inverse\n";
         out += "Exit: Exits!\n";
         out += "Help: This!\n";
         out += "\n";
         out += "Variables:\n";
         out += "Integer: An integer value\n";
         out += "Float: A floating point decimal\n";
-        out += "Fraction: A value with a rational integer numerator and denominator\n";
+        out += "Fraction: A value with a rational integer numerator and denominator, can approximate decimals\n";
         out += "Point: A set of two values, x and y\n";
         out += "Angle: A value storing an angle that can be converted betwee degrees and radians\n";
-        out += "Matrix: An integer matrix\n";
+        out += "Matrix: A matrix composed of fractions, will approximate decimals\n";
         out += "Equation: An equation, assumed to always be y in terms of x\n";
         out += "\n";
         out += "Proper syntax: All operations seperated by a space, including functions, no spaces between parentheses\n";
@@ -89,6 +90,8 @@ public class Calculator {
         out += "sin 20\n";
         out += "log 2 8\n";
         out += "(3 + 8) * 3\n";
+        out += "((3 * 8) - 4 * sin (20)\n";
+        out += "sin 20 * tan 20\n";
         Display.display();
         Display.printAt(out, 1, 3);
         hold();
