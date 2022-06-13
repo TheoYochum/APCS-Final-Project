@@ -103,7 +103,7 @@ public class Statistics extends Functions {
     if (x.value() < 0) {
       xC.setValue(-1 * x.value());
     }
-    if (y.value() < 0 {
+    if (y.value() < 0) {
       j = 1.0 / (pow(xC, abs(y))).value();
       k.setValue(j);
     } else if (y.value() > 0) {
@@ -157,7 +157,7 @@ public class Statistics extends Functions {
   */
   public static Float sqrt(Number n) {
     if (n.value() < 0) {
-      return new Float(0, "temp");
+      return new Float(0.0, "get rid");
     }
     Float k = new Float(sqrt(n.value(), 1.0), "k");
     return k;
