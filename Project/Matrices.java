@@ -10,9 +10,12 @@ public class Matrices extends Functions {
                         {1, 17, 2, 6, 2}};
     int[][] matrix2 = { {1, 1,},
                         {1, 2}};
+    int[][] matrix3 = { {1, 3, 4},
+                        {2, -1, 5},
+                        {10, 3, 4}};
     Matrix test1 = new Matrix(matrix1);
     Matrix test2 = new Matrix(matrix2);
-    System.out.println(det(test1));
+    System.out.println(inverse(test1));
   }
 
   public static Matrix emptyMatrix(int row, int col) {
@@ -59,6 +62,7 @@ public class Matrices extends Functions {
     Matrix out = emptyMatrix(in.rows(), in.cols());
     for (int i = 0; i < out.rows(); i++) {
       for (int j = 0; j < out.cols(); j++) {
+        // System.out.println(in.get(i, j).value() * scalar);
         out.set(i, j, new Fraction(in.get(i,j).value() * scalar, "matrix"));
       }
     }
@@ -92,12 +96,10 @@ public class Matrices extends Functions {
           }
         }
       }
-      System.out.println(pass);
       sub = new Matrix(new Scanner(pass), size - 1, size - 1);
       if (i % 2 == 1) {
         sign = -1;
       }
-      System.out.println(sub);
       sum += sign * in.get(0, i).value() * det(sub);
     }
     return sum;
@@ -124,8 +126,6 @@ public class Matrices extends Functions {
         if (i % 2 + ii % 2 == 1) {
           sign = -1;
         }
-        System.out.println(pass);
-        System.out.println(sub);
         out.set(i, ii, new Fraction(sign * det(sub), 2, "matrix"));
       }
     }
@@ -158,6 +158,6 @@ public class Matrices extends Functions {
     if (det == 0) {
       throw new IllegalArgumentException("The determinant of the matrix is 0, it does not have an inverse"); // Throw an error
     }
-    return scale((1.0 / det), adjoint);
+    return transpose(scale((1.0 / det), adjoint));
   }
 }

@@ -47,12 +47,12 @@ public class Matrix extends Variable {
   }
 
   public String toString() {
-    String out = "|";
+    String out = "";
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         out += matrix[i][j] + " ";
       }
-      out += "|\n";
+      out += "\n";
     }
     return out;
   }

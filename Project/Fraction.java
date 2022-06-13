@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 /**
  * Fraction variable which implements the number interface
  * Allows the storage of non integer values while avoiding
@@ -9,10 +7,6 @@ import java.util.Arrays;
 public class Fraction extends Variable implements Number {
   private Int numerator;
   private Int denominator;
-
-  public static void main(String[] args) {
-    // System.out.println(approx(1, 2));
-  }
 
   /**
    * Basic constructor taking two Ints and storing them in the numerator and denominator
@@ -56,9 +50,7 @@ public class Fraction extends Variable implements Number {
    */
   public Fraction(double in, String name) {
     super(name, "Fraction");
-    // System.out.println(in);
     Fraction temp = approx(in, 10);
-    // System.out.println(temp);
     numerator = temp.getNumerator();
     denominator = temp.getDenominator();
   }
@@ -165,6 +157,10 @@ public class Fraction extends Variable implements Number {
     return new Fraction(denominator, numerator, this.name() +  " reciprocal");
   }
 
+  public static Fraction approx(int in, int tolerance) {
+    return new Fraction(in, "name");
+  }
+
   /**
    * Uses continued fractions to evaluate 
    * @param in the decimal to be approximated
@@ -175,7 +171,9 @@ public class Fraction extends Variable implements Number {
     if (in == 0) {
       return new Fraction(0, 1, "zero fraction");
     }
-    // System.out.println(in);
+    if (Statistics.abs(new Float((int) in - in, "float")).value() < (5 * Statistics.pow(new Int(10, "int"), new Int(-1 * tolerance, "int")).value())) {
+      return approx((int) in, tolerance);
+    }
     return contToFrac(floatToCont(new Float(in, "name"), tolerance));
   }
 
@@ -266,14 +264,11 @@ public class Fraction extends Variable implements Number {
    */
   public static String floatToCont(Float in, int tolerance) {
     int i = 1;
-    System.out.println(in);
     String cont = floatToContHelp(in, 1);
     while (Statistics.abs(new Float(in.value() - evalContFrac(cont), "name")).value() > Statistics.pow(new Int(5, "test"), new Float(-1 * tolerance, "test")).value()) {
-      // System.out.println(evalContFrac(cont));
       cont = floatToContHelp(in, i);
       i++;
     }
-    System.out.println(cont);
     return cont;
   }
 
@@ -295,7 +290,6 @@ public class Fraction extends Variable implements Number {
       x = 1 / (x - a);
       a = (int) x;
       cont += a + ",";
-      // System.out.println(cont);
     }
     cont = cont.substring(0, cont.length() - 1) + "]"; 
     return cont;
@@ -315,6 +309,9 @@ public class Fraction extends Variable implements Number {
    * @return a string version of the Fraction object
    */
   public String toString() {
+    if (denominator.value() == 1) {
+      return numerator + "";
+    }
     return "" + numerator + "/" + denominator;
   }
 }
