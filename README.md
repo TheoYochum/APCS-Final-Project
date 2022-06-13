@@ -1,7 +1,7 @@
 # Theo's Ark 
 ## APCS Final Project
 
-[Javadocs](https://theoyochum.github.io/APCS-Final-Project/index-all.html)
+[Javadocs](https://theoyochum.github.io/APCS-Final-Project/package-summary.html)
 
 [Prototyping Document](https://docs.google.com/document/d/180BusO_vznPpkCsnz28LtAkmPrC_HMbmgoyS5ju0bSs/edit?usp=sharing)
 
