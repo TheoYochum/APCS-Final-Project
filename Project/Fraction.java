@@ -113,6 +113,9 @@ public class Fraction extends Variable implements Number {
    * @return The numerator divided by the denominator
    */
   public double value() {
+    if (numerator.value() == 0) {
+      return 0;
+    }
     return (double) numerator.intValue() / denominator.intValue();
   }
 
@@ -154,6 +157,10 @@ public class Fraction extends Variable implements Number {
     return new Fraction(denominator, numerator, this.name() +  " reciprocal");
   }
 
+  public static Fraction approx(int in, int tolerance) {
+    return new Fraction(in, "name");
+  }
+
   /**
    * Uses continued fractions to evaluate 
    * @param in the decimal to be approximated
@@ -161,6 +168,12 @@ public class Fraction extends Variable implements Number {
    * @return the fractional approximation of the provided touble, within the tolerance
    */
   public static Fraction approx(double in, int tolerance) {
+    if (in == 0) {
+      return new Fraction(0, 1, "zero fraction");
+    }
+    if (Statistics.abs(new Float((int) in - in, "float")).value() < (5 * Statistics.pow(new Int(10, "int"), new Int(-1 * tolerance, "int")).value())) {
+      return approx((int) in, tolerance);
+    }
     return contToFrac(floatToCont(new Float(in, "name"), tolerance));
   }
 
@@ -171,7 +184,11 @@ public class Fraction extends Variable implements Number {
    */
   public static double evalContFrac(String in) {
     String[] contFrac = in.substring(1, in.length() - 1).split("[;,]");
-    return Integer.parseInt(contFrac[0]) + (1 / evalContFrac(contFrac, 1));
+    double next =  evalContFrac(contFrac, 1);
+    if (next == 0) {
+      return Integer.parseInt(contFrac[0]);
+    }
+    return Integer.parseInt(contFrac[0]) + (1 / next);
   }
 
   /**
@@ -182,6 +199,9 @@ public class Fraction extends Variable implements Number {
    */
   private static double evalContFrac(String[] in, int index) {
     if (index == in.length - 1) {
+      if (Integer.parseInt(in[index]) == 0) {
+        return 0;
+      }
       return Integer.parseInt(in[index]);
     }
     double sum = Integer.parseInt(in[index]);
@@ -246,8 +266,8 @@ public class Fraction extends Variable implements Number {
     int i = 1;
     String cont = floatToContHelp(in, 1);
     while (Statistics.abs(new Float(in.value() - evalContFrac(cont), "name")).value() > Statistics.pow(new Int(5, "test"), new Float(-1 * tolerance, "test")).value()) {
-      i++;
       cont = floatToContHelp(in, i);
+      i++;
     }
     return cont;
   }
@@ -263,7 +283,10 @@ public class Fraction extends Variable implements Number {
     double x = in.value();
     int a = (int) x;
     String cont = "[" + a + ";";
-    for (int i = 0; i < terms; i++) {
+    if (terms == 1) {
+      return "[" + a + ";" + "0" + "]";
+    }
+    for (int i = 1; i < terms; i++) {
       x = 1 / (x - a);
       a = (int) x;
       cont += a + ",";
@@ -286,6 +309,9 @@ public class Fraction extends Variable implements Number {
    * @return a string version of the Fraction object
    */
   public String toString() {
+    if (denominator.value() == 1) {
+      return numerator + "";
+    }
     return "" + numerator + "/" + denominator;
   }
 }

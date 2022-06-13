@@ -1,10 +1,11 @@
+import java.nio.file.WatchEvent;
 import java.util.HashMap;
 import java.util.Scanner;
-import java.util.concurrent.ThreadPoolExecutor.DiscardPolicy;
 
 public class Calculator {
   HashMap<String, Variable> Variables;
   Scanner input;
+  boolean isDegrees = true;
 
   public Calculator() {
     Variables = new HashMap<String, Variable>();
@@ -14,11 +15,14 @@ public class Calculator {
   private void run() {
     Display.clear();
     boolean running = true;
-    while(running) {
+    while(true) {
       Display.clear();
       Display.display();
       Display.printAt("Command:", 1, 3);
       String term = input.nextLine();
+      if (term.equals("exit")) {
+        return;
+      }
       Display.clear();
       route(term);
     }
@@ -42,7 +46,59 @@ public class Calculator {
         evaluate();
         break;
 
+      case "set radians":
+        isDegrees = false;
+        System.out.println("Done!");
+        hold();
+        break;
+
+      case "set degrees":
+        isDegrees = true;
+        System.out.println("Done!");
+        hold();
+        break;
+
+      case "matrix operation":
+        matrixOps();
+        break;
+
+      case "help":
+        String out = "";
+        out += "Commands:\n";
+        out += "New Variable: Creates a new variable\n";
+        out += "Print variable: Prints a stored variable given its name\n";
+        out += "List variable: Lists all the current variables\n";
+        out += "Evaluate: Will evaluate a series of operations, can be stored as a variable\n";
+        out += "Set radians: Sets the angle evaluation to radians\n";
+        out += "Set degrees: Sets the angle evaluation to degrees\n";
+        out += "Matrix operations: Operations on matrices including multiplication, addition, scale, det, adjoint, cofactor, transpose, inverse\n";
+        out += "Exit: Exits!\n";
+        out += "Help: This!\n";
+        out += "\n";
+        out += "Variables:\n";
+        out += "Integer: An integer value\n";
+        out += "Float: A floating point decimal\n";
+        out += "Fraction: A value with a rational integer numerator and denominator, can approximate decimals\n";
+        out += "Point: A set of two values, x and y\n";
+        out += "Angle: A value storing an angle that can be converted betwee degrees and radians\n";
+        out += "Matrix: A matrix composed of fractions, will approximate decimals\n";
+        out += "Equation: An equation, assumed to always be y in terms of x\n";
+        out += "\n";
+        out += "Proper syntax: All operations seperated by a space, including functions, no spaces between parentheses\n";
+        out += "Examples: \n";
+        out += "sin (20)\n";
+        out += "sin 20\n";
+        out += "log 2 8\n";
+        out += "(3 + 8) * 3\n";
+        out += "((3 * 8) - 4 * sin (20)\n";
+        out += "sin 20 * tan 20\n";
+        Display.display();
+        Display.printAt(out, 1, 3);
+        hold();
+        break;
+
       default:
+        Display.display();
         Display.printAt("Invalid Command", 1, 2);
         hold();
         break;
@@ -123,12 +179,178 @@ public class Calculator {
         Matrix matrix = new Matrix(name);
         Variables.putIfAbsent(name, matrix);
         break;
+      case "equation":
+        System.out.println("Enter the equation with x as the variable");
+        String equation = input.nextLine();
+        System.out.println("Is the equation in degrees? y/n");
+        boolean isDegrees = input.nextLine().toLowerCase().equals("y");
+        Variables.put(name, new Equation(equation, name, isDegrees));
+        break;
       default:
         System.out.println("Invalid Type");
         hold();
         return null;
     }
     return out;
+  }
+  
+  public void matrixOps() {
+    Matrix in;
+    Matrix two;
+    Matrix temp;
+    Float out;
+    Display.clear();
+    Display.display();
+    Display.printAt("Would you like to use a stored matrix? y/n", 1, 3);
+    if (input.nextLine().toLowerCase().equals("y")) {
+      System.out.println("Name:"); 
+      String name = input.nextLine();
+      if (Variables.containsKey(name) && Variables.get(name).type().equals("matrix")) {
+        in = (Matrix) Variables.get(name);
+      } else {
+        System.out.println("Invalid name");
+        hold();
+        return;
+      }
+    } else {
+      in = new Matrix("Matix");
+    }
+    Display.clear();
+    Display.display();
+    Display.printAt("Which operation?", 1, 3);
+    String operation = input.nextLine();
+    operation = operation.toLowerCase();
+    switch (operation) {
+      case "multiplication":
+        Display.clear();
+        Display.display();
+        Display.printAt("Would you like to use a stored matrix? y/n", 1, 3);
+        if (input.nextLine().toLowerCase().equals("y")) {
+          System.out.println("Name:"); 
+          String name = input.nextLine();
+          if (Variables.containsKey(name) && Variables.get(name).type().equals("matrix")) {
+            two = (Matrix) Variables.get(name);
+          } else {
+            System.out.println("Invalid name");
+            hold();
+            return;
+          }
+        } else {
+          two = new Matrix("Matix");
+        }
+        temp = Matrices.multiplication(in, two);
+        System.out.println(temp.toString());
+        System.out.println("Would you like to store this as a variable? y/n");
+        if (input.nextLine().equals("y")) {
+          System.out.println("Name:");
+          Variables.put(input.nextLine(), temp);
+        }
+        break;
+      case "addition":
+        Display.clear();
+        Display.display();
+        Display.printAt("Would you like to use a stored matrix? y/n", 1, 3);
+        if (input.nextLine().toLowerCase().equals("y")) {
+          System.out.println("Name:"); 
+          String name = input.nextLine();
+          if (Variables.containsKey(name) && Variables.get(name).type().equals("matrix")) {
+            two = (Matrix) Variables.get(name);
+          } else {
+            System.out.println("Invalid name");
+            hold();
+            return;
+          }
+        } else {
+          two = new Matrix("Matix");
+        }
+        temp = Matrices.addition(in, two);
+        System.out.println(temp.toString());
+        System.out.println("Would you like to store this as a variable? y/n");
+        if (input.nextLine().equals("y")) {
+          System.out.println("Name:");
+          Variables.put(input.nextLine(), temp);
+        }
+        break;
+      
+      case "scale":
+        Display.clear();
+        Display.display();
+        Display.printAt("Scalar", 1, 3);
+        temp = Matrices.scale(input.nextDouble(), in);
+        System.out.println(temp.toString());
+        input.nextLine();
+        System.out.println("Would you like to store this as a variable? y/n");
+        String next = input.nextLine();
+        if (next.equals("y")) {
+          System.out.println("Name:");
+          Variables.put(input.nextLine(), temp);
+        }
+        break;
+      
+      case "det":
+        Display.clear();
+        Display.display();
+        out = new Float(Matrices.det(in), "name");
+        System.out.println(out.toString());
+        System.out.println("Would you like to store this as a variable? y/n");
+        if (input.nextLine().equals("y")) {
+          System.out.println("Name:");
+          Variables.put(input.nextLine(), out);
+        }
+        break;
+      
+      case "cofactor":
+        Display.clear();
+        Display.display();
+        temp = Matrices.cofactor(in);
+        System.out.println(temp.toString());
+        System.out.println("Would you like to store this as a variable? y/n");
+        if (input.nextLine().equals("y")) {
+          System.out.println("Name:");
+          Variables.put(input.nextLine(), temp);
+        }
+        break;
+
+      case "transpose":
+        Display.clear();
+        Display.display();
+        temp = Matrices.transpose(in);
+        System.out.println(temp.toString());
+        System.out.println("Would you like to store this as a variable? y/n");
+        if (input.nextLine().equals("y")) {
+          System.out.println("Name:");
+          Variables.put(input.nextLine(), temp);
+        }
+        break;
+      
+      case "adjoint":
+        Display.clear();
+        Display.display();
+        temp = Matrices.adjoint(in);
+        System.out.println(temp.toString());
+        System.out.println("Would you like to store this as a variable? y/n");
+        if (input.nextLine().equals("y")) {
+          System.out.println("Name:");
+          Variables.put(input.nextLine(), temp);
+        }
+        break;
+
+      case "inverse":
+        Display.clear();
+        Display.display();
+        temp = Matrices.inverse(in);
+        System.out.println(temp.toString());
+        System.out.println("Would you like to store this as a variable? y/n");
+        if (input.nextLine().equals("y")) {
+          System.out.println("Name:");
+          Variables.put(input.nextLine(), temp);
+        }
+        break;
+
+      default:
+        System.out.println("Not an operation");
+        break;
+    }
   }
 
   private void printVariable() {
@@ -140,7 +362,7 @@ public class Calculator {
       hold();
       return;
     }
-    System.out.println(Variables.get(name).value());
+    System.out.println(Variables.get(name).toString());
     hold();
   }
 
@@ -158,8 +380,14 @@ public class Calculator {
 
 
   public void evaluate() {
-    Parse.call(Variables);
+    boolean isDegrees = true;
+    System.out.println("Are the values in degrees? y/n");
+    if (input.nextLine().toLowerCase().equals("n")) {
+      isDegrees = false;
+    }
+    Parse.call(Variables, isDegrees);
   }
+
 
   private void hold() {
     System.out.println("Press enter to contine");
