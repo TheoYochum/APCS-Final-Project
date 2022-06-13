@@ -16,35 +16,58 @@ public class Graph extends PApplet{
     double[] xVals, yVals;
     double limit;
 
+    /**
+     * Basic constructor taking a String expression
+     * @param String expression that will be passed into an equation
+     */
     public Graph(String exp) {
       test = new Equation(exp, "test");
       limit = 10 * 2;
       expre = true;
     }
 
+    /**
+     * Basic constructor taking a Equation
+     * @param Equation with an expression that will be passed into the rest of the object
+     */
     public Graph(Equation x) {
       test = x;
       limit = 10 * 2;
       expre = true;
     }
 
+    /**
+     * Basic constructor taking two arrays of values
+     * @param Double array with set of x values
+     * @param Double array with set of y values
+     */
     public Graph(double[] x, double[] y) {
       xVals = x;
       yVals = y;
       limit = 10 * 2;
     }
 
+    /**
+     * Basic constructor taking an ArrayList of Equation objects so they may all be simultaneously graphed
+     * @param ArrayList of Equation objects with their own seperate Lists of Point objects
+     */
     public Graph(ArrayList<Equation> eq) {
       eqs = eq;
       multG = true;
       limit = 10 * 2;
     }
 
+    /**
+     * Sets the screen at a size of 500 x 500
+     */
     @Override
     public void settings() {
         size(500, 500);
     }
 
+    /**
+     * If left click is pressed the values are scaled down by 5 and if right click is pressed the values are scalled up by 5
+     */
     @Override
     public void mousePressed() {
       if (mouseButton == LEFT) {
@@ -56,6 +79,9 @@ public class Graph extends PApplet{
       }
     }
 
+    /**
+     * Draws the x and y axis as well as the ticks on them. Then draws the graph depending on what value was parsed into the class.
+     */
     @Override
     public void draw() {
         background(255, 255, 255);
@@ -100,6 +126,11 @@ public class Graph extends PApplet{
 
     }
 
+    /**
+     * Converts the two double arrays into Point objects that are stored into a List and then passed into another graph function that takes Lists of Point objects
+     * @param Double array of x values
+     * @param Double array of y values
+     */
     public void graph(double[] x, double[] y) {
       points = new List<Point>();
       for (int i = 0; i < x.length; i++) {
@@ -109,6 +140,10 @@ public class Graph extends PApplet{
       graph(points);
     }
 
+    /**
+     * Draws lines between each adjacent Point object in the List
+     * @param List of Point objects
+     */
     public void graph(List<Point> in) {
       for (int i = 1; i < in.length(); i++) {
         Point p1 = in.get(i - 1);
