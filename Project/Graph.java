@@ -5,42 +5,76 @@ import processing.core.PApplet;
 
 public class Graph extends PApplet{
 
-    List<Point> points;
+    List<Point> points, point;
+    Equation test, test2;
+    boolean list = false;
+    double[] xVals, yVals;
+    double limit;
+
+    public Graph(String exp, double max) {
+      test = new Equation(exp);
+      limit = max * 2;
+      //test2 = new Equation("-1 * " + exp);
+      list = true;
+    }
+
+    public Graph(double[] x, double[] y, double max) {
+      xVals = x;
+      yVals = y;
+      limit = max * 2;
+    }
 
     @Override
     public void settings() {
-        size(1000, 1000);
-        Equation test = new Equation("-1 * (sqrt(90 + x) * sqrt(90 - x) ) + 40");
-        points = test.values(-width/2, width/2, 0.1, "x");
+        size(1600, 900);
+        if (list) {
+          points = test.values(-limit, limit, limit/10000, "x");
+        }
+        //point = test2.values(-width/2, width/2, 0.1, "x");
     }
 
     @Override
     public void draw() {
-      fill(255, 255, 0);
+        stroke(0);
         strokeWeight(2);
-        line(width/2, 0, width/2, height);
-        line(0, height/2, width, height/2);
+        line(width/2, 0, width/2, height); // y axis
+        line(0, height/2, width, height/2); // x axis
         strokeWeight(4);
+        stroke(255, 0, 0);
+        if (list) {
+          graph(points);
+          //graph(point);
+        } else {
+          graph(xVals, yVals);
+        }
+
+    }
+
+    public void graph(double[] x, double[] y) {
+        points = new List<Point>();
+        for (int i = 0; i < x.length; i++) {
+            Point p1 = new Point(x[i], y[i], "point");
+            points.add(p1);
+        }
         graph(points);
     }
 
-    public void graph(int[] x,  int[] y) {
-        for (int i = 1; i < x.length; i++) {
-            line(x[i - 1], y[i - 1], x[i], y[i]);
-        }
-    }
-
     public void graph(List<Point> in) {
+        Point p3 = in.get(0);
         for (int i = 1; i < in.length(); i++) {
             Point p1 = in.get(i - 1);
             Point p2 = in.get(i);
-            line((float) (p1.getX().value() + width/2), (float) (height - p1.getY().value() - height/2),
-                (float) (p2.getX().value() + width/2), (float) (height - p2.getY().value() - height/2) );
+            line((float) (p1.getX().value() * (width/limit) + width/2), (float) (height - p1.getY().value() * (height/limit) - height/2),
+                 (float) (p2.getX().value() * (width/limit) + width/2), (float) (height - p2.getY().value() * (height/limit) - height/2) );
         }
     }
 
     public static void main (String[] args) {
-        Graph pt = new Graph();
+        Graph pt = new Graph("100 * cos(x)", 10000);
+        double[] x = {100, 100};
+        Graph pt1 = new Graph(x, x, 100);
         PApplet.runSketch(new String[]{"Graph"}, pt);
+        //PApplet.runSketch(new String[]{"Graph"}, pt1);
+        // hyperbola right side: "((9 * sqrt(x + 36) * sqrt(x + 4) ) / 16) + 40"
     }
 }
