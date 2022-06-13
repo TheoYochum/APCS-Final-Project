@@ -86,8 +86,6 @@ public class Parse {
           if (!(Character.isDigit(expression.charAt(i + 1)))) {
             return false;
           }
-          System.out.println(expression);
-          System.out.println(i + " " + (expression.charAt(i)));
         }
       }
     }

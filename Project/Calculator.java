@@ -1,5 +1,6 @@
 import java.util.HashMap;
 import java.util.Scanner;
+import java.util.concurrent.ThreadPoolExecutor.DiscardPolicy;
 
 public class Calculator {
   HashMap<String, Variable> Variables;
@@ -36,7 +37,7 @@ public class Calculator {
       case "list variables":
         listVariable();
         break;
-
+        
       case "evaluate":
         evaluate();
         break;
@@ -154,6 +155,7 @@ public class Calculator {
     }
     hold();
   }
+
 
   public void evaluate() {
     Parse.call(Variables);
