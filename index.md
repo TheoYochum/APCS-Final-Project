@@ -1,1 +1,1 @@
-[./Index.html](JavaDoc)
+[./docs/Index.html](JavaDoc)
