@@ -43,9 +43,17 @@ public class Graph extends PApplet{
     @Override
     public void settings() {
         size(500, 500);
-        if (expre) {
-          points = test.values(-limit, limit, limit/10000, "x");
-        }
+    }
+
+    @Override
+    public void mousePressed() {
+      if (mouseButton == LEFT) {
+        background(255, 255, 255);
+        limit /= 4;
+      } else if (mouseButton == RIGHT) {
+        background(255, 255, 255);
+        limit *= 4;
+      }
     }
 
     @Override
@@ -57,9 +65,19 @@ public class Graph extends PApplet{
         strokeWeight(4);
         stroke(255, 0, 0);
         if (expre) {
+          points = test.values(-limit, limit, limit/10000, "x");
           graph(points);
         } else if (multG) {
           for (int i = 0; i < eqs.size(); i++) {
+            if (i == 0) {
+              stroke(255, 0, 0);
+            } else if (i == 1) {
+              stroke(0, 255, 0);
+            } else if (i == 2) {
+              stroke(0, 0, 255);
+            } else {
+              stroke((float)Math.random() * 256, (float)Math.random() * 256, (float)Math.random() * 256);
+            }
             points = eqs.get(i).values(-limit, limit, limit/10000, "x");
             graph(points);
           }
@@ -98,6 +116,9 @@ public class Graph extends PApplet{
         //eqs.add(new Equation("sqrt(1 + x) * sqrt(1 - x)"));
         eqs.add(new Equation("sqrt((1 + x) * (1 - x))"));
         eqs.add(new Equation("-1 * sqrt((1 + x) * (1 - x))"));
+        //eqs.add(new Equation("7"));
+        eqs.add(new Equation("9.2 + 2.5 * x ^ 3"));
+        eqs.add(new Equation("100 * sin(x) + 20"));
         Graph pt1 = new Graph(eqs, 10);
         PApplet.runSketch(new String[]{"Graph"}, pt1);
         //PApplet.runSketch(new String[]{"Graph"}, pt1);
