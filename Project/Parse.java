@@ -148,7 +148,8 @@ public class Parse {
   /**
    * Takes an infix expression and breaks it down and evaluates it,
    * if it has paretheses it recursively evaluates them until all are removed
-   * @param expression A string in proper infix format, spaces between operators
+   * @param expression is a string in proper infix format, spaces between operators
+   * @param isDegrees is boolean for if expression is in degrees or not
    * @return A float value of the results of this expression
    */
   public static Float parse(String expression, boolean isDegrees) {

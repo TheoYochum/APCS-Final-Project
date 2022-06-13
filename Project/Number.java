@@ -38,11 +38,13 @@ public interface Number {
 
   /**
    * Sets the value of a Number to a double int value
+   * @param x is new value for number
    */
   public void setValue(double x);
 
   /**
    * Sets the value of a Number to a new int value
+   * @param x is new value for number
    */
   public void setValue(int x);
 

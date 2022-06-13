@@ -2,7 +2,7 @@ public class Statistics extends Functions {
 
   /**
    * Converts the value of the Number taken in into it's absolute value and returns a new Number with that absolute value
-   * @param Number with a positive or negative value
+   * @param x is a Number with a positive or negative value
    * @return the reference of a Number with the absolute value of the param
    */
   public static Number abs(Number x) {
@@ -15,7 +15,7 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of a Int that has the value of the Number taken in rounded up
-   * @param Number with a unrounded value
+   * @param x is a Number with a unrounded value
    * @return the reference of a Int with the rounded up value of the param
    */
   public static Int ceil(Number x) {
@@ -28,7 +28,7 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of a Int that has the value of the Number taken in rounded down
-   * @param Number with a unrounded value
+   * @param x is a Number with a unrounded value
    * @return the reference of a Int with the rounded down value of the param
    */
   public static Int floor(Number x) {
@@ -41,7 +41,7 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of a Number that has e taken to the power of the value of the Number taken in
-   * @param Number with a value that e will be raised to
+   * @param x is a Number with a value that e will be raised to
    * @return the reference of a Number with the value of e taken to the power of the value of the param
    */
   public static Number exp(Number x) { //e implementation
@@ -75,8 +75,8 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of a Number that has taken the value of the Number param to the power of the value of the Int param
-   * @param Number with a value that will be the base
-   * @param Int with a value that will be the exponent of the base
+   * @param x is a Number with a value that will be the base
+   * @param y is a Int with a value that will be the exponent of the base
    * @return the reference of a Number with the value of Number param taken to the power of the value of the Int param
    */
   private static Number exp(Number x, Int y) { //works only with integer exponents
@@ -92,8 +92,8 @@ public class Statistics extends Functions {
 
   /**
    * Uses e to provide the reference of a Number that has taken the value of the Number param to the power of the value of the other Number param
-   * @param Number with a value that will be the base
-   * @param Number with a value that will be the exponent of the base
+   * @param x is a Number with a value that will be the base
+   * @param y is aNumber with a value that will be the exponent of the base
    * @return the reference of a Number with the value of Number param taken to the power of the value of the other Number param
    */
   public static Number pow(Number x, Number y) {
@@ -120,7 +120,7 @@ public class Statistics extends Functions {
 
   /**
   * Provides the reference of a Number that is the natural log of the value of the Number param
-  * @param Number with a value that will be used for natural log
+  * @param x is a Number with a value that will be used for natural log
   * @return the reference of a Number that is the natural log of the value of the Number param
   */
   public static Number ln(Number x) {
@@ -139,7 +139,8 @@ public class Statistics extends Functions {
 
   /**
   * Helper function that provides the reference of a Number that is the natural log of any value between 1 and rad 10
-  * @param Number with a value between 1 and rad 10
+  * @param x is a Number with a value between 1 and rad 10
+  * @param j is a int that does nothing besides distinguish the helper from the main function
   * @return the reference of a Number that is the natural log of the value of the Number param
   */
   private static Number ln(Number x , int j) { //tailor series for values in between 1 and sqrt10
@@ -183,8 +184,8 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of a Int that will be the greatest common denominator of the two Int params by decrementing until both values are equal
-   * @param One of the Int's used to find greatest common denominator
-   * @param One of the Int's used to find greatest common denominator
+   * @param x is an Int used to find greatest common denominator
+   * @param y is an Int used to find greatest common denominator
    * @return the reference of a Int that will be the greatest common denominator of the two Int params
    */
   public static Int gcd(Int x, Int y) {
@@ -197,8 +198,8 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of a Int that will be the least common multiple of the two Int params
-   * @param One of the Int's used to find least common multiple
-   * @param One of the Int's used to find least common multiple
+   * @param x is an Int used to find least common multiple
+   * @param y is an Int used to find least common multiple
    * @return the reference of a  Int that will be the least common multiple of the two Int params
    */
   public static Int lcm (Int x, Int y) {
@@ -220,8 +221,8 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of a Number that will have a value of the exponent a base (first param) must be raised to equal the second param
-   * @param Number with a value that will be the base
-   * @param Number with a set value that base must be raised to
+   * @param x is a Number with a value that will be the base
+   * @param y is a Number with a set value that base must be raised to
    * @return the reference of a Number that will have a value of the exponent a base (first param) must be raised to equal the second param
    */
   public static Number log(Number x, Number y) {
@@ -256,7 +257,7 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of an array of Numbers with the first index being the mantissa of the param and the second being the exponent
-   * @param Number that will be converted to scientific notation
+   * @param exp is a Number that will be converted to scientific notation
    * @return the reference of an array of Numbers with the first index being the mantissa of the param and the second being the exponent
    */
   private static Number[] sciNot(Number exp) {
@@ -286,8 +287,8 @@ public class Statistics extends Functions {
 
   /**
    * Provides the reference of an Float that is the arithmetic-geometric mean of a Number param and 1.0 that is used to derive a different formula for ln
-   * @param Number that will be used to calculate arithmetic-geometric implementation
-   * @param The number of times the inner loop will be run to converge to a single number
+   * @param ln is a Number that will be used to calculate arithmetic-geometric implementation
+   * @param precision is the number of times the inner loop will be run to converge to a single number
    * @return the reference of an Float that is the arithmetic-geometric mean of a Number param and 1.0 that is used to derive a different formula for ln
    */
   private static Float agM(Number ln, int precision) {
