@@ -14,6 +14,7 @@ Target: The main goal of this project is to replicate as many functions as possi
 End Product: Most of the target was achieved, many standard functions are not only accessible but manually implemented. All interactions are through the command line and it is possible to graph all equations that can also be evaluated. Storage and printing of variables works as intended, terminal interactions are clean but could be spruced up given more time and effort. It was not extensively tested but as long as you are acting as intended every function operates predictibly. Notable features inclue: the ability to graph any expression given its terms are implemented; matrix operations including inverse, rref was not done; a backend implementation of continued fraction approximations of decimals to fractions with variable percision, could be brought to frontend with more infrastructure; a fully developed JavaDoc hosted on github pages.
 
 Compile/Run Instructions: Use the following command line codes in the `/project` subdirectory:
+
 First Time Windows: `javac -classpath "../Libraries/core.jar;../Project" *.java && java -classpath "../Libraries/core.jar;../Project" Calculator`
 
 First Time Mac/Linux: `javac -classpath "../Libraries/core.jar:../Project" *.java && java -classpath "../Libraries/core.jar:../Project" Calculator`
