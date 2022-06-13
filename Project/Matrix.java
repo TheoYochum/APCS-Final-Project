@@ -7,7 +7,7 @@ public class Matrix extends Variable {
   private int cols;
 
   public Matrix(String name) {
-    super(name, "Matrix");
+    super(name, "matrix");
     Scanner input = new Scanner(System.in);
     System.out.println("# of rows:");
     rows = input.nextInt();
@@ -16,13 +16,17 @@ public class Matrix extends Variable {
     matrix = new Fraction[rows][cols];
     for (int i = 0; i < cols; i++) {
       for (int j = 0; j < rows; j++) {
-        System.out.println(toString());
+        Display.clear();
+        Display.display();
+        Display.printAt("Enter the values", 1, 3);
+        Display.printAt(toString(), 1, 3);
         matrix[i][j] = new Fraction(input.nextDouble(), 2, "matrix");
       }
     }
   }
 
   public Matrix(Scanner input, int row, int col) {
+    super("name", "matrix");
     rows = row;
     cols = col;
     matrix = new Fraction[rows][cols];
@@ -35,6 +39,7 @@ public class Matrix extends Variable {
   }
 
   public Matrix(int[][] in) {
+    super("name", "matrix");
     rows = in.length;
     cols = in[0].length;
     matrix = new Fraction[rows][cols];
@@ -49,7 +54,11 @@ public class Matrix extends Variable {
     String out = "\n";
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
-        out += matrix[i][j] + " ";
+        if (matrix[i][j] == null) {
+          out += "0 ";
+        } else {
+          out += matrix[i][j] + " ";
+        }
       }
       out += "\n";
     }

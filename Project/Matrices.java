@@ -1,22 +1,6 @@
 import java.util.Scanner;
 
 public class Matrices extends Functions {
-  
-  public static void main(String[] args) {
-    int[][] matrix1 = { {14, 2, 3, 4, 13},
-                        {5, 6, 2, 8, 3},
-                        {9, 10, 11, 12, 4},
-                        {13, 14, 15, 16, 5},
-                        {1, 17, 2, 6, 2}};
-    int[][] matrix2 = { {1, 1,},
-                        {1, 2}};
-    int[][] matrix3 = { {1, 3, 4},
-                        {2, -1, 5},
-                        {10, 3, 4}};
-    Matrix test1 = new Matrix(matrix1);
-    Matrix test2 = new Matrix(matrix2);
-    System.out.println(inverse(test1));
-  }
 
   public static Matrix emptyMatrix(int row, int col) {
     String in = "";
