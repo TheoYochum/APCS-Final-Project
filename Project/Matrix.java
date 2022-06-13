@@ -6,10 +6,9 @@ public class Matrix extends Variable {
   private int rows;
   private int cols;
 
-  public Matrix() {
+  public Matrix(String name) {
+    super(name, "Matrix");
     Scanner input = new Scanner(System.in);
-    System.out.println("Name:");
-    String name = input.nextLine();
     System.out.println("# of rows:");
     rows = input.nextInt();
     System.out.println("# of cols:");
@@ -47,7 +46,7 @@ public class Matrix extends Variable {
   }
 
   public String toString() {
-    String out = "";
+    String out = "\n";
     for (int i = 0; i < rows; i++) {
       for (int j = 0; j < cols; j++) {
         out += matrix[i][j] + " ";
